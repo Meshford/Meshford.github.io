@@ -83,6 +83,35 @@ section p, section ul {
     color: #555;
 }
 
+/* Секция Расписание */
+#schedule {
+    background-color: white;
+    color: #333; /* Темный цвет для текста */
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#schedule h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #333; /* Убедитесь, что заголовок тоже темный */
+}
+
+#schedule ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333; /* Темный цвет для списка */
+}
+
+#schedule ul li {
+    margin: 10px 0;
+}
+
 /* Формы */
 form {
     display: grid;
