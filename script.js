@@ -22,7 +22,7 @@ document.getElementById('registration-form').addEventListener('submit', function
     
     // Убедимся, что форма имеет правильный action
     form.action = "https://formspree.io/f/mqaqaddz";  // Замените на ваш реальный URL из Formspree
-
+    form.method = "POST";  // Убедитесь, что метод POST указан
     // Используем submit() для отправки данных формы
     form.submit();
 });
