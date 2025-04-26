@@ -1,135 +1,86 @@
-/* Основные стили */
+/* Сброс стилей браузера */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
+/* Основные стили */
 body {
-    background: #f2f2f2; /* Плавный фон */
-    color: black;
+    font-family: 'Arial', sans-serif;
+    background: #f4f7fc;
+    color: #333;
     line-height: 1.6;
-    font-size: 16px;
-    position: relative;
-    overflow-x: hidden;
 }
 
 /* Анимации */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Фон с математическими формулами и кодом */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.turing.com/blog/wp-content/uploads/2020/08/3.png') no-repeat center center;
-    background-size: contain;
-    z-index: -1;
-    opacity: 0.05;
-    animation: fadeIn 10s infinite alternate;
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Стиль header */
 header {
-    background: rgba(0, 0, 0, 0.7);
+    background: #ff9f00; /* Яркий цвет, как у Яндекс Практикума */
     color: white;
-    padding: 30px 0;
+    padding: 40px 20px;
     text-align: center;
     animation: fadeIn 1s ease-out;
 }
 
 header h1 {
-    font-size: 3em;
+    font-size: 3rem;
     margin-bottom: 10px;
-    letter-spacing: 2px;
-    animation: slideIn 1s ease-out;
+    font-weight: 700;
 }
 
 header p {
-    font-size: 1.3em;
+    font-size: 1.2rem;
     font-weight: 300;
-    animation: slideIn 1.5s ease-out;
 }
 
+/* Навигация */
 nav ul {
-    list-style: none;
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    padding: 0;
+    list-style: none;
 }
 
 nav ul li {
-    margin: 0 15px;
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-    animation-delay: 1s;
+    margin: 0 20px;
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 1.2em;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
     transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    color: #ff9800;
+    color: #e68c00;
 }
 
 /* Секции */
 section {
-    padding: 60px 30px;
+    padding: 60px 20px;
     text-align: center;
-    animation: fadeInUp 1s ease-out;
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    font-size: 2.5em;
+    font-size: 2.5rem;
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
-ul {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #eee;
-}
-
-ul li {
-    margin: 10px 0;
+section p, section ul {
+    font-size: 1.1rem;
+    color: #555;
 }
 
 /* Формы */
@@ -138,46 +89,50 @@ form {
     gap: 15px;
     justify-content: center;
     max-width: 500px;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    border-radius: 10px;
-    animation: fadeInUp 2s ease-out;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 form input, form button {
-    padding: 10px;
-    font-size: 1.1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     color: #333;
 }
 
 form button {
-    background-color: #ff9800;
+    background-color: #ff9f00;
     color: white;
     border: none;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
 form button:hover {
-    background-color: #e68900;
+    background-color: #e68c00;
 }
 
 /* Футер */
 footer {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #333;
     color: white;
     text-align: center;
     padding: 20px;
+    font-size: 1rem;
     margin-top: 40px;
-    font-size: 1.2em;
 }
 
 footer a {
-    color: #ff9800;
+    color: #ff9f00;
     text-decoration: none;
     font-weight: bold;
+}
+
+footer a:hover {
+    color: #e68c00;
 }
