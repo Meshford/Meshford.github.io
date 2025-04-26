@@ -1,5 +1,6 @@
-// Обработка формы
+// Обработка отправки формы с помощью Formspree
 document.getElementById('registration-form').addEventListener('submit', function(e) {
+    // Останавливаем стандартное поведение формы
     e.preventDefault();
 
     // Получаем данные из формы
@@ -13,13 +14,15 @@ document.getElementById('registration-form').addEventListener('submit', function
         return;
     }
 
-    // Отправка формы на почту через mailto
-    const emailContent = `Имя: ${firstName}\nФамилия: ${lastName}\nТелефон: ${phone}`;
-    window.location.href = `mailto:super.ya-nikitka-23@ya.ru?subject=Заявка на курс Python&body=${encodeURIComponent(emailContent)}`;
-
-    // Показ уведомления
+    // Показать сообщение об успешной регистрации
     alert(`Спасибо за регистрацию, ${firstName}! Мы свяжемся с вами по телефону ${phone}.`);
 
-    // Очистка формы
-    document.getElementById('registration-form').reset();
+    // Отправка формы через Formspree
+    const form = document.getElementById('registration-form');
+    
+    // Убедимся, что форма имеет правильный action
+    form.action = "https://formspree.io/f/mqaqaddz";  // Замените на ваш реальный URL из Formspree
+
+    // Используем submit() для отправки данных формы
+    form.submit();
 });
