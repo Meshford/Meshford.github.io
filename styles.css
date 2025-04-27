@@ -11,6 +11,9 @@ body {
     background: #f4f7fc;
     color: #333;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Анимации */
@@ -21,11 +24,12 @@ body {
 
 /* Стиль header */
 header {
-    background: #ff9f00; /* Яркий цвет, как у Яндекс Практикума */
+    background: #ff9f00; /* Яркий цвет */
     color: white;
     padding: 40px 20px;
     text-align: center;
     animation: fadeIn 1s ease-out;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 header h1 {
@@ -45,6 +49,7 @@ nav ul {
     justify-content: center;
     margin-top: 20px;
     list-style: none;
+    flex-wrap: wrap;
 }
 
 nav ul li {
@@ -59,78 +64,129 @@ nav ul li a {
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a:focus {
     color: #e68c00;
+    outline: none;
 }
 
 /* Секции */
-section {
+.content-section {
     padding: 60px 20px;
-    text-align: center;
     background-color: white;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    animation: fadeIn 1s ease-out;
+    text-align: center;
 }
 
-h2 {
+.content-section h2 {
     font-size: 2.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-weight: 700;
+    color: #333;
 }
 
-section p, section ul {
+.content-section p,
+.content-section ul {
     font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+}
+
+/* Списки */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.schedule-list li,
+.price-list li {
+    margin: 12px 0;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Программы - карточки */
+.programs-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.program-card {
+    background: #fffae6;
+    border: 2px solid #ff9f00;
+    border-radius: 12px;
+    padding: 25px 20px;
+    max-width: 280px;
+    box-shadow: 0 4px 10px rgba(255, 159, 0, 0.2);
+    transition: transform 0.3s ease;
+    cursor: default;
+    text-align: left;
+}
+
+.program-card:hover,
+.program-card:focus-within {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(255, 159, 0, 0.35);
+    outline: none;
+}
+
+.program-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: #cc7a00;
+}
+
+.program-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
     color: #555;
 }
 
-/* Секция Расписание */
-#schedule {
-    background-color: white;
-    color: #333; /* Темный цвет для текста */
-    padding: 60px 20px;
-    text-align: center;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#schedule h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+.program-card .price {
     font-weight: 700;
-    color: #333; /* Убедитесь, что заголовок тоже темный */
+    font-size: 1.2rem;
+    color: #ff7f00;
 }
 
-#schedule ul {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #333; /* Темный цвет для списка */
-}
-
-#schedule ul li {
-    margin: 10px 0;
-}
-
-/* Формы */
+/* Форма */
 form {
     display: grid;
     gap: 15px;
     justify-content: center;
     max-width: 500px;
-    margin: 30px auto;
+    margin: 0 auto;
     background: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
-form input, form button {
+form label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+form input {
     padding: 12px;
     font-size: 1.1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     color: #333;
+    transition: border-color 0.3s;
+}
+
+form input:focus {
+    border-color: #ff9f00;
+    outline: none;
 }
 
 form button {
@@ -139,11 +195,16 @@ form button {
     border: none;
     font-weight: bold;
     cursor: pointer;
+    font-size: 1.2rem;
+    padding: 14px;
+    border-radius: 6px;
     transition: background-color 0.3s;
 }
 
-form button:hover {
+form button:hover,
+form button:focus {
     background-color: #e68c00;
+    outline: none;
 }
 
 /* Футер */
@@ -154,14 +215,30 @@ footer {
     padding: 20px;
     font-size: 1rem;
     margin-top: 40px;
+    flex-shrink: 0;
 }
 
 footer a {
     color: #ff9f00;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
-footer a:hover {
+footer a:hover,
+footer a:focus {
     color: #e68c00;
+    outline: none;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .programs-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Курс Python и машинного обучения для начинающих. Подготовка к собеседованиям в IT компании.">
-    <title>Курсы Python и Машинного Обучения</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Подключаем внешний CSS файл -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Курс Python и машинного обучения для начинающих. Подготовка к собеседованиям в IT компании." />
+    <title>AIStart Lab - Курсы Python и Машинного Обучения</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <header>
-        <h1>Курсы Python и Машинного Обучения</h1>
-        <p>Подготовка к собеседованиям в IT компании</p>
+        <h1>AIStart Lab</h1>
+        <p>Курсы Python и Машинного Обучения. Подготовка к собеседованиям в IT компаниях</p>
         <nav>
             <ul>
                 <li><a href="#about">О курсе</a></li>
+                <li><a href="#programs">Программы</a></li>
                 <li><a href="#schedule">Расписание</a></li>
                 <li><a href="#price">Стоимость</a></li>
                 <li><a href="#contact">Контакты</a></li>
@@ -21,49 +22,84 @@
         </nav>
     </header>
 
-    <section id="about">
+    <section id="about" class="content-section">
         <h2>О курсе</h2>
-        <p>Наш курс для начинающих программистов включает обучение Python и машинному обучению, с акцентом на подготовку к собеседованиям в IT компании. Курс длится 3-4 месяца и включает в себя теоретические занятия и практические задания.</p>
+        <p>
+            AIStart Lab - это образовательная платформа, где наши преподаватели работают в лучших IT-компаниях страны, таких как
+            <strong>Intel, Huawei, Ядро, Harman</strong> и другие. Мы готовим вас к реальным вызовам индустрии, а наши выпускники успешно проходят более <strong>100+ собеседований</strong> после окончания школы.
+        </p>
+        <p>
+            По окончании курса вы получите официальный <strong>сертификат об обучении</strong>, подтверждающий ваши знания и навыки.
+        </p>
+        <p>
+            Наш курс для начинающих программистов включает обучение Python и машинному обучению с акцентом на подготовку к собеседованиям в IT-компаниях. Курс длится 3-4 месяца и сочетает теорию с практическими заданиями.
+        </p>
     </section>
 
-    <section id="schedule">
+    <section id="programs" class="content-section">
+        <h2>Наши программы</h2>
+        <div class="programs-container">
+            <article class="program-card">
+                <h3>Упрощённый курс</h3>
+                <p>Базовые знания и навыки, идеально для тех, кто только начинает.</p>
+                <p class="price">Цена: <strong>50 000 ₽</strong></p>
+            </article>
+            <article class="program-card">
+                <h3>Стандартный курс</h3>
+                <p>Расширенная программа с углублённой практикой и подготовкой к собеседованиям.</p>
+                <p class="price">Цена: <strong>75 000 ₽</strong></p>
+            </article>
+            <article class="program-card">
+                <h3>Углубленное изучение</h3>
+                <p>Полный курс с продвинутыми темами, проектами и индивидуальной поддержкой.</p>
+                <p class="price">Цена: <strong>100 000 ₽</strong></p>
+            </article>
+        </div>
+    </section>
+
+    <section id="schedule" class="content-section">
         <h2>Расписание</h2>
-        <ul>
+        <ul class="schedule-list">
             <li><strong>Занятия 2 раза в неделю</strong> (по понедельникам и четвергам)</li>
             <li><strong>Продолжительность курса:</strong> 3-4 месяца</li>
             <li><strong>Домашние задания:</strong> каждую неделю</li>
         </ul>
     </section>
 
-    <section id="price">
+    <section id="price" class="content-section">
         <h2>Стоимость</h2>
-        <p>Цена за курс: <strong>30 000 ₽</strong></p>
+        <p>Цена зависит от выбранной программы:</p>
+        <ul class="price-list">
+            <li>Упрощённый курс - <strong>50 000 ₽</strong></li>
+            <li>Стандартный курс - <strong>75 000 ₽</strong></li>
+            <li>Углубленное изучение - <strong>100 000 ₽</strong></li>
+        </ul>
         <p>Оплата возможна по частям. Для студентов действует скидка 10%.</p>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="content-section">
         <h2>Записаться на курс</h2>
-        <form action="https://formspree.io/f/mqaqaddz" method="POST" id="registration-form">
+        <form action="https://formspree.io/f/mqaqaddz" method="POST" id="registration-form" novalidate>
             <label for="first-name">Ваше имя:</label>
-            <input type="text" id="first-name" name="first-name" required>
+            <input type="text" id="first-name" name="first-name" required />
 
             <label for="last-name">Ваша фамилия:</label>
-            <input type="text" id="last-name" name="last-name" required>
+            <input type="text" id="last-name" name="last-name" required />
 
             <label for="phone">Ваш телефон:</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="tel" id="phone" name="phone" required pattern="[\d\s\+\-\(\)]+" title="Введите корректный номер телефона" />
 
             <button type="submit">Записаться</button>
         </form>
     </section>
 
     <footer>
-        <p>&copy; 2025 Курсы Python и ML</p>
+        <p>&copy; 2025 AIStart Lab</p>
         <p>Контакты:</p>
         <p>
-            <a href="https://t.me/meshford" target="_blank">Telegram</a> | 
-            <a href="https://wa.me/79159512454" target="_blank">WhatsApp</a> | 
-            Телефон: <a href="tel:+79159512454">+79159512454</a>
+            <a href="https://t.me/meshford" target="_blank" rel="noopener noreferrer">Telegram</a> |
+            <a href="https://wa.me/79159512454" target="_blank" rel="noopener noreferrer">WhatsApp</a> |
+            Телефон: <a href="tel:+79159512454">+7 915 951-24-54</a>
         </p>
     </footer>
 
