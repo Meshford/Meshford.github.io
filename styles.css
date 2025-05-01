@@ -1,15 +1,50 @@
-/* Сброс и базовые стили */
-* {
+/* Подключение основных начертаний Yandex Sans из папки fonts */
+@font-face {
+    font-family: 'Yandex Sans';
+    src: url('fonts/YandexSansText-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Yandex Sans';
+    src: url('fonts/YandexSansText-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Yandex Sans';
+    src: url('fonts/YandexSansText-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Yandex Sans';
+    src: url('fonts/YandexSansText-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Yandex Sans';
+    src: url('fonts/YandexSansText-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  /* Сброс и базовые стили */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
+  
   body {
-    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+    font-weight: 400;
     background: #fff;
     color: #111;
     line-height: 1.6;
     min-height: 100vh;
+    margin: 0;
   }
   
   /* Фиксированная верхняя панель */
@@ -29,11 +64,13 @@
     box-sizing: border-box;
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
+  
   .header-bar__left {
     display: flex;
     align-items: center;
     gap: 16px;
   }
+  
   .header-bar__logo {
     height: 36px;
     width: 36px;
@@ -42,22 +79,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 700;
     color: #fff;
     font-size: 1.3rem;
     letter-spacing: 1px;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   .header-bar__title {
     font-size: 1.4rem;
     font-weight: 700;
     color: #111;
     letter-spacing: 0.5px;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   .header-bar__nav {
     display: flex;
     align-items: center;
     gap: 32px;
   }
+  
   .header-bar__nav a {
     text-decoration: none;
     color: #111;
@@ -65,7 +107,9 @@
     font-weight: 500;
     padding: 6px 0;
     transition: color 0.2s;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   .header-bar__nav a:hover,
   .header-bar__nav a:focus {
     color: #555;
@@ -85,19 +129,23 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     text-align: center;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   .content-section h2 {
     font-size: 2.2rem;
     margin-bottom: 30px;
     font-weight: 700;
     color: #111;
   }
+  
   .content-section p,
   .content-section ul {
     font-size: 1.1rem;
     color: #444;
     max-width: 700px;
     margin: 0 auto 20px auto;
+    font-weight: 400;
   }
   
   /* Программы - карточки */
@@ -108,6 +156,7 @@
     flex-wrap: wrap;
     margin-bottom: 20px;
   }
+  
   .program-card {
     background: #fafafa;
     border: 1px solid #e0e0e0;
@@ -117,26 +166,33 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     transition: box-shadow 0.2s, transform 0.2s;
     text-align: left;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   .program-card:hover,
   .program-card:focus-within {
     box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     transform: translateY(-4px);
   }
+  
   .program-card h3 {
     font-size: 1.2rem;
     color: #111;
     margin-bottom: 10px;
+    font-weight: 700;
   }
+  
   .program-card .price {
     font-weight: 700;
     font-size: 1.1rem;
     color: #111;
   }
+  
   .note {
     color: #666;
     font-size: 1rem;
     margin-top: 10px;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
   
   /* Форма */
@@ -151,12 +207,15 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     text-align: left;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   form label {
     font-weight: 600;
     font-size: 1.1rem;
     color: #222;
   }
+  
   form input {
     padding: 12px;
     font-size: 1.1rem;
@@ -164,11 +223,14 @@
     border-radius: 4px;
     color: #111;
     transition: border-color 0.2s;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   form input:focus {
     border-color: #111;
     outline: none;
   }
+  
   form button {
     background: #111;
     color: #fff;
@@ -179,7 +241,9 @@
     border-radius: 6px;
     transition: background 0.2s;
     cursor: pointer;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
+  
   form button:hover,
   form button:focus {
     background: #333;
@@ -190,9 +254,43 @@
     background: #111;
     color: #fff;
     text-align: center;
-    padding: 24px 0;
+    padding: 32px 0 24px 0;
     font-size: 1rem;
     margin-top: 48px;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  }
+  
+  .footer-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-contact-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.08rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  }
+  
+  .footer-contact-link a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .footer-contact-link a:hover {
+    color: #bbb;
+  }
+  
+  .footer-copy {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin-top: 10px;
   }
   
   /* Адаптивность */
@@ -202,6 +300,7 @@
       align-items: center;
     }
   }
+  
   @media (max-width: 600px) {
     .header-bar {
       flex-direction: column;
@@ -220,6 +319,10 @@
     }
     form {
       padding: 16px;
+    }
+    .footer-contacts {
+      flex-direction: column;
+      gap: 10px;
     }
   }
   
