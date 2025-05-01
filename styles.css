@@ -63,15 +63,18 @@
   }
   
   .header-bar__logo {
-    height: 72px;
-    width: 72px;
+    height: 80px; /* Было 36px → увеличение в 2.2 раза */
+    width: 80px;  /* Было 36px */
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  
   .header-bar__logo img {
-    max-height: 72px;
-    max-width: 72px;
+    max-height: 80px; /* Было 36px */
+    max-width: 80px;  /* Было 36px */
+    width: auto;      /* Сохраняем пропорции */
+    height: auto;
     display: block;
   }
   
