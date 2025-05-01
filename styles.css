@@ -63,15 +63,15 @@
   }
   
   .header-bar__logo {
-    height: 36px;
-    width: 36px;
+    height: 72px;
+    width: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .header-bar__logo img {
-    max-height: 36px;
-    max-width: 36px;
+    max-height: 72px;
+    max-width: 72px;
     display: block;
   }
   
