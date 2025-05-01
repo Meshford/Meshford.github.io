@@ -1,4 +1,3 @@
-/* Подключение основных начертаний Yandex Sans из папки fonts */
 @font-face {
     font-family: 'Yandex Sans';
     src: url('fonts/YandexSansText-Light.woff') format('woff');
@@ -30,13 +29,6 @@
     font-style: normal;
   }
   
-  /* Сброс и базовые стили */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
   body {
     font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
     font-weight: 400;
@@ -47,7 +39,6 @@
     margin: 0;
   }
   
-  /* Фиксированная верхняя панель */
   .header-bar {
     position: fixed;
     top: 0;
@@ -74,16 +65,14 @@
   .header-bar__logo {
     height: 36px;
     width: 36px;
-    background: #111;
-    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    color: #fff;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  }
+  .header-bar__logo img {
+    max-height: 36px;
+    max-width: 36px;
+    display: block;
   }
   
   .header-bar__title {
@@ -115,12 +104,10 @@
     color: #555;
   }
   
-  /* Отступ для контента под фиксированной панелью */
   .main-content {
     padding-top: 80px;
   }
   
-  /* Секции */
   .content-section {
     padding: 60px 20px;
     background-color: #fff;
@@ -148,7 +135,6 @@
     font-weight: 400;
   }
   
-  /* Программы - карточки */
   .programs-container {
     display: flex;
     justify-content: center;
@@ -195,7 +181,6 @@
     font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   }
   
-  /* Форма */
   form {
     display: grid;
     gap: 15px;
@@ -249,7 +234,6 @@
     background: #333;
   }
   
-  /* Футер */
   footer {
     background: #111;
     color: #fff;
@@ -293,7 +277,6 @@
     margin-top: 10px;
   }
   
-  /* Адаптивность */
   @media (max-width: 900px) {
     .programs-container {
       flex-direction: column;
