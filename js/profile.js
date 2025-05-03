@@ -151,10 +151,7 @@ logoutBtn.addEventListener('click', async () => {
   try {
     await signOut(auth);
     showToast('Вы вышли из аккаунта.');
-    // Скрываем меню и показываем кнопку входа
-    userMenu.classList.add('hidden');
-    loginButton.classList.remove('hidden');
-    userDropdown.classList.add('hidden');
+    // Состояние обновится через onAuthStateChanged
   } catch (error) {
     showToast('Ошибка выхода: ' + error.message);
   }
@@ -165,29 +162,21 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // Скрываем кнопку входа
     loginButton.classList.add('hidden');
-
-    // Показываем кнопку с email пользователя
+    // Показываем меню пользователя
     userMenu.classList.remove('hidden');
     userNameBtn.textContent = user.email;
     userNameBtn.classList.add('profile-user-btn');
     userNameBtn.classList.remove('profile-login-btn');
-
-    // Скрываем меню по умолчанию
     userDropdown.classList.add('hidden');
-
-    // Переключение меню по клику на email
     userNameBtn.onclick = () => {
       userDropdown.classList.toggle('hidden');
     };
   } else {
     // Показываем кнопку входа
     loginButton.classList.remove('hidden');
-
-    // Скрываем меню пользователя
+    // Скрываем меню пользователя полностью
     userMenu.classList.add('hidden');
     userDropdown.classList.add('hidden');
-
-    // Восстанавливаем стиль кнопки входа
     userNameBtn.classList.remove('profile-user-btn');
     userNameBtn.classList.add('profile-login-btn');
     userNameBtn.textContent = '';
