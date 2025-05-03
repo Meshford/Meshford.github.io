@@ -10,16 +10,8 @@ body.profile-page .content-section {
   color: #fff;
 }
 
-/* Исправляем цвет текста внутри карточек программ */
 body.profile-page .program-card {
   background-color: #444;
-  color: #fff;
-}
-
-/* Убедимся, что все текстовые элементы внутри program-card видны */
-body.profile-page .program-card h3,
-body.profile-page .program-card p,
-body.profile-page .program-card span {
   color: #fff;
 }
 
@@ -85,12 +77,10 @@ body.profile-page .program-card span {
   color: #0056b3;
 }
 
-/* Скрываем меню пользователя (кнопку справа от "Вход") по умолчанию */
 #user-menu {
-  display: none;
+  position: relative;
+  display: inline-block;
 }
-
-/* Если нужно, чтобы меню появлялось при входе, то управление делается через JS */
 
 #user-dropdown {
   position: absolute;
