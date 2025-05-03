@@ -11,7 +11,7 @@
   <header class="header-bar">
     <div class="header-bar__left">
         <div class="header-bar__logo">
-            <img src="images/logo.png" alt="AI Start Lab" class="header-logo" />
+            <a href="index.html"><img src="images/logo.png" alt="AI Start Lab" class="header-logo" /></a>
         </div>
       <span class="header-bar__title">AI Start Lab</span>
     </div>
@@ -20,6 +20,7 @@
       <a href="#programs">Программы</a>
       <a href="#teachers">Преподаватели</a>
       <a href="#contacts">Контакты</a>
+      <a href="profile.html" class="profile-btn">Профиль</a>
     </nav>
   </header>
   <main class="main-content">
@@ -122,52 +123,5 @@
     </div>
   </footer>
   <script src="script.js"></script>
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js';
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut
-    } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
-
-    const firebaseConfig = { /* ваш конфиг */ };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Логика аутентификации
-    document.addEventListener('DOMContentLoaded', () => {
-      // Обработчик для формы регистрации/входа
-      document.getElementById('auth-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        try {
-          if (document.getElementById('login-btn')) {
-            await signInWithEmailAndPassword(auth, email, password);
-          } else {
-            await createUserWithEmailAndPassword(auth, email, password);
-          }
-        } catch (error) {
-          alert(error.message);
-        }
-      });
-
-      // Отслеживание состояния авторизации
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          document.getElementById('user-email').textContent = user.email;
-          document.querySelector('.auth-section').classList.add('hidden');
-          document.querySelector('.profile-section').classList.remove('hidden');
-        } else {
-          document.querySelector('.auth-section').classList.remove('hidden');
-          document.querySelector('.profile-section').classList.add('hidden');
-        }
-      });
-    });
-  </script>
 </body>
 </html>

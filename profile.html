@@ -1,0 +1,57 @@
+
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Профиль | AI Start Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="profile-page">
+  <header class="header-bar">
+    <div class="header-bar__left">
+        <div class="header-bar__logo">
+            <a href="index.html"><img src="images/logo.png" alt="AI Start Lab" class="header-logo" /></a>
+        </div>
+      <span class="header-bar__title">AI Start Lab</span>
+    </div>
+    <nav class="header-bar__nav">
+      <span id="login-button" class="profile-login-btn" onclick="toggleLoginPopup()">Вход</span>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="content-section">
+      <h2>🎓 Ваши курсы</h2>
+      <div class="programs-container">
+        <div class="program-card">
+          <h3>🔰 Упрощённый курс <span>🔒</span></h3>
+          <p>Базовые знания и навыки, идеально для тех, кто только начинает.</p>
+        </div>
+        <div class="program-card">
+          <h3>🚀 Расширенная программа <span>🔒</span></h3>
+          <p>Больше практики и подготовка к собеседованиям.</p>
+        </div>
+        <div class="program-card">
+          <h3>🏆 Полный курс <span>🔒</span></h3>
+          <p>Продвинутые темы, проекты и индивидуальная поддержка.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="login-popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close" onclick="toggleLoginPopup()">&times;</span>
+      <h2>🔐 Вход в аккаунт</h2>
+      <form id="popup-auth-form">
+        <input type="email" id="popup-email" placeholder="Email" required>
+        <input type="password" id="popup-password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
