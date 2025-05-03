@@ -69,10 +69,17 @@
       <form id="popup-register-form">
         <input type="email" id="register-email" placeholder="Email" required />
         <input type="password" id="register-password" placeholder="Пароль" required />
+        <input type="password" id="register-password-repeat" placeholder="Повторите пароль" required />
         <button type="submit">Зарегистрироваться</button>
       </form>
       <p>Уже есть аккаунт? <button id="show-login" class="link-button" type="button">Войти</button></p>
     </div>
+  </div>
+
+  <!-- Всплывающее уведомление -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <button class="close-toast" aria-label="Закрыть">&times;</button>
+    <div id="toast-message"></div>
   </div>
 </body>
 </html>

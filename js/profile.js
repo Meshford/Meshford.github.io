@@ -40,6 +40,25 @@ const popupRegisterForm = document.getElementById('popup-register-form');
 const showRegisterBtn = document.getElementById('show-register');
 const showLoginBtn = document.getElementById('show-login');
 
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toast-message');
+const toastCloseBtn = toast.querySelector('.close-toast');
+
+// Функция показа всплывающего уведомления
+function showToast(message) {
+  toastMessage.textContent = message;
+  toast.classList.add('show');
+  // Автоматически скрыть через 4 секунды
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
+// Закрытие уведомления по кнопке
+toastCloseBtn.addEventListener('click', () => {
+  toast.classList.remove('show');
+});
+
 // Открыть окно входа
 loginButton.addEventListener('click', () => {
   showLoginPopup();
@@ -76,18 +95,29 @@ function showLoginPopup() {
   registerPopup.classList.add('hidden');
 }
 
+// Проверка корректности email (простой regex)
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
 // Обработка формы входа
 popupAuthForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('popup-email').value.trim();
   const password = document.getElementById('popup-password').value;
 
+  if (!validateEmail(email)) {
+    showToast('Некорректный email');
+    return;
+  }
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    alert('Вход выполнен успешно!');
+    showToast('Вход выполнен успешно!');
     loginPopup.classList.add('hidden');
   } catch (error) {
-    alert('Ошибка входа: ' + error.message);
+    showToast('Ошибка входа: ' + error.message);
   }
 });
 
@@ -96,13 +126,24 @@ popupRegisterForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('register-email').value.trim();
   const password = document.getElementById('register-password').value;
+  const passwordRepeat = document.getElementById('register-password-repeat').value;
+
+  if (!validateEmail(email)) {
+    showToast('Некорректный email');
+    return;
+  }
+
+  if (password !== passwordRepeat) {
+    showToast('Пароли не совпадают');
+    return;
+  }
 
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    alert('Регистрация успешна! Вы вошли в систему.');
+    showToast('Регистрация успешна! Вы вошли в систему.');
     registerPopup.classList.add('hidden');
   } catch (error) {
-    alert('Ошибка регистрации: ' + error.message);
+    showToast('Ошибка регистрации: ' + error.message);
   }
 });
 
@@ -110,9 +151,9 @@ popupRegisterForm.addEventListener('submit', async (e) => {
 logoutBtn.addEventListener('click', async () => {
   try {
     await signOut(auth);
-    alert('Вы вышли из аккаунта.');
+    showToast('Вы вышли из аккаунта.');
   } catch (error) {
-    alert('Ошибка выхода: ' + error.message);
+    showToast('Ошибка выхода: ' + error.message);
   }
 });
 
