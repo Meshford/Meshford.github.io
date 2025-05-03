@@ -80,6 +80,36 @@
         <button type="submit">Отправить заявку 📩</button>
       </form>
     </section>
+    
+    <section class="auth-section">
+      <div id="login-form">
+        <h2>🔒 Вход в систему</h2>
+        <form id="auth-form">
+          <input type="email" id="email" placeholder="Email" required>
+          <input type="password" id="password" placeholder="Пароль" required>
+          <button type="submit" id="login-btn">Войти</button>
+        </form>
+        <p>Нет аккаунта? <span class="auth-toggle" onclick="toggleAuthForm()">Зарегистрироваться</span></p>
+      </div>
+    
+      <div id="register-form" class="hidden">
+        <h2>📝 Регистрация</h2>
+        <form id="auth-form">
+          <input type="email" id="email" placeholder="Email" required>
+          <input type="password" id="password" placeholder="Пароль" required>
+          <button type="submit">Создать аккаунт</button>
+        </form>
+        <p>Уже есть аккаунт? <span class="auth-toggle" onclick="toggleAuthForm()">Войти</span></p>
+      </div>
+    </section>
+    
+    <section class="profile-section hidden">
+      <h2>👤 Профиль</h2>
+      <p>Вы вошли как: <span id="user-email"></span></p>
+      <button onclick="logout()">Выйти</button>
+    </section>
+    
+
   </main>
   <footer>
     <div class="footer-contacts">
@@ -92,5 +122,52 @@
     </div>
   </footer>
   <script src="script.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js';
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
+
+    const firebaseConfig = { /* ваш конфиг */ };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Логика аутентификации
+    document.addEventListener('DOMContentLoaded', () => {
+      // Обработчик для формы регистрации/входа
+      document.getElementById('auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          if (document.getElementById('login-btn')) {
+            await signInWithEmailAndPassword(auth, email, password);
+          } else {
+            await createUserWithEmailAndPassword(auth, email, password);
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+
+      // Отслеживание состояния авторизации
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          document.getElementById('user-email').textContent = user.email;
+          document.querySelector('.auth-section').classList.add('hidden');
+          document.querySelector('.profile-section').classList.remove('hidden');
+        } else {
+          document.querySelector('.auth-section').classList.remove('hidden');
+          document.querySelector('.profile-section').classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

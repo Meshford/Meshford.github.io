@@ -311,4 +311,26 @@
       gap: 10px;
     }
   }
-  
+    /* Секция аутентификации */
+  .auth-section {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+
+  .auth-form {
+    display: grid;
+    gap: 15px;
+  }
+
+  .auth-toggle {
+    cursor: pointer;
+    color: #111;
+    text-decoration: underline;
+  }
+
+  .profile-section {
+    display: none;
+  }
