@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Профиль | AI Start Lab</title>
   <link rel="stylesheet" href="css/profile.css" />
+  <link rel="icon" type="image/ico" href="images/favicon.ico" />
   <script type="module" src="js/profile.js" defer></script>
 </head>
 <body class="profile-page">
@@ -46,6 +47,7 @@
     </section>
   </main>
 
+  <!-- Всплывающее окно входа -->
   <div id="login-popup" class="popup hidden">
     <div class="popup-content">
       <span class="close" id="close-login">&times;</span>
@@ -56,12 +58,20 @@
         <button type="submit">Войти</button>
       </form>
       <p>Нет аккаунта? <button id="show-register" class="link-button">Зарегистрироваться</button></p>
-      <form id="popup-register-form" class="hidden">
+    </div>
+  </div>
+
+  <!-- Всплывающее окно регистрации -->
+  <div id="register-popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close" id="close-register">&times;</span>
+      <h2>📝 Регистрация</h2>
+      <form id="popup-register-form">
         <input type="email" id="register-email" placeholder="Email" required />
         <input type="password" id="register-password" placeholder="Пароль" required />
         <button type="submit">Зарегистрироваться</button>
       </form>
-      <p>Уже есть аккаунт? <button id="show-login" class="link-button hidden">Войти</button></p>
+      <p>Уже есть аккаунт? <button id="show-login" class="link-button">Войти</button></p>
     </div>
   </div>
 </body>

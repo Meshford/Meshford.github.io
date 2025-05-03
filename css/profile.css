@@ -1,28 +1,31 @@
 @import url('styles.css'); /* Наследуем общие стили */
 
+/* Основной фон и цвет текста страницы профиля */
 body.profile-page {
   background-color: #222;
   color: #fff;
 }
 
+/* Фон и цвет текста для секций контента */
 body.profile-page .content-section {
   background-color: #333;
   color: #fff;
 }
 
-/* Исправляем цвет текста внутри карточек программ */
+/* Фон и цвет текста для карточек программ */
 body.profile-page .program-card {
   background-color: #444;
   color: #fff;
 }
 
-/* Убедимся, что все текстовые элементы внутри program-card видны */
+/* Текст внутри карточек программ */
 body.profile-page .program-card h3,
 body.profile-page .program-card p,
 body.profile-page .program-card span {
   color: #fff;
 }
 
+/* Кнопка входа и профиль */
 .profile-login-btn {
   background: #000;
   color: #fff;
@@ -32,16 +35,20 @@ body.profile-page .program-card span {
   border: none;
   cursor: pointer;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  transition: background 0.3s ease;
 }
 
 .profile-login-btn:hover {
   background: #333;
 }
 
+/* Общие стили для всплывающих окон */
 .popup {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
   background: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
@@ -61,16 +68,20 @@ body.profile-page .program-card span {
   color: #000;
   position: relative;
   font-family: 'Yandex Sans', Arial, sans-serif;
+  box-sizing: border-box;
 }
 
+/* Кнопка закрытия попапа */
 .popup-content .close {
   position: absolute;
   top: 10px;
   right: 15px;
   font-size: 24px;
   cursor: pointer;
+  user-select: none;
 }
 
+/* Стили для ссылок-переключателей между окнами */
 .link-button {
   background: none;
   border: none;
@@ -80,19 +91,19 @@ body.profile-page .program-card span {
   font-size: 1rem;
   text-decoration: underline;
   font-family: 'Yandex Sans', Arial, sans-serif;
+  transition: color 0.2s ease;
 }
 
 .link-button:hover {
   color: #0056b3;
 }
 
-/* Скрываем меню пользователя (кнопку справа от "Вход") по умолчанию */
+/* Скрываем меню пользователя по умолчанию */
 #user-menu {
   display: none;
 }
 
-/* Если нужно, чтобы меню появлялось при входе, то управление делается через JS */
-
+/* Меню пользователя (выпадающее) */
 #user-dropdown {
   position: absolute;
   top: 120%;
@@ -118,8 +129,70 @@ body.profile-page .program-card span {
   text-align: left;
   cursor: pointer;
   font-family: 'Yandex Sans', Arial, sans-serif;
+  transition: background 0.2s ease;
 }
 
 #user-dropdown button:hover {
   background: #555;
+}
+
+/* Форма входа и регистрации */
+form {
+  display: grid;
+  gap: 15px;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: left;
+  font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+}
+
+form input {
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #111;
+  transition: border-color 0.2s;
+  font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+form input:focus {
+  border-color: #111;
+  outline: none;
+}
+
+form button {
+  background: #111;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  cursor: pointer;
+  font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+}
+
+form button:hover,
+form button:focus {
+  background: #333;
+}
+
+/* Отступы и стили для параграфов под формами */
+.popup-content p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+  .popup-content {
+    width: 90%;
+    padding: 20px;
+  }
 }

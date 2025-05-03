@@ -7,7 +7,7 @@ import {
   onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
 
-// Ваш Firebase конфиг
+// Firebase конфиг и инициализация
 const firebaseConfig = {
   apiKey: "AIzaSyB2KpF2HDbDcB6D1P8MU6wGcnAdHCvFxcg",
   authDomain: "ai-start-lab-1ee12.firebaseapp.com",
@@ -29,67 +29,54 @@ const userDropdown = document.getElementById('user-dropdown');
 const logoutBtn = document.getElementById('logout-btn');
 
 const loginPopup = document.getElementById('login-popup');
+const registerPopup = document.getElementById('register-popup');
+
 const closeLoginBtn = document.getElementById('close-login');
+const closeRegisterBtn = document.getElementById('close-register');
+
 const popupAuthForm = document.getElementById('popup-auth-form');
 const popupRegisterForm = document.getElementById('popup-register-form');
+
 const showRegisterBtn = document.getElementById('show-register');
 const showLoginBtn = document.getElementById('show-login');
 
-// Управление попапом
-function toggleLoginPopup(show = true) {
-  if (show) {
-    loginPopup.classList.remove('hidden');
-    showLoginForm();
-  } else {
-    loginPopup.classList.add('hidden');
-  }
-}
-
-function showLoginForm() {
-  popupAuthForm.classList.remove('hidden');
-  popupRegisterForm.classList.add('hidden');
-  showLoginBtn.classList.add('hidden');
-  showRegisterBtn.classList.remove('hidden');
-}
-
-function showRegisterForm() {
-  popupAuthForm.classList.add('hidden');
-  popupRegisterForm.classList.remove('hidden');
-  showLoginBtn.classList.remove('hidden');
-  showRegisterBtn.classList.add('hidden');
-}
-
-showRegisterBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  showRegisterForm();
-});
-showLoginBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  showLoginForm();
+// Открыть окно входа
+loginButton.addEventListener('click', () => {
+  showLoginPopup();
 });
 
-loginButton.addEventListener('click', () => toggleLoginPopup(true));
-closeLoginBtn.addEventListener('click', () => toggleLoginPopup(false));
+// Закрыть окна
+closeLoginBtn.addEventListener('click', () => {
+  loginPopup.classList.add('hidden');
+});
+closeRegisterBtn.addEventListener('click', () => {
+  registerPopup.classList.add('hidden');
+});
+
+// Переключение между окнами
+showRegisterBtn.addEventListener('click', () => {
+  loginPopup.classList.add('hidden');
+  registerPopup.classList.remove('hidden');
+});
+
+showLoginBtn.addEventListener('click', () => {
+  registerPopup.classList.add('hidden');
+  loginPopup.classList.remove('hidden');
+});
+
+// Закрыть при клике вне контента
 window.addEventListener('click', (e) => {
-  if (e.target === loginPopup) toggleLoginPopup(false);
+  if (e.target === loginPopup) loginPopup.classList.add('hidden');
+  if (e.target === registerPopup) registerPopup.classList.add('hidden');
 });
 
-// Регистрация
-popupRegisterForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('register-email').value.trim();
-  const password = document.getElementById('register-password').value;
+// Функции открытия окон
+function showLoginPopup() {
+  loginPopup.classList.remove('hidden');
+  registerPopup.classList.add('hidden');
+}
 
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert('Регистрация успешна! Вы вошли в систему.');
-    toggleLoginPopup(false);
-  } catch (error) {
-    alert('Ошибка регистрации: ' + error.message);
-  }
-});
-
-// Вход
+// Обработка формы входа
 popupAuthForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('popup-email').value.trim();
@@ -98,9 +85,24 @@ popupAuthForm.addEventListener('submit', async (e) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     alert('Вход выполнен успешно!');
-    toggleLoginPopup(false);
+    loginPopup.classList.add('hidden');
   } catch (error) {
     alert('Ошибка входа: ' + error.message);
+  }
+});
+
+// Обработка формы регистрации
+popupRegisterForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('register-email').value.trim();
+  const password = document.getElementById('register-password').value;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert('Регистрация успешна! Вы вошли в систему.');
+    registerPopup.classList.add('hidden');
+  } catch (error) {
+    alert('Ошибка регистрации: ' + error.message);
   }
 });
 
