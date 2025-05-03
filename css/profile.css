@@ -42,6 +42,60 @@ body.profile-page .program-card span {
   background: #333;
 }
 
+/* Кнопка с email пользователя - без фона и рамок, текст чёрный */
+.profile-user-btn {
+  background: none;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  position: relative;
+}
+
+.profile-user-btn:hover,
+.profile-user-btn:focus {
+  background: #eee;
+  outline: none;
+}
+
+/* Меню пользователя (выпадающее) */
+#user-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: #333;
+  border-radius: 6px;
+  padding: 8px 0;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 1002;
+}
+
+#user-dropdown.hidden {
+  display: none;
+}
+
+#user-dropdown button {
+  background: none;
+  border: none;
+  color: #fff;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Yandex Sans', Arial, sans-serif;
+  transition: background 0.2s ease;
+}
+
+#user-dropdown button:hover {
+  background: #555;
+}
+
 /* Общие стили для всплывающих окон */
 .popup {
   position: fixed;
@@ -96,44 +150,6 @@ body.profile-page .program-card span {
 
 .link-button:hover {
   color: #0056b3;
-}
-
-/* Скрываем меню пользователя по умолчанию */
-#user-menu {
-  display: none;
-}
-
-/* Меню пользователя (выпадающее) */
-#user-dropdown {
-  position: absolute;
-  top: 120%;
-  right: 0;
-  background: #333;
-  border-radius: 6px;
-  padding: 8px 0;
-  min-width: 100px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  z-index: 1002;
-}
-
-#user-dropdown.hidden {
-  display: none;
-}
-
-#user-dropdown button {
-  background: none;
-  border: none;
-  color: #fff;
-  width: 100%;
-  padding: 8px 12px;
-  text-align: left;
-  cursor: pointer;
-  font-family: 'Yandex Sans', Arial, sans-serif;
-  transition: background 0.2s ease;
-}
-
-#user-dropdown button:hover {
-  background: #555;
 }
 
 /* Форма входа и регистрации */
