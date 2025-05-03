@@ -93,29 +93,43 @@ body {
   gap: 32px;
 }
 
-.header-bar__nav a,
-.profile-btn {
-  background: #000;
-  color: #fff;
-  border-radius: 16px;
-  padding: 6px 32px;
-  font-weight: 600;
+/* Ссылки навигации без фона и рамок, тонкий шрифт */
+.header-bar__nav a {
+  background: none;
+  border-radius: 0;
+  padding: 6px 0;
+  font-weight: 300; /* тонкий шрифт */
+  color: #111;
   text-decoration: none;
   font-size: 1.08rem;
-  padding: 6px 0;
-  transition: color 0.2s;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
-}
-
-
-.profile-btn:hover {
-  background: #333;
-  color: #fff;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .header-bar__nav a:hover,
 .header-bar__nav a:focus {
   color: #555;
+}
+
+/* Кнопка "Профиль" с фоном, скруглениями и жирным шрифтом */
+.profile-btn {
+  background: #000;
+  color: #fff;
+  border-radius: 16px;
+  padding: 6px 32px;
+  font-weight: 300;
+  font-size: 1.08rem;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-btn:hover,
+.profile-btn:focus {
+  background: #333;
+  color: #fff;
 }
 
 /* Контент */
