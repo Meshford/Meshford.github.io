@@ -26,11 +26,12 @@ body.profile-page .program-card span {
 .profile-login-btn {
   background: #000;
   color: #fff;
-  border-radius: 16px;
-  padding: 6px 14px;
-  font-weight: 600;
+  border-radius: 26px;
+  padding: 10px 24px;
+  font-weight: 300;
   border: none;
   cursor: pointer;
+  font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
 }
 
 .profile-login-btn:hover {
