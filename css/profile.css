@@ -1,4 +1,4 @@
-@import url('styles.css'); /* Наследуем общие стили */
+@import url('styles.css');
 
 /* Основной фон и цвет текста страницы профиля */
 body.profile-page {
@@ -6,26 +6,23 @@ body.profile-page {
   color: #fff;
 }
 
-/* Фон и цвет текста для секций контента */
 body.profile-page .content-section {
   background-color: #333;
   color: #fff;
 }
 
-/* Фон и цвет текста для карточек программ */
 body.profile-page .program-card {
   background-color: #444;
   color: #fff;
 }
 
-/* Текст внутри карточек программ */
 body.profile-page .program-card h3,
 body.profile-page .program-card p,
 body.profile-page .program-card span {
   color: #fff;
 }
 
-/* Кнопка входа и профиль */
+/* Кнопка входа */
 .profile-login-btn {
   background: #000;
   color: #fff;
@@ -125,7 +122,6 @@ body.profile-page .program-card span {
   box-sizing: border-box;
 }
 
-/* Кнопка закрытия попапа */
 .popup-content .close {
   position: absolute;
   top: 10px;
@@ -135,7 +131,6 @@ body.profile-page .program-card span {
   user-select: none;
 }
 
-/* Стили для ссылок-переключателей между окнами */
 .link-button {
   background: none;
   border: none;
@@ -152,7 +147,6 @@ body.profile-page .program-card span {
   color: #0056b3;
 }
 
-/* Форма входа и регистрации */
 form {
   display: grid;
   gap: 15px;
@@ -197,7 +191,6 @@ form button:focus {
   background: #333;
 }
 
-/* Отступы и стили для параграфов под формами */
 .popup-content p {
   margin-top: 10px;
   font-size: 1rem;
@@ -205,7 +198,6 @@ form button:focus {
   text-align: center;
 }
 
-/* Адаптивность */
 @media (max-width: 600px) {
   .popup-content {
     width: 90%;
@@ -237,7 +229,6 @@ form button:focus {
   pointer-events: auto;
 }
 
-/* Кнопка закрытия уведомления */
 .toast .close-toast {
   position: absolute;
   top: 6px;

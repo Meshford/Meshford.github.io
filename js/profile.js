@@ -166,7 +166,6 @@ onAuthStateChanged(auth, (user) => {
     userMenu.classList.remove('hidden');
     userNameBtn.textContent = user.email;
     userNameBtn.classList.add('profile-user-btn');
-    userNameBtn.classList.remove('profile-login-btn');
     userDropdown.classList.add('hidden');
     userNameBtn.onclick = () => {
       userDropdown.classList.toggle('hidden');
@@ -177,8 +176,7 @@ onAuthStateChanged(auth, (user) => {
     // Скрываем меню пользователя полностью
     userMenu.classList.add('hidden');
     userDropdown.classList.add('hidden');
-    userNameBtn.classList.remove('profile-user-btn');
-    userNameBtn.classList.add('profile-login-btn');
     userNameBtn.textContent = '';
+    userNameBtn.classList.remove('profile-user-btn');
   }
 });
