@@ -157,7 +157,6 @@ logoutBtn.addEventListener('click', async () => {
   }
 });
 
-// Отслеживание состояния пользователя
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // Скрываем кнопку входа
@@ -170,6 +169,9 @@ onAuthStateChanged(auth, (user) => {
     userNameBtn.onclick = () => {
       userDropdown.classList.toggle('hidden');
     };
+    // 💡 Скрываем формы входа/регистрации
+    loginPopup.classList.add('hidden');
+    registerPopup.classList.add('hidden');
   } else {
     // Показываем кнопку входа
     loginButton.classList.remove('hidden');
@@ -178,5 +180,10 @@ onAuthStateChanged(auth, (user) => {
     userDropdown.classList.add('hidden');
     userNameBtn.textContent = '';
     userNameBtn.classList.remove('profile-user-btn');
+    // 💡 На всякий случай тоже скрываем формы
+    loginPopup.classList.add('hidden');
+    registerPopup.classList.add('hidden');
   }
 });
+
+
