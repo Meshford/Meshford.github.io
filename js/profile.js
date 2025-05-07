@@ -157,33 +157,22 @@ logoutBtn.addEventListener('click', async () => {
   }
 });
 
+// Отслеживание состояния пользователя
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Скрываем кнопку входа
+    // Показываем только меню пользователя, скрываем кнопку "Вход"
     loginButton.classList.add('hidden');
-    // Показываем меню пользователя
     userMenu.classList.remove('hidden');
     userNameBtn.textContent = user.email;
-    userNameBtn.classList.add('profile-user-btn');
     userDropdown.classList.add('hidden');
     userNameBtn.onclick = () => {
       userDropdown.classList.toggle('hidden');
     };
-    // 💡 Скрываем формы входа/регистрации
-    loginPopup.classList.add('hidden');
-    registerPopup.classList.add('hidden');
   } else {
-    // Показываем кнопку входа
+    // Показываем только кнопку "Вход", скрываем меню пользователя
     loginButton.classList.remove('hidden');
-    // Скрываем меню пользователя полностью
     userMenu.classList.add('hidden');
     userDropdown.classList.add('hidden');
     userNameBtn.textContent = '';
-    userNameBtn.classList.remove('profile-user-btn');
-    // 💡 На всякий случай тоже скрываем формы
-    loginPopup.classList.add('hidden');
-    registerPopup.classList.add('hidden');
   }
 });
-
-
