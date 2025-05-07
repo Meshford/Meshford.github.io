@@ -6,6 +6,11 @@ import {
   signOut,
   onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
 // Firebase конфиг и инициализация
 const firebaseConfig = {
@@ -20,6 +25,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // DOM элементы
 const loginButton = document.getElementById('login-button');
@@ -27,19 +33,14 @@ const userMenu = document.getElementById('user-menu');
 const userNameBtn = document.getElementById('user-name-btn');
 const userDropdown = document.getElementById('user-dropdown');
 const logoutBtn = document.getElementById('logout-btn');
-
 const loginPopup = document.getElementById('login-popup');
 const registerPopup = document.getElementById('register-popup');
-
 const closeLoginBtn = document.getElementById('close-login');
 const closeRegisterBtn = document.getElementById('close-register');
-
 const popupAuthForm = document.getElementById('popup-auth-form');
 const popupRegisterForm = document.getElementById('popup-register-form');
-
 const showRegisterBtn = document.getElementById('show-register');
 const showLoginBtn = document.getElementById('show-login');
-
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toast-message');
 const toastCloseBtn = toast.querySelector('.close-toast');
@@ -76,7 +77,6 @@ showRegisterBtn.addEventListener('click', () => {
   loginPopup.classList.add('hidden');
   registerPopup.classList.remove('hidden');
 });
-
 showLoginBtn.addEventListener('click', () => {
   registerPopup.classList.add('hidden');
   loginPopup.classList.remove('hidden');
@@ -88,7 +88,7 @@ window.addEventListener('click', (e) => {
   if (e.target === registerPopup) registerPopup.classList.add('hidden');
 });
 
-// Функции открытия окон
+// Функция открытия окна входа
 function showLoginPopup() {
   loginPopup.classList.remove('hidden');
   registerPopup.classList.add('hidden');
@@ -138,7 +138,17 @@ popupRegisterForm.addEventListener('submit', async (e) => {
   }
 
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    // 1. Регистрируем пользователя в Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // 2. Добавляем пользователя в Firestore с ролью "basic"
+    await setDoc(doc(db, "allowed_users", user.uid), {
+      email: user.email,
+      role: "basic",
+      createdAt: new Date()
+    });
+
     showToast('Регистрация успешна! Вы вошли в систему.');
     registerPopup.classList.add('hidden');
   } catch (error) {
@@ -162,11 +172,11 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // УБИРАЕМ КНОПКУ "Вход" ЛЮБЫМИ СРЕДСТВАМИ
     loginButton.classList.add('hidden');
-    loginButton.setAttribute('style', 'display:none !important;');
+    loginButton.style.display = 'none';
     loginButton.setAttribute('aria-hidden', 'true');
     // Показываем меню пользователя
     userMenu.classList.remove('hidden');
-    userMenu.setAttribute('style', 'display:flex;');
+    userMenu.style.display = 'flex';
     userMenu.setAttribute('aria-hidden', 'false');
     userNameBtn.textContent = user.email;
     userDropdown.classList.add('hidden');
@@ -176,10 +186,10 @@ onAuthStateChanged(auth, (user) => {
   } else {
     // ПОКАЗЫВАЕМ КНОПКУ "Вход", СКРЫВАЕМ МЕНЮ ПОЛЬЗОВАТЕЛЯ
     loginButton.classList.remove('hidden');
-    loginButton.setAttribute('style', 'display:inline-block;');
+    loginButton.style.display = 'inline-block';
     loginButton.setAttribute('aria-hidden', 'false');
     userMenu.classList.add('hidden');
-    userMenu.setAttribute('style', 'display:none !important;');
+    userMenu.style.display = 'none';
     userMenu.setAttribute('aria-hidden', 'true');
     userDropdown.classList.add('hidden');
     userNameBtn.textContent = '';
