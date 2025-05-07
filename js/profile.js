@@ -160,18 +160,27 @@ logoutBtn.addEventListener('click', async () => {
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Показываем только меню пользователя, скрываем кнопку "Вход"
+    // УБИРАЕМ КНОПКУ "Вход" ЛЮБЫМИ СРЕДСТВАМИ
     loginButton.classList.add('hidden');
+    loginButton.setAttribute('style', 'display:none !important;');
+    loginButton.setAttribute('aria-hidden', 'true');
+    // Показываем меню пользователя
     userMenu.classList.remove('hidden');
+    userMenu.setAttribute('style', 'display:flex;');
+    userMenu.setAttribute('aria-hidden', 'false');
     userNameBtn.textContent = user.email;
     userDropdown.classList.add('hidden');
     userNameBtn.onclick = () => {
       userDropdown.classList.toggle('hidden');
     };
   } else {
-    // Показываем только кнопку "Вход", скрываем меню пользователя
+    // ПОКАЗЫВАЕМ КНОПКУ "Вход", СКРЫВАЕМ МЕНЮ ПОЛЬЗОВАТЕЛЯ
     loginButton.classList.remove('hidden');
+    loginButton.setAttribute('style', 'display:inline-block;');
+    loginButton.setAttribute('aria-hidden', 'false');
     userMenu.classList.add('hidden');
+    userMenu.setAttribute('style', 'display:none !important;');
+    userMenu.setAttribute('aria-hidden', 'true');
     userDropdown.classList.add('hidden');
     userNameBtn.textContent = '';
   }
