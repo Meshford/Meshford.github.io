@@ -1,26 +1,26 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js';
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
 import {
-  getFirestore,
-  doc,
-  setDoc
+    getFirestore,
+    doc,
+    setDoc
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
 // Firebase конфиг и инициализация
 const firebaseConfig = {
-  apiKey: "AIzaSyB2KpF2HDbDcB6D1P8MU6wGcnAdHCvFxcg",
-  authDomain: "ai-start-lab-1ee12.firebaseapp.com",
-  projectId: "ai-start-lab-1ee12",
-  storageBucket: "ai-start-lab-1ee12.appspot.com",
-  messagingSenderId: "489390775494",
-  appId: "1:489390775494:web:97531e4b7ab542b2930bc7",
-  measurementId: "G-NZNHV0Q18C"
+    apiKey: "AIzaSyB2KpF2HDbDcB6D1P8MU6wGcnAdHCvFxcg",
+    authDomain: "ai-start-lab-1ee12.firebaseapp.com",
+    projectId: "ai-start-lab-1ee12",
+    storageBucket: "ai-start-lab-1ee12.appspot.com",
+    messagingSenderId: "489390775494",
+    appId: "1:489390775494:web:97531e4b7ab542b2930bc7",
+    measurementId: "G-NZNHV0Q18C"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -47,151 +47,153 @@ const toastCloseBtn = toast.querySelector('.close-toast');
 
 // Функция показа всплывающего уведомления
 function showToast(message) {
-  toastMessage.textContent = message;
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 4000);
+    toastMessage.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
 }
 
 // Закрытие уведомления по кнопке
 toastCloseBtn.addEventListener('click', () => {
-  toast.classList.remove('show');
+    toast.classList.remove('show');
 });
 
 // Открыть окно входа
 loginButton.addEventListener('click', () => {
-  showLoginPopup();
+    showLoginPopup();
 });
 
 // Закрыть окна
 closeLoginBtn.addEventListener('click', () => {
-  loginPopup.classList.add('hidden');
+    loginPopup.classList.add('hidden');
 });
 closeRegisterBtn.addEventListener('click', () => {
-  registerPopup.classList.add('hidden');
+    registerPopup.classList.add('hidden');
 });
 
 // Переключение между окнами
 showRegisterBtn.addEventListener('click', () => {
-  loginPopup.classList.add('hidden');
-  registerPopup.classList.remove('hidden');
+    loginPopup.classList.add('hidden');
+    registerPopup.classList.remove('hidden');
 });
 showLoginBtn.addEventListener('click', () => {
-  registerPopup.classList.add('hidden');
-  loginPopup.classList.remove('hidden');
+    registerPopup.classList.add('hidden');
+    loginPopup.classList.remove('hidden');
 });
 
 // Закрыть при клике вне контента
 window.addEventListener('click', (e) => {
-  if (e.target === loginPopup) loginPopup.classList.add('hidden');
-  if (e.target === registerPopup) registerPopup.classList.add('hidden');
+    if (e.target === loginPopup) loginPopup.classList.add('hidden');
+    if (e.target === registerPopup) registerPopup.classList.add('hidden');
 });
 
 // Функция открытия окна входа
 function showLoginPopup() {
-  loginPopup.classList.remove('hidden');
-  registerPopup.classList.add('hidden');
+    loginPopup.classList.remove('hidden');
+    registerPopup.classList.add('hidden');
 }
 
 // Проверка корректности email
 function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }
 
 // Обработка формы входа
 popupAuthForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('popup-email').value.trim();
-  const password = document.getElementById('popup-password').value;
+    e.preventDefault();
+    const email = document.getElementById('popup-email').value.trim();
+    const password = document.getElementById('popup-password').value;
 
-  if (!validateEmail(email)) {
-    showToast('Некорректный email');
-    return;
-  }
+    if (!validateEmail(email)) {
+        showToast('Некорректный email');
+        return;
+    }
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    showToast('Вход выполнен успешно!');
-    loginPopup.classList.add('hidden');
-  } catch (error) {
-    showToast('Ошибка входа: ' + error.message);
-  }
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast('Вход выполнен успешно!');
+        loginPopup.classList.add('hidden');
+    } catch (error) {
+        showToast('Ошибка входа: ' + error.message);
+    }
 });
 
 // Обработка формы регистрации
 popupRegisterForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('register-email').value.trim();
-  const password = document.getElementById('register-password').value;
-  const passwordRepeat = document.getElementById('register-password-repeat').value;
+    e.preventDefault();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value;
+    const passwordRepeat = document.getElementById('register-password-repeat').value;
 
-  if (!validateEmail(email)) {
-    showToast('Некорректный email');
-    return;
-  }
+    if (!validateEmail(email)) {
+        showToast('Некорректный email');
+        return;
+    }
 
-  if (password !== passwordRepeat) {
-    showToast('Пароли не совпадают');
-    return;
-  }
+    if (password !== passwordRepeat) {
+        showToast('Пароли не совпадают');
+        return;
+    }
 
-  try {
-    // 1. Регистрируем пользователя в Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    try {
+        // 1. Регистрируем пользователя в Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-    // 2. Добавляем пользователя в Firestore с ролью "basic"
-    await setDoc(doc(db, "allowed_users", user.uid), {
-      email: user.email,
-      role: "basic",
-      createdAt: new Date()
-    });
+        // 2. Добавляем пользователя в Firestore с ролью "basic"
+        await setDoc(doc(db, "allowed_users", user.uid), {
+            email: user.email,
+            role: "basic",
+            createdAt: new Date()
+        });
 
-    showToast('Регистрация успешна! Вы вошли в систему.');
-    registerPopup.classList.add('hidden');
-  } catch (error) {
-    showToast('Ошибка регистрации: ' + error.message);
-  }
+        showToast('Регистрация успешна! Вы вошли в систему.');
+        registerPopup.classList.add('hidden');
+    } catch (error) {
+        showToast('Ошибка регистрации: ' + error.message);
+    }
 });
 
 // Выход
 logoutBtn.addEventListener('click', async () => {
-  try {
-    await signOut(auth);
-    showToast('Вы вышли из аккаунта.');
-    // Состояние обновится через onAuthStateChanged
-  } catch (error) {
-    showToast('Ошибка выхода: ' + error.message);
-  }
+    try {
+        await signOut(auth);
+        showToast('Вы вышли из аккаунта.');
+        // Состояние обновится через onAuthStateChanged
+    } catch (error) {
+        showToast('Ошибка выхода: ' + error.message);
+    }
 });
 
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // УБИРАЕМ КНОПКУ "Вход" ЛЮБЫМИ СРЕДСТВАМИ
-    loginButton.classList.add('hidden');
-    loginButton.style.display = 'none';
-    loginButton.setAttribute('aria-hidden', 'true');
-    // Показываем меню пользователя
-    userMenu.classList.remove('hidden');
-    userMenu.style.display = 'flex';
-    userMenu.setAttribute('aria-hidden', 'false');
-    userNameBtn.textContent = user.email;
-    userDropdown.classList.add('hidden');
-    userNameBtn.onclick = () => {
-      userDropdown.classList.toggle('hidden');
-    };
-  } else {
-    // ПОКАЗЫВАЕМ КНОПКУ "Вход", СКРЫВАЕМ МЕНЮ ПОЛЬЗОВАТЕЛЯ
-    loginButton.classList.remove('hidden');
-    loginButton.style.display = 'inline-block';
-    loginButton.setAttribute('aria-hidden', 'false');
-    userMenu.classList.add('hidden');
-    userMenu.style.display = 'none';
-    userMenu.setAttribute('aria-hidden', 'true');
-    userDropdown.classList.add('hidden');
-    userNameBtn.textContent = '';
-  }
+    if (user) {
+        // УБИРАЕМ КНОПКУ "Вход" ЛЮБЫМИ СРЕДСТВАМИ
+        loginButton.classList.add('hidden');
+        loginButton.style.display = 'none';
+        loginButton.setAttribute('aria-hidden', 'true');
+
+        // Показываем меню пользователя
+        userMenu.classList.remove('hidden');
+        userMenu.style.display = 'flex';
+        userMenu.setAttribute('aria-hidden', 'false');
+        userNameBtn.textContent = user.email;
+        userDropdown.classList.add('hidden');
+        userNameBtn.onclick = () => {
+            userDropdown.classList.toggle('hidden');
+        };
+    } else {
+        // ПОКАЗЫВАЕМ КНОПКУ "Вход", СКРЫВАЕМ МЕНЮ ПОЛЬЗОВАТЕЛЯ
+        loginButton.classList.remove('hidden');
+        loginButton.style.display = 'inline-block';
+        loginButton.setAttribute('aria-hidden', 'false');
+
+        userMenu.classList.add('hidden');
+        userMenu.style.display = 'none';
+        userMenu.setAttribute('aria-hidden', 'true');
+        userDropdown.classList.add('hidden');
+        userNameBtn.textContent = '';
+    }
 });
