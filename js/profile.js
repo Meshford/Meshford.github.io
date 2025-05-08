@@ -9,7 +9,8 @@ import {
 import {
     getFirestore,
     doc,
-    setDoc
+    setDoc,
+    getDoc
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
 // Firebase конфиг и инициализация
@@ -44,6 +45,10 @@ const showLoginBtn = document.getElementById('show-login');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toast-message');
 const toastCloseBtn = toast.querySelector('.close-toast');
+
+// Бесплатный курс
+const freeCourseBtn = document.getElementById('free-course-btn');
+const freeCourseLock = document.getElementById('free-course-lock');
 
 // Функция показа всплывающего уведомления
 function showToast(message) {
@@ -167,15 +172,32 @@ logoutBtn.addEventListener('click', async () => {
     }
 });
 
+// Управление доступом к бесплатному курсу
+function updateFreeCourseAccess(isAuthorized, userRole) {
+  if (isAuthorized && userRole === 'basic') {
+    freeCourseBtn.disabled = false;
+    freeCourseBtn.classList.add('unlocked');
+    freeCourseBtn.title = "Перейти к курсу";
+    freeCourseLock.textContent = "🔓";
+    freeCourseLock.classList.add('unlocked');
+    freeCourseLock.title = "Доступ открыт";
+  } else {
+    freeCourseBtn.disabled = true;
+    freeCourseBtn.classList.remove('unlocked');
+    freeCourseBtn.title = "Доступ только для зарегистрированных";
+    freeCourseLock.textContent = "🔒";
+    freeCourseLock.classList.remove('unlocked');
+    freeCourseLock.title = "Доступ только для зарегистрированных";
+  }
+}
+
 // Отслеживание состояния пользователя
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // УБИРАЕМ КНОПКУ "Вход" ЛЮБЫМИ СРЕДСТВАМИ
+onAuthStateChanged(auth, async (user) => {
+      if (user) {
         loginButton.classList.add('hidden');
         loginButton.style.display = 'none';
         loginButton.setAttribute('aria-hidden', 'true');
 
-        // Показываем меню пользователя
         userMenu.classList.remove('hidden');
         userMenu.style.display = 'flex';
         userMenu.setAttribute('aria-hidden', 'false');
@@ -184,8 +206,20 @@ onAuthStateChanged(auth, (user) => {
         userNameBtn.onclick = () => {
             userDropdown.classList.toggle('hidden');
         };
+
+      // Получаем роль пользователя из Firestore
+      try {
+        const userDocRef = doc(db, "allowed_users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        let userRole = "basic";
+        if (userDocSnap.exists() && userDocSnap.data().role) {
+          userRole = userDocSnap.data().role;
+        }
+        updateFreeCourseAccess(true, userRole);
+      } catch (e) {
+        updateFreeCourseAccess(true, "basic");
+      }
     } else {
-        // ПОКАЗЫВАЕМ КНОПКУ "Вход", СКРЫВАЕМ МЕНЮ ПОЛЬЗОВАТЕЛЯ
         loginButton.classList.remove('hidden');
         loginButton.style.display = 'inline-block';
         loginButton.setAttribute('aria-hidden', 'false');
@@ -195,5 +229,6 @@ onAuthStateChanged(auth, (user) => {
         userMenu.setAttribute('aria-hidden', 'true');
         userDropdown.classList.add('hidden');
         userNameBtn.textContent = '';
+        updateFreeCourseAccess(false, null);
     }
 });
