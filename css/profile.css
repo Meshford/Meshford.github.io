@@ -13,7 +13,7 @@ body.profile-page .content-section {
 
 /* Заголовок "Ваши курсы" белым цветом */
 .courses-title {
-  color: white;
+  color: white !important;
   margin-bottom: 20px;
   font-weight: 700;
   font-size: 2rem;
@@ -302,4 +302,10 @@ form button:focus {
   font-weight: 700;
   padding: 0;
   line-height: 1;
+}
+
+.program-card h3,
+.program-card p,
+.program-card span {
+  color: #fff !important;
 }
