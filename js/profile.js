@@ -13,6 +13,10 @@ import {
     getDoc
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
+// === НАСТРОЙКИ JUPYTERHUB ===
+const JUPYTERHUB_API_URL = 'http://94.103.13.144:5000/create_user'; // <-- Укажите адрес API создания пользователей
+const JUPYTERHUB_URL = 'http://94.103.13.144:8000'; // <-- Укажите адрес вашего JupyterHub
+
 // Firebase конфиг и инициализация
 const firebaseConfig = {
     apiKey: "AIzaSyB2KpF2HDbDcB6D1P8MU6wGcnAdHCvFxcg",
@@ -169,7 +173,6 @@ logoutBtn.addEventListener('click', async () => {
   try {
     await signOut(auth);
     showToast('Вы вышли из аккаунта.');
-    // Состояние обновится через onAuthStateChanged
   } catch (error) {
     showToast('Ошибка выхода: ' + error.message);
   }
@@ -227,13 +230,64 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
   fullCourse.classList.add('hidden-course');
 }
 
+// === ИНТЕГРАЦИЯ С JUPYTERHUB для бесплатного курса ===
+freeCourseBtn.addEventListener('click', async () => {
+  const user = auth.currentUser;
+  if (!user) {
+    showToast('Пожалуйста, войдите в аккаунт');
+    return;
+  }
+
+  try {
+    // 1. Получаем роль пользователя из Firestore
+    const userDocRef = doc(db, "allowed_users", user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
+      showToast('У вас нет доступа к этому курсу');
+      return;
+    }
+
+    // 2. Формируем логин для JupyterHub (email без спецсимволов)
+    const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
+    // 3. Пароль - для примера используем uid (можно по-другому)
+    const jhubPassword = user.uid;
+
+    // 4. Отправляем запрос на создание пользователя на сервере JupyterHub
+    const response = await fetch(JUPYTERHUB_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: jhubUsername,
+        password: jhubPassword,
+        role: 'basic'
+      })
+    });
+
+    if (!response.ok) {
+      showToast('Ошибка создания пользователя в JupyterHub');
+      return;
+    }
+
+    const data = await response.json();
+    if (data.status !== 'ok' && data.status !== 'exists') {
+      showToast('Ошибка: ' + (data.message || 'Не удалось создать пользователя'));
+      return;
+    }
+
+    // 5. Открываем JupyterHub в новой вкладке
+    window.open(JUPYTERHUB_URL, '_blank');
+  } catch (error) {
+    showToast(`Ошибка: ${error.message}`);
+  }
+});
+
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     loginButton.classList.add('hidden');
     loginButton.style.display = 'none';
     loginButton.setAttribute('aria-hidden', 'true');
-
     userMenu.classList.remove('hidden');
     userMenu.style.display = 'flex';
     userMenu.setAttribute('aria-hidden', 'false');
@@ -261,7 +315,6 @@ onAuthStateChanged(auth, async (user) => {
     loginButton.classList.remove('hidden');
     loginButton.style.display = 'inline-block';
     loginButton.setAttribute('aria-hidden', 'false');
-
     userMenu.classList.add('hidden');
     userMenu.style.display = 'none';
     userMenu.setAttribute('aria-hidden', 'true');
