@@ -309,3 +309,13 @@ form button:focus {
 .program-card span {
   color: #fff !important;
 }
+
+/* Скрытие курсов по умолчанию */
+.hidden-course {
+  display: none !important;
+}
+
+/* Стили для видимых курсов */
+.visible-course {
+  display: block !important;
+}

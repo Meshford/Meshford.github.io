@@ -46,135 +46,166 @@ const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toast-message');
 const toastCloseBtn = toast.querySelector('.close-toast');
 
-// Бесплатный курс
+// Курсы
 const freeCourseBtn = document.getElementById('free-course-btn');
 const freeCourseLock = document.getElementById('free-course-lock');
+const simplifiedCourse = document.getElementById('simplified-course');
+const extendedCourse = document.getElementById('extended-course');
+const fullCourse = document.getElementById('full-course');
 
 // Функция показа всплывающего уведомления
 function showToast(message) {
-    toastMessage.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 4000);
+  toastMessage.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
 }
 
 // Закрытие уведомления по кнопке
 toastCloseBtn.addEventListener('click', () => {
-    toast.classList.remove('show');
+  toast.classList.remove('show');
 });
 
 // Открыть окно входа
 loginButton.addEventListener('click', () => {
-    showLoginPopup();
+  showLoginPopup();
 });
 
 // Закрыть окна
 closeLoginBtn.addEventListener('click', () => {
-    loginPopup.classList.add('hidden');
+  loginPopup.classList.add('hidden');
 });
 closeRegisterBtn.addEventListener('click', () => {
-    registerPopup.classList.add('hidden');
+  registerPopup.classList.add('hidden');
 });
 
 // Переключение между окнами
 showRegisterBtn.addEventListener('click', () => {
-    loginPopup.classList.add('hidden');
-    registerPopup.classList.remove('hidden');
+  loginPopup.classList.add('hidden');
+  registerPopup.classList.remove('hidden');
 });
 showLoginBtn.addEventListener('click', () => {
-    registerPopup.classList.add('hidden');
-    loginPopup.classList.remove('hidden');
+  registerPopup.classList.add('hidden');
+  loginPopup.classList.remove('hidden');
 });
 
 // Закрыть при клике вне контента
 window.addEventListener('click', (e) => {
-    if (e.target === loginPopup) loginPopup.classList.add('hidden');
-    if (e.target === registerPopup) registerPopup.classList.add('hidden');
+  if (e.target === loginPopup) loginPopup.classList.add('hidden');
+  if (e.target === registerPopup) registerPopup.classList.add('hidden');
 });
 
 // Функция открытия окна входа
 function showLoginPopup() {
-    loginPopup.classList.remove('hidden');
-    registerPopup.classList.add('hidden');
+  loginPopup.classList.remove('hidden');
+  registerPopup.classList.add('hidden');
 }
 
 // Проверка корректности email
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
 }
 
 // Обработка формы входа
 popupAuthForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('popup-email').value.trim();
-    const password = document.getElementById('popup-password').value;
+  e.preventDefault();
+  const email = document.getElementById('popup-email').value.trim();
+  const password = document.getElementById('popup-password').value;
 
-    if (!validateEmail(email)) {
-        showToast('Некорректный email');
-        return;
-    }
+  if (!validateEmail(email)) {
+    showToast('Некорректный email');
+    return;
+  }
 
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        showToast('Вход выполнен успешно!');
-        loginPopup.classList.add('hidden');
-    } catch (error) {
-        showToast('Ошибка входа: ' + error.message);
-    }
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    showToast('Вход выполнен успешно!');
+    loginPopup.classList.add('hidden');
+  } catch (error) {
+    showToast('Ошибка входа: ' + error.message);
+  }
 });
 
 // Обработка формы регистрации
 popupRegisterForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('register-email').value.trim();
-    const password = document.getElementById('register-password').value;
-    const passwordRepeat = document.getElementById('register-password-repeat').value;
+  e.preventDefault();
+  const email = document.getElementById('register-email').value.trim();
+  const password = document.getElementById('register-password').value;
+  const passwordRepeat = document.getElementById('register-password-repeat').value;
 
-    if (!validateEmail(email)) {
-        showToast('Некорректный email');
-        return;
-    }
+  if (!validateEmail(email)) {
+    showToast('Некорректный email');
+    return;
+  }
 
-    if (password !== passwordRepeat) {
-        showToast('Пароли не совпадают');
-        return;
-    }
+  if (password !== passwordRepeat) {
+    showToast('Пароли не совпадают');
+    return;
+  }
 
-    try {
-        // 1. Регистрируем пользователя в Firebase Auth
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+  try {
+    // 1. Регистрируем пользователя в Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-        // 2. Добавляем пользователя в Firestore с ролью "basic"
-        await setDoc(doc(db, "allowed_users", user.uid), {
-            email: user.email,
-            role: "basic",
-            createdAt: new Date()
-        });
+    // 2. Добавляем пользователя в Firestore с ролью "basic"
+    await setDoc(doc(db, "allowed_users", user.uid), {
+      email: user.email,
+      role: "basic",
+      createdAt: new Date()
+    });
 
-        showToast('Регистрация успешна! Вы вошли в систему.');
-        registerPopup.classList.add('hidden');
-    } catch (error) {
-        showToast('Ошибка регистрации: ' + error.message);
-    }
+    showToast('Регистрация успешна! Вы вошли в систему.');
+    registerPopup.classList.add('hidden');
+  } catch (error) {
+    showToast('Ошибка регистрации: ' + error.message);
+  }
 });
 
 // Выход
 logoutBtn.addEventListener('click', async () => {
-    try {
-        await signOut(auth);
-        showToast('Вы вышли из аккаунта.');
-        // Состояние обновится через onAuthStateChanged
-    } catch (error) {
-        showToast('Ошибка выхода: ' + error.message);
-    }
+  try {
+    await signOut(auth);
+    showToast('Вы вышли из аккаунта.');
+    // Состояние обновится через onAuthStateChanged
+  } catch (error) {
+    showToast('Ошибка выхода: ' + error.message);
+  }
 });
 
-// Управление доступом к бесплатному курсу
+// Управление доступом к курсам
+function updateCoursesByRole(role) {
+  // Скрыть все курсы кроме бесплатного
+  simplifiedCourse.classList.add('hidden-course');
+  extendedCourse.classList.add('hidden-course');
+  fullCourse.classList.add('hidden-course');
+
+  // Бесплатный курс всегда открыт для всех авторизованных
+  freeCourseBtn.disabled = false;
+  freeCourseBtn.classList.add('unlocked');
+  freeCourseBtn.title = "Перейти к курсу";
+  freeCourseLock.textContent = "🔓";
+  freeCourseLock.classList.add('unlocked');
+  freeCourseLock.title = "Доступ открыт";
+
+  // Открывать курсы по ролям
+  if (role === "simple" || role === "admin") {
+    simplifiedCourse.classList.remove('hidden-course');
+  }
+  if (role === "intermediate" || role === "admin") {
+    extendedCourse.classList.remove('hidden-course');
+  }
+  if (role === "full" || role === "admin") {
+    fullCourse.classList.remove('hidden-course');
+  }
+}
+
+// Управление доступом к бесплатному курсу (для неавторизованных и basic)
 function updateFreeCourseAccess(isAuthorized, userRole) {
-  if (isAuthorized && userRole === 'basic') {
+  if (isAuthorized) {
+    // Всегда открыт для всех авторизованных
     freeCourseBtn.disabled = false;
     freeCourseBtn.classList.add('unlocked');
     freeCourseBtn.title = "Перейти к курсу";
@@ -182,6 +213,7 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
     freeCourseLock.classList.add('unlocked');
     freeCourseLock.title = "Доступ открыт";
   } else {
+    // Только замок для неавторизованных
     freeCourseBtn.disabled = true;
     freeCourseBtn.classList.remove('unlocked');
     freeCourseBtn.title = "Доступ только для зарегистрированных";
@@ -189,46 +221,53 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
     freeCourseLock.classList.remove('unlocked');
     freeCourseLock.title = "Доступ только для зарегистрированных";
   }
+  // Скрыть все остальные курсы для неавторизованных и basic
+  simplifiedCourse.classList.add('hidden-course');
+  extendedCourse.classList.add('hidden-course');
+  fullCourse.classList.add('hidden-course');
 }
 
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        loginButton.classList.add('hidden');
-        loginButton.style.display = 'none';
-        loginButton.setAttribute('aria-hidden', 'true');
+  if (user) {
+    loginButton.classList.add('hidden');
+    loginButton.style.display = 'none';
+    loginButton.setAttribute('aria-hidden', 'true');
 
-        userMenu.classList.remove('hidden');
-        userMenu.style.display = 'flex';
-        userMenu.setAttribute('aria-hidden', 'false');
-        userNameBtn.textContent = user.email;
-        userDropdown.classList.add('hidden');
-        userNameBtn.onclick = () => {
-            userDropdown.classList.toggle('hidden');
-        };
+    userMenu.classList.remove('hidden');
+    userMenu.style.display = 'flex';
+    userMenu.setAttribute('aria-hidden', 'false');
+    userNameBtn.textContent = user.email;
+    userDropdown.classList.add('hidden');
+    userNameBtn.onclick = () => {
+      userDropdown.classList.toggle('hidden');
+    };
 
-      // Получаем роль пользователя из Firestore
-      try {
-        const userDocRef = doc(db, "allowed_users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        let userRole = "basic";
-        if (userDocSnap.exists() && userDocSnap.data().role) {
-          userRole = userDocSnap.data().role;
-        }
-        updateFreeCourseAccess(true, userRole);
-      } catch (e) {
-        updateFreeCourseAccess(true, "basic");
+    // Получаем роль пользователя из Firestore
+    try {
+      const userDocRef = doc(db, "allowed_users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      let userRole = "basic";
+      if (userDocSnap.exists() && userDocSnap.data().role) {
+        userRole = userDocSnap.data().role;
       }
-    } else {
-        loginButton.classList.remove('hidden');
-        loginButton.style.display = 'inline-block';
-        loginButton.setAttribute('aria-hidden', 'false');
-
-        userMenu.classList.add('hidden');
-        userMenu.style.display = 'none';
-        userMenu.setAttribute('aria-hidden', 'true');
-        userDropdown.classList.add('hidden');
-        userNameBtn.textContent = '';
-        updateFreeCourseAccess(false, null);
+      updateFreeCourseAccess(true, userRole);
+      updateCoursesByRole(userRole);
+    } catch (e) {
+      updateFreeCourseAccess(true, "basic");
+      updateCoursesByRole("basic");
     }
+  } else {
+    loginButton.classList.remove('hidden');
+    loginButton.style.display = 'inline-block';
+    loginButton.setAttribute('aria-hidden', 'false');
+
+    userMenu.classList.add('hidden');
+    userMenu.style.display = 'none';
+    userMenu.setAttribute('aria-hidden', 'true');
+    userDropdown.classList.add('hidden');
+    userNameBtn.textContent = '';
+
+    updateFreeCourseAccess(false, null);
+  }
 });
