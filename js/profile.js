@@ -15,7 +15,7 @@ import {
 
 // === НАСТРОЙКИ JUPYTERHUB ===
 const JUPYTERHUB_API_URL = 'http://94.103.13.144:5000/create_user'; // <-- Укажите адрес API создания пользователей
-const JUPYTERHUB_URL = 'http://94.103.13.144:8000'; // <-- Укажите адрес вашего JupyterHub
+const JUPYTERHUB_URL = 'https://aistartlab-practice.ru'; // <-- Укажите адрес вашего JupyterHub
 
 // Firebase конфиг и инициализация
 const firebaseConfig = {
