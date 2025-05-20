@@ -14,7 +14,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
 // === НАСТРОЙКИ JUPYTERHUB ===
-const JUPYTERHUB_API_URL = 'http://94.103.13.144:5000/create_user'; // <-- Укажите адрес API создания пользователей
+const JUPYTERHUB_API_URL = '/api/create_user';
 const JUPYTERHUB_URL = 'https://aistartlab-practice.ru'; // <-- Укажите адрес вашего JupyterHub
 
 // Firebase конфиг и инициализация
