@@ -254,26 +254,25 @@ freeCourseBtn.addEventListener('click', async () => {
     const jhubPassword = user.uid;
 
     // 4. Отправляем запрос на создание пользователя на сервере JupyterHub
-    const response = await fetch(JUPYTERHUB_API_URL, {
+    const response = await fetch('/api/create_user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: jhubUsername,
-        password: jhubPassword,
-        role: 'basic'
-      })
+      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' })
     });
-
+    console.log('Response status:', response.status);
+    const data = await response.json();
+    console.log('Response data:', data);
+    
     if (!response.ok) {
       showToast('Ошибка создания пользователя в JupyterHub');
       return;
     }
-
-    const data = await response.json();
+    
     if (data.status !== 'ok' && data.status !== 'exists') {
       showToast('Ошибка: ' + (data.message || 'Не удалось создать пользователя'));
       return;
     }
+    
 
     // 5. Открываем JupyterHub в новой вкладке
     window.open(JUPYTERHUB_URL, '_blank');
