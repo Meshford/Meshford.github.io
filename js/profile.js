@@ -257,7 +257,8 @@ freeCourseBtn.addEventListener('click', async () => {
     const response = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' })
+      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
+      credentials: 'include'
     });
     console.log('Response status:', response.status);
     const data = await response.json();
