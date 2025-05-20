@@ -14,7 +14,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
 // === НАСТРОЙКИ JUPYTERHUB ===
-const JUPYTERHUB_API_URL = '/api/create_user';
+const JUPYTERHUB_API_URL = 'https://aistartlab-practice.ru/api/create_user';
 const JUPYTERHUB_URL = 'https://aistartlab-practice.ru'; // <-- Укажите адрес вашего JupyterHub
 
 // Firebase конфиг и инициализация
@@ -254,7 +254,7 @@ freeCourseBtn.addEventListener('click', async () => {
     const jhubPassword = user.uid;
 
     // 4. Отправляем запрос на создание пользователя на сервере JupyterHub
-    const response = await fetch('/api/create_user', {
+    const response = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' })
