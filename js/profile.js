@@ -234,53 +234,70 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
 freeCourseBtn.addEventListener('click', async () => {
   const user = auth.currentUser;
   if (!user) {
-    showToast('Пожалуйста, войдите в аккаунт');
-    return;
+      showToast('Пожалуйста, войдите в аккаунт');
+      return;
   }
 
   try {
-    // 1. Получаем роль пользователя из Firestore
-    const userDocRef = doc(db, "allowed_users", user.uid);
-    const userDocSnap = await getDoc(userDocRef);
+      // 1. Получаем роль пользователя из Firestore
+      const userDocRef = doc(db, "allowed_users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
 
-    if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
-      showToast('У вас нет доступа к этому курсу');
-      return;
-    }
+      if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
+          showToast('У вас нет доступа к этому курсу');
+          return;
+      }
 
-    // 2. Формируем логин для JupyterHub (email без спецсимволов)
-    const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
-    // 3. Пароль - для примера используем uid (можно по-другому)
-    const jhubPassword = user.uid;
+      // 2. Формируем имя пользователя для JupyterHub
+      const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
+      const jhubPassword = user.uid;
 
-    // 4. Отправляем запрос на создание пользователя на сервере JupyterHub
-    const response = await fetch(JUPYTERHUB_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
-      credentials: 'include'
-    });
-    console.log('Response status:', response.status);
-    const data = await response.json();
-    console.log('Response data:', data);
-    
-    if (!response.ok) {
-      showToast('Ошибка создания пользователя в JupyterHub');
-      return;
-    }
-    
-    if (data.status !== 'ok' && data.status !== 'exists') {
-      showToast('Ошибка: ' + (data.message || 'Не удалось создать пользователя'));
-      return;
-    }
-    
+      // 3. Отправляем запрос на создание пользователя
+      const response = await fetch(JUPYTERHUB_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
+          credentials: 'include'
+      });
 
-    // 5. Открываем JupyterHub в новой вкладке
-    window.open(JUPYTERHUB_URL, '_blank');
+      console.log('Response status:', response.status);
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (!response.ok || data.status !== 'ok') {
+          showToast('Ошибка создания пользователя в JupyterHub');
+          return;
+      }
+
+      // 4. Получаем токен через JupyterHub API
+      const tokenResponse = await fetch('https://aistartlab-practice.ru/hub/api/authorizations/token ', {
+          method: 'POST',
+          headers: {
+              'Authorization': 'Basic ' + btoa(`${jhubUsername}:${jhubPassword}`),
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              note: 'generated via site login',
+              expires_in: 86400 * 7  // токен живёт неделю
+          })
+      });
+
+      if (!tokenResponse.ok) {
+          throw new Error("Не удалось получить токен");
+      }
+
+      const tokenData = await tokenResponse.json();
+      const token = tokenData.token;
+
+      // 5. Переходим в JupyterLab с токеном
+      window.open(`https://aistartlab-practice.ru/user/ ${jhubUsername}/lab?token=${token}`, '_blank');
+
   } catch (error) {
-    showToast(`Ошибка: ${error.message}`);
+      showToast(`Ошибка: ${error.message}`);
   }
 });
+
+);
 
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
