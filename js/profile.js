@@ -278,7 +278,7 @@ freeCourseBtn.addEventListener('click', async () => {
           },
           body: JSON.stringify({
               note: 'generated via site login',
-              expires_in: 86400 * 7  // токен живёт неделю
+              expires_in: 86400 * 365  // токен живёт неделю
           })
       });
 
@@ -296,8 +296,6 @@ freeCourseBtn.addEventListener('click', async () => {
       showToast(`Ошибка: ${error.message}`);
   }
 });
-
-);
 
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
