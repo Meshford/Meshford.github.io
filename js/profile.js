@@ -234,66 +234,58 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
 freeCourseBtn.addEventListener('click', async () => {
   const user = auth.currentUser;
   if (!user) {
-      showToast('Пожалуйста, войдите в аккаунт');
-      return;
+    showToast('Пожалуйста, войдите в аккаунт');
+    return;
   }
 
   try {
-      // 1. Получаем роль пользователя из Firestore
-      const userDocRef = doc(db, "allowed_users", user.uid);
-      const userDocSnap = await getDoc(userDocRef);
+    // 1. Получаем роль пользователя из Firestore
+    const userDocRef = doc(db, "allowed_users", user.uid);
+    const userDocSnap = await getDoc(userDocRef);
 
-      if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
-          showToast('У вас нет доступа к этому курсу');
-          return;
-      }
+    if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
+      showToast('У вас нет доступа к этому курсу');
+      return;
+    }
 
-      // 2. Формируем имя пользователя для JupyterHub
-      const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
-      const jhubPassword = user.uid;
+    // 2. Формируем имя пользователя
+    const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
+    const jhubPassword = user.uid;
 
-      // 3. Отправляем запрос на создание пользователя
-      const response = await fetch(JUPYTERHUB_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
-          credentials: 'include'
-      });
+    // 3. Отправляем запрос на создание пользователя
+    const createUserResponse = await fetch(JUPYTERHUB_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
+      credentials: 'include'
+    });
 
-      console.log('Response status:', response.status);
-      const data = await response.json();
-      console.log('Response data:', data);
+    const userData = await createUserResponse.json();
+    if (!createUserResponse.ok || userData.status !== 'ok') {
+      showToast('Ошибка создания пользователя в JupyterHub');
+      return;
+    }
 
-      if (!response.ok || data.status !== 'ok') {
-          showToast('Ошибка создания пользователя в JupyterHub');
-          return;
-      }
+    // 4. Запрашиваем токен через наш прокси API
+    const tokenResponse = await fetch(JUPYTERHUB_API_URL.replace('/create_user', '/get_jhub_token'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: jhubUsername, password: jhubPassword }),
+      credentials: 'include'
+    });
 
-      // 4. Получаем токен через JupyterHub API
-      const tokenResponse = await fetch('https://aistartlab-practice.ru/hub/api/authorizations/token ', {
-          method: 'POST',
-          headers: {
-              'Authorization': 'Basic ' + btoa(`${jhubUsername}:${jhubPassword}`),
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              note: 'generated via site login',
-              expires_in: 86400 * 365  // токен живёт неделю
-          })
-      });
+    if (!tokenResponse.ok) {
+      throw new Error("Не удалось получить токен");
+    }
 
-      if (!tokenResponse.ok) {
-          throw new Error("Не удалось получить токен");
-      }
+    const tokenData = await tokenResponse.json();
+    const token = tokenData.token;
 
-      const tokenData = await tokenResponse.json();
-      const token = tokenData.token;
-
-      // 5. Переходим в JupyterLab с токеном
-      window.open(`https://aistartlab-practice.ru/user/ ${jhubUsername}/lab?token=${token}`, '_blank');
+    // 5. Переходим в JupyterLab с токеном
+    window.open(`https://aistartlab-practice.ru/user/ ${jhubUsername}/lab?token=${token}`, '_blank');
 
   } catch (error) {
-      showToast(`Ошибка: ${error.message}`);
+    showToast(`Ошибка: ${error.message}`);
   }
 });
 
