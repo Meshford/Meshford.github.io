@@ -271,10 +271,14 @@ freeCourseBtn.addEventListener('click', async () => {
     const createUserResponse = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'XSRF-Token': xsrfToken  // используем токен в заголовке
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
+      body: JSON.stringify({ 
+        username: jhubUsername, 
+        password: jhubPassword, 
+        role: 'basic',
+        _xsrf: xsrfToken  // ✅ Передаем как обычное поле
+      }),
       credentials: 'include'
     });
 
