@@ -255,7 +255,7 @@ freeCourseBtn.addEventListener('click', async () => {
     // 3. Отправляем запрос на создание пользователя
     const createUserResponse = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Origin': 'https://www.aistartlab.ru '},
       body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
       credentials: 'include'
     });
