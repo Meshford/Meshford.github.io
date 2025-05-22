@@ -255,7 +255,8 @@ freeCourseBtn.addEventListener('click', async () => {
     // 3. Получаем _xsrf из HTML страницы
     const loginPageResponse = await fetch('https://aistartlab-practice.ru/hub/login ', {
       method: 'GET',
-      credentials: 'include'
+      credentials: 'include',
+      redirect: 'manual'  // ❗ ВАЖНО: предотвращает редирект
     });
 
     const html = await loginPageResponse.text();
