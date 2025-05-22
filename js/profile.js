@@ -303,7 +303,7 @@ freeCourseBtn.addEventListener('click', async () => {
     const token = tokenData.token;
 
     // 4. Переходим в JupyterLab с токеном
-    window.open(`https://aistartlab-practice.ru/user/ ${jhubUsername}/lab?token=${token}`, '_blank');
+    window.open(`https://aistartlab-practice.ru/user/${jhubUsername}/lab?token=${token}`, '_blank');
 
   } catch (error) {
     showToast(`Ошибка: ${error.message}`);
