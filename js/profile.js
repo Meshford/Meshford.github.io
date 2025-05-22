@@ -301,7 +301,7 @@ freeCourseBtn.addEventListener('click', async () => {
 
     if (!tokenResponse.ok) {
       const errorData = await tokenResponse.json().catch(() => ({})); // Попытка получить детали ошибки
-      throw new Error(`Не удалось получить токен: ${tokenResponse.status} ${errorData.message || ''}`);
+      throw new Error(`Не удалось получить токен: ${tokenResponse.status} ${tokenResponse.json() || ''}`);
     }
 
     const tokenData = await tokenResponse.json();
