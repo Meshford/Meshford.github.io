@@ -289,7 +289,8 @@ freeCourseBtn.addEventListener('click', async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'XSRF-Token': xsrfToken  // ✅ Отправляем в заголовке
+        'XSRF-Token': xsrfToken,
+        'Origin': 'https://www.aistartlab.ru'
       },
       body: JSON.stringify({ username: jhubUsername, password: jhubPassword }),
       credentials: 'include'
