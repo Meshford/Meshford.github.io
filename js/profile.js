@@ -251,7 +251,7 @@ freeCourseBtn.addEventListener('click', async () => {
     const jhubPassword = user.uid;
 
     // 1. Получаем _xsrf из HTML страницы
-    const loginPageResponse = await fetch('https://aistartlab-practice.ru/hub/login ', {
+    const loginPageResponse = await fetch('https://aistartlab-practice.ru/hub/login', {
       method: 'GET',
       credentials: 'include',
       redirect: 'manual'
