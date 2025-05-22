@@ -248,14 +248,32 @@ freeCourseBtn.addEventListener('click', async () => {
       return;
     }
 
-    // 2. Формируем имя пользователя
+    // 2. Формируем имя пользователя для JupyterHub
     const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
     const jhubPassword = user.uid;
 
-    // 3. Отправляем запрос на создание пользователя
+    // 3. Получаем _xsrf токен из JupyterHub
+    const loginPageResponse = await fetch('https://aistartlab-practice.ru/hub/login ', {
+      method: 'GET',
+      credentials: 'include'  // гарантирует, что cookie сохранятся
+    });
+
+    // Извлекаем _xsrf из Set-Cookie заголовка
+    const setCookieHeader = loginPageResponse.headers.get('Set-Cookie') || '';
+    const xsrfMatch = setCookieHeader.match(/_xsrf=([^;]+)/);
+    const xsrfToken = xsrfMatch ? xsrfMatch[1] : null;
+
+    if (!xsrfToken) {
+      throw new Error("Не удалось получить _xsrf токен");
+    }
+
+    // 4. Отправляем запрос на создание пользователя
     const createUserResponse = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Origin': 'https://www.aistartlab.ru '},
+      headers: {
+        'Content-Type': 'application/json',
+        'XSRF-Token': xsrfToken  // используем токен в заголовке
+      },
       body: JSON.stringify({ username: jhubUsername, password: jhubPassword, role: 'basic' }),
       credentials: 'include'
     });
@@ -266,10 +284,13 @@ freeCourseBtn.addEventListener('click', async () => {
       return;
     }
 
-    // 4. Запрашиваем токен через наш прокси API
+    // 5. Запрашиваем токен через наш прокси API
     const tokenResponse = await fetch(JUPYTERHUB_API_URL.replace('/create_user', '/get_jhub_token'), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'XSRF-Token': xsrfToken  // отправляем XSRF-Token в заголовке
+      },
       body: JSON.stringify({ username: jhubUsername, password: jhubPassword }),
       credentials: 'include'
     });
@@ -281,7 +302,7 @@ freeCourseBtn.addEventListener('click', async () => {
     const tokenData = await tokenResponse.json();
     const token = tokenData.token;
 
-    // 5. Переходим в JupyterLab с токеном
+    // 6. Переходим в JupyterLab с токеном
     window.open(`https://aistartlab-practice.ru/user/ ${jhubUsername}/lab?token=${token}`, '_blank');
 
   } catch (error) {
