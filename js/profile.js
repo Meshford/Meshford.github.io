@@ -294,13 +294,14 @@ freeCourseBtn.addEventListener('click', async () => {
       body: JSON.stringify({ 
         username: jhubUsername, 
         password: jhubPassword,
-        _xsrf: xsrfToken  // ✅ Передаем XSRF в теле
+        _xsrf: xsrfToken 
       }),
       credentials: 'include'
     });
 
     if (!tokenResponse.ok) {
-      throw new Error("Не удалось получить токен");
+      const errorData = await tokenResponse.json().catch(() => ({})); // Попытка получить детали ошибки
+      throw new Error(`Не удалось получить токен: ${tokenResponse.status} ${errorData.message || ''}`);
     }
 
     const tokenData = await tokenResponse.json();
