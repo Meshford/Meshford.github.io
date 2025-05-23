@@ -165,11 +165,18 @@ body {
 }
 
 .programs-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  justify-items: center;
+}
+
+@media (max-width: 768px) {
+  .programs-container {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
 }
 
 .program-card {
@@ -308,12 +315,6 @@ footer {
   margin-top: 10px;
 }
 
-@media (max-width: 900px) {
-  .programs-container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
 
 @media (max-width: 600px) {
   .header-bar {
@@ -358,7 +359,7 @@ footer {
   background: white;
   border-radius: 12px;
   padding: 30px;
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -370,6 +371,22 @@ footer {
 .modal-scroll {
   max-height: 400px;
   overflow-y: auto;
+}
+
+.modal-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.modal-list li::before {
+  content: "•";
+  color: #5cb85c;
+  font-weight: bold;
+  margin-right: 8px;
+  display: inline-block;
+  width: 1em;
+  color: #5cb85c;
 }
 
 .modal-close {

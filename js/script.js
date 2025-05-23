@@ -23,11 +23,10 @@ document.getElementById('registration-form').addEventListener('submit', async fu
   // Здесь можно добавить отправку данных на сервер или API
 });
 
-// Добавляем обработчик клика для бесплатного курса
+// Добавьте в script.js
 document.addEventListener('DOMContentLoaded', function() {
-  const freeCourseCard = document.querySelector('.program-card h3[style*="color: #5cb85c;"]').closest('.program-card');
+  const freeCourseCard = document.querySelector('.free-course');
   if (freeCourseCard) {
-    freeCourseCard.classList.add('free-course');
     freeCourseCard.addEventListener('click', function() {
       document.getElementById('free-course-modal').style.display = 'flex';
     });
