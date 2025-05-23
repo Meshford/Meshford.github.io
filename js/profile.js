@@ -257,20 +257,20 @@ freeCourseBtn.addEventListener('click', async () => {
       redirect: 'manual'
     });
 
-    const html = await loginPageResponse.text();
-    const xsrfMatch = html.match(/name="_xsrf" value="([^"]+)"/);
-    const xsrfToken = xsrfMatch ? xsrfMatch[1] : null;
+    // const html = await loginPageResponse.text();
+    // const xsrfMatch = html.match(/name="_xsrf" value="([^"]+)"/);
+    // const xsrfToken = xsrfMatch ? xsrfMatch[1] : null;
 
-    if (!xsrfToken) {
-      throw new Error("Не удалось найти XSRF-токен в HTML");
-    }
+    // if (!xsrfToken) {
+    //   throw new Error("Не удалось найти XSRF-токен в HTML");
+    // }
 
     // 2. Создаём пользователя с XSRF-токеном
     const formData = new FormData();
     formData.append('username', jhubUsername);
     formData.append('password', jhubPassword);
     formData.append('role', 'basic');
-    formData.append('_xsrf', xsrfToken);  // ✅ Отправляем XSRF в теле
+    // formData.append('_xsrf', xsrfToken);  // ✅ Отправляем XSRF в теле
 
     const response = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
@@ -293,8 +293,8 @@ freeCourseBtn.addEventListener('click', async () => {
       },
       body: JSON.stringify({ 
         username: jhubUsername, 
-        password: jhubPassword,
-        xsrf_token: xsrfToken
+        password: jhubPassword
+        // xsrf_token: xsrfToken
       }),
       credentials: 'include'
     });
