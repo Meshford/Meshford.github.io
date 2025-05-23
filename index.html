@@ -70,13 +70,14 @@
       <div class="programs-container">
         <!-- Бесплатный курс -->
         <div class="program-card" style="border: 2px solid #5cb85c;">
-          <h3>🆓 Бесплатный курс</h3>
+          <h3 class="free-course-title" style="color: #5cb85c;">🆓 Бесплатный курс</h3>
           <p>
             Получите доступ к <b>6 бесплатным урокам</b> для базового понимания Python.<br>
             После <b>регистрации</b> вы сразу сможете начать обучение.<br>
             Отличный старт для новичков!
           </p>
           <div class="price" style="color: #5cb85c;">0 ₽</div>
+        </div>
         </div>
         <div class="program-card">
           <h3>🔰 Упрощённый курс</h3>
@@ -132,5 +133,31 @@
   </footer>
 
   <script src="js/script.js" defer></script>
+    <!-- Модальное окно для бесплатного курса -->
+  <div class="modal-overlay" id="free-course-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="document.getElementById('free-course-modal').style.display = 'none'">&times;</button>
+      <h2 style="color: #5cb85c; margin-bottom: 20px;">Бесплатный курс: Python и машинное обучение</h2>
+      <p style="margin-bottom: 20px;"><strong>Важно:</strong> Для получения доступа к курсу необходимо зарегистрироваться на сайте.</p>
+      
+      <div class="modal-scroll">
+        <p><strong>Месяц 1: Основы Python</strong></p>
+        <ul>
+          <li>Неделя 1: Введение в Python</li>
+          <li>Неделя 2: Условные операторы и циклы</li>
+          <li>Неделя 3: Функции и модули</li>
+          <li>Неделя 4: Работа с файлами и обработка ошибок</li>
+        </ul>
+        
+        <p><strong>Месяц 2: Расширенные темы Python</strong></p>
+        <ul>
+          <li>Неделя 5: ООП в Python</li>
+          <li>Неделя 6: Алгоритмы и структуры данных</li>
+        </ul>
+      </div>
+      
+      <button class="modal-button" onclick="window.location.href='profile.html'">Получить доступ к курсу</button>
+    </div>
+  </div>
 </body>
 </html>
