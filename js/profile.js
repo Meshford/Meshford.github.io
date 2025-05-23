@@ -294,7 +294,7 @@ freeCourseBtn.addEventListener('click', async () => {
       body: JSON.stringify({ 
         username: jhubUsername, 
         password: jhubPassword,
-        _xsrf: xsrfToken 
+        xsrf_token: xsrfToken
       }),
       credentials: 'include'
     });
