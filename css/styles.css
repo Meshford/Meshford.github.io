@@ -431,3 +431,15 @@ footer {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
+
+/* Стили для упрощённого курса (аналогично бесплатному) */
+.program-card.simplified-course {
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.program-card.simplified-course:hover,
+.program-card.simplified-course:focus {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
