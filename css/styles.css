@@ -348,7 +348,7 @@ footer {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  display: flex; /* Активирует Flexbox */
+  display: none; /* Активирует Flexbox */
   justify-content: center; /* Горизонтальное центрирование */
   align-items: center;      /* Вертикальное центрирование */
   z-index: 1000;
