@@ -348,9 +348,9 @@ footer {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  display: none;
-  justify-content: center;
-  align-items: center;
+  display: flex; /* Активирует Flexbox */
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center;      /* Вертикальное центрирование */
   z-index: 1000;
   padding: 20px;
 }
@@ -366,6 +366,7 @@ footer {
   color: #111;
   max-height: 80vh;
   overflow-y: auto;
+  margin: 0 auto; /* Дополнительное центрирование для старых браузеров */
 }
 
 .modal-scroll {
