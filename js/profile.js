@@ -242,7 +242,7 @@ freeCourseBtn.addEventListener('click', async () => {
     const userDocRef = doc(db, "allowed_users", user.uid);
     const userDocSnap = await getDoc(userDocRef);
 
-    if (!userDocSnap.exists() || userDocSnap.data().role !== "basic") {
+    if (!userDocSnap.exists() || userDocSnap.data().role !== "basic" || userDocSnap.data().role !== "intermediate" || userDocSnap.data().role !== "simple" || userDocSnap.data().role !== "full") {
       showToast('У вас нет доступа к этому курсу');
       return;
     }
