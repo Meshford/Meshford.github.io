@@ -357,7 +357,8 @@ footer {
   }
 
   .header-bar__nav {
-    gap: 16px;
+    display: flex;
+    gap: 30px; /* или 50px, если нужно больше */
   }
 
   .main-content {
