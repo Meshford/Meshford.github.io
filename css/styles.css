@@ -141,7 +141,7 @@ body {
 
 .header-bar__nav {
   display: flex;
-  gap: 30px; /* или 50px, если нужно больше */
+  gap: 25px; /* или 50px, если нужно больше */
 }
 .profile-btn {
   background: #000;
