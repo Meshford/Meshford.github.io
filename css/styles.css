@@ -139,6 +139,10 @@ body {
   color: var(--primary-color);
 }
 
+.header-bar__nav {
+  display: flex;
+  gap: 30px; /* или 50px, если нужно больше */
+}
 .profile-btn {
   background: #000;
   color: #fff;
@@ -357,8 +361,7 @@ footer {
   }
 
   .header-bar__nav {
-    display: flex;
-    gap: 30px; /* или 50px, если нужно больше */
+    gap: 16px; 
   }
 
   .main-content {
