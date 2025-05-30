@@ -40,7 +40,15 @@
   <header class="header-bar">
     <div class="header-bar__left">
       <div class="header-bar__logo">
-        <a href="index.html"><img src="images/logo.png" alt="AI Start Lab" class="header-logo" /></a>
+        <a href="index.html">
+          <img 
+            src="images/logo.png" 
+            alt="AI Start Lab" 
+            class="header-logo"
+            data-light-logo="images/logo.png"
+            data-dark-logo="images/logo_black.png"
+          />
+        </a>
       </div>
       <span class="header-bar__title">AI Start Lab</span>
     </div>
@@ -373,21 +381,57 @@
   </div>
 
   <script>
+    // Функция смены темы и логотипа
     function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      document.body.classList.toggle('light-mode');
+      const body = document.body;
+      const logo = document.querySelector('.header-logo');
       const themeBtn = document.querySelector('.theme-toggle');
-      themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+
+      // Переключаем классы тем
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        logo.src = logo.dataset.lightLogo;
+        themeBtn.textContent = '🌙';
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        logo.src = logo.dataset.darkLogo;
+        themeBtn.textContent = '☀️';
+      }
+
+      // Сохраняем тему в localStorage
+      const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+      localStorage.setItem('theme', currentTheme);
     }
 
-    // Закрытие модальных окон при клике вне контента
-    window.addEventListener('click', (e) => {
-      const modals = document.querySelectorAll('.modal-overlay');
-      modals.forEach(modal => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
+    // Загрузка темы при старте
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      const body = document.body;
+      const logo = document.querySelector('.header-logo');
+      const themeBtn = document.querySelector('.theme-toggle');
+
+      if (savedTheme === 'dark') {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        logo.src = logo.dataset.darkLogo;
+        themeBtn.textContent = '☀️';
+      } else if (savedTheme === 'light') {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        logo.src = logo.dataset.lightLogo;
+        themeBtn.textContent = '🌙';
+      } else {
+        // Если тема не сохранена — проверить системную тему
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          body.classList.remove('light-mode');
+          body.classList.add('dark-mode');
+          logo.src = logo.dataset.darkLogo;
+          themeBtn.textContent = '☀️';
         }
-      });
+      }
     });
   </script>
 </body>
