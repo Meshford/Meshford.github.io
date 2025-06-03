@@ -8,18 +8,18 @@
   <meta name="keywords" content="AI Start Lab, обучение Python, машинное обучение, курсы по программированию, IT образование, онлайн-школа, подготовка к собеседованиям" />
   <meta name="author" content="AI Start Lab" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://aistartlab.ru/"  />
+  <link rel="canonical" href="https://aistartlab.ru/"   />
   <!-- Open Graph -->
   <meta property="og:title" content="AI Start Lab - Образовательная платформа" />
   <meta property="og:description" content="Курсы Python и машинного обучения с практикой и поддержкой от экспертов. Получите сертификат и начните карьеру в IT." />
-  <meta property="og:image" content="https://www.aistartlab.ru/images/logo.png"  />
-  <meta property="og:url" content="https://aistartlab.ru/"  />
+  <meta property="og:image" content="https://www.aistartlab.ru/images/logo.png"   />
+  <meta property="og:url" content="https://aistartlab.ru/"   />
   <meta property="og:type" content="website" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI Start Lab - Образовательная платформа" />
   <meta name="twitter:description" content="Онлайн-курсы Python и ML от практиков. 3-4 месяца практики и подготовки к собеседованиям." />
-  <meta name="twitter:image" content="https://aistartlab.ru/images/og-image.jpg"  />
+  <meta name="twitter:image" content="https://aistartlab.ru/images/og-image.jpg"   />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/ico" href="images/favicon.ico" />
   <style>
@@ -54,13 +54,58 @@
     </div>
     <nav class="header-bar__nav">
       <a href="#about">О платформе</a>
-      <a href="#programs">Программы</a>
+      <a href="#features">Преимущества</a>
+      <a href="#programs">Курсы</a>
       <a href="#teachers">Преподаватели</a>
+      <a href="#faq">FAQ</a>
       <a href="#contacts">Контакты</a>
       <a href="profile.html" class="profile-btn">Профиль</a>
       <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     </nav>
   </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Станьте Data Scientist за 3-4 месяца</h1>
+      <p>С нуля до собеседования в крупной IT-компании с поддержкой экспертов из Intel, Huawei и Ядра</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="document.getElementById('free-course-modal').style.display = 'flex'">Получить бесплатный курс</button>
+        <button class="btn-outline" onclick="document.getElementById('simplified-course-modal').style.display = 'flex'">Посмотреть программы</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="images/hero-illustration.png" alt="Python и машинное обучение">
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <h2>Почему выбирают нас</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Практика с экспертами</h3>
+        <p>Преподаватели из ведущих IT-компаний страны</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Реальные проекты</h3>
+        <p>Портфолио из 5+ проектов к окончанию курса</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Поддержка</h3>
+        <p>Помощь с трудоустройством и подготовкой резюме</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📜</div>
+        <h3>Сертификат</h3>
+        <p>Официальный документ, подтверждающий квалификацию</p>
+      </div>
+    </div>
+  </section>
+
   <main class="main-content">
     <section id="about" class="content-section">
       <h2>🧠 О платформе</h2>
@@ -76,6 +121,7 @@
         Длительность: <b>3–4 месяца</b> ⏳, сочетает теорию и практику.
       </p>
     </section>
+
     <section id="programs" class="content-section">
       <h2>📚 Программы обучения</h2>
       <div class="programs-container">
@@ -113,6 +159,7 @@
         Бесплатный курс открыт для всех после регистрации. Начните с основ Python прямо сейчас!
       </p>
     </section>
+
     <section id="teachers" class="content-section">
       <h2>👨‍🏫 Преподаватели</h2>
       <p>
@@ -120,6 +167,67 @@
         Всегда готовы поддержать и ответить на ваши вопросы!
       </p>
     </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+      <h2>Отзывы выпускников</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="images/avatar1.jpg" alt="Алексей Иванов">
+            <div class="testimonial-info">
+              <h4>Алексей Иванов</h4>
+              <p>Junior Data Scientist в Яндекс</p>
+            </div>
+          </div>
+          <p>"Прошел курс по машинному обучению и уже через месяц после окончания получил предложение от Яндекса. Спасибо за отличную подготовку!"</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="images/avatar2.jpg" alt="Мария Петрова">
+            <div class="testimonial-info">
+              <h4>Мария Петрова</h4>
+              <p>Python разработчик в Sber</p>
+            </div>
+          </div>
+          <p>"Курс помог мне с нуля освоить Python и пройти собеседование. Особенно понравились практические задания и обратная связь от преподавателей."</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="images/avatar3.jpg" alt="Дмитрий Смирнов">
+            <div class="testimonial-info">
+              <h4>Дмитрий Смирнов</h4>
+              <p>ML Engineer в Huawei</p>
+            </div>
+          </div>
+          <p>"Один из лучших курсов, которые я проходил. Преподаватели - настоящие профессионалы своего дела. Рекомендую всем, кто хочет развиваться в сфере Data Science."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+      <h2>Часто задаваемые вопросы</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <h3 class="faq-question">Можно ли оплатить курс по частям?</h3>
+          <p class="faq-answer">Да, мы предлагаем рассрочку без процентов на все наши курсы. Подробности можно уточнить у менеджера.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Есть ли у вас гарантия трудоустройства?</h3>
+          <p class="faq-answer">Мы не даем гарантии трудоустройства, но оказываем активную помощь в подготовке к собеседованиям и предоставляем рекомендации нашим партнерам.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Как проходит обучение?</h3>
+          <p class="faq-answer">Обучение проводится онлайн в формате вебинаров и практических заданий. Все занятия записываются и доступны в личном кабинете.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Получу ли я сертификат после окончания курса?</h3>
+          <p class="faq-answer">Да, по окончании курса вы получите официальный сертификат AI Start Lab, который можно добавить в ваше портфолио и резюме.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="contacts" class="content-section">
       <h2>✉️ Записаться на курс</h2>
       <form id="registration-form" action="#" method="POST" autocomplete="off">
@@ -130,6 +238,7 @@
         <label for="phone">Телефон</label>
         <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__" />
         <button type="submit">Отправить заявку 📩</button>
+        <p class="form-success-message" id="form-success">Спасибо за регистрацию! Мы свяжемся с вами в ближайшее время.</p>
       </form>
     </section>
   </main>

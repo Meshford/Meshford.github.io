@@ -31,6 +31,22 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('free-course-modal').style.display = 'flex';
     });
   }
+  // FAQ accordion
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      const isOpen = answer.style.display === 'block';
+      
+      // Закрыть все ответы
+      document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+      
+      // Открыть текущий, если он был закрыт
+      if (!isOpen) {
+        answer.style.display = 'block';
+      }
+    });
+  });
 });
 
 // Функция смены темы и логотипа
