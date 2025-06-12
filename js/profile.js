@@ -235,9 +235,7 @@ freeCourseBtn.addEventListener('click', async () => {
   }
   try {
     // Перенаправление на GitHub OAuth
-    // window.open('https://aistartlab-practice.ru/hub/oauth_login',  '_blank');
-    window.location.href = 'https://aistartlab-practice.ru/hub/oauth_login';
-
+    window.open('https://aistartlab-practice.ru/hub/oauth_login',  '_blank');
   } catch (error) {
     showToast(`Ошибка: ${error.message}`);
   }
