@@ -264,15 +264,14 @@ freeCourseBtn.addEventListener('click', async () => {
       return;
     }
 
-    // 2. Получаем токен через API
+    // 2. Получаем токен через API (теперь только username)
     const tokenResponse = await fetch(JUPYTERHUB_API_URL.replace('/create_user', '/get_jhub_token'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        username: jhubUsername, 
-        password: jhubPassword
+        username: jhubUsername
       }),
       credentials: 'include'
     });
