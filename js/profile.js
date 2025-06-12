@@ -13,10 +13,6 @@ import {
     getDoc
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js';
 
-// === НАСТРОЙКИ JUPYTERHUB ===
-const JUPYTERHUB_API_URL = 'https://aistartlab-practice.ru/api/create_user';
-const JUPYTERHUB_URL = 'https://aistartlab-practice.ru'; // <-- Укажите адрес вашего JupyterHub
-
 // Firebase конфиг и инициализация
 const firebaseConfig = {
     apiKey: "AIzaSyB2KpF2HDbDcB6D1P8MU6wGcnAdHCvFxcg",
@@ -229,7 +225,8 @@ function updateFreeCourseAccess(isAuthorized, userRole) {
   extendedCourse.classList.add('hidden-course');
   fullCourse.classList.add('hidden-course');
 }
-// === ИНТЕГРАЦИЯ С JUPYTERHUB для бесплатного курса ===
+
+// === ИНТЕГРАЦИЯ С JUPYTERHUB через GitHub OAuth ===
 freeCourseBtn.addEventListener('click', async () => {
   const user = auth.currentUser;
   if (!user) {
@@ -237,57 +234,8 @@ freeCourseBtn.addEventListener('click', async () => {
     return;
   }
   try {
-    const userDocRef = doc(db, "allowed_users", user.uid);
-    const userDocSnap = await getDoc(userDocRef);
-    if (!userDocSnap.exists()) {
-      showToast('У вас нет доступа к этому курсу');
-      return;
-    }
-
-    const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
-    const jhubPassword = user.uid;
-
-    // 1. Создаём пользователя (если не создан)
-    const formData = new FormData();
-    formData.append('username', jhubUsername);
-    formData.append('password', jhubPassword);
-    formData.append('role', 'basic');
-
-    const response = await fetch(JUPYTERHUB_API_URL, {
-      method: 'POST',
-      body: formData,
-      credentials: 'include'
-    });
-    const data = await response.json();
-    if (!response.ok || data.status !== 'ok') {
-      showToast('Ошибка создания пользователя в JupyterHub');
-      return;
-    }
-
-    // 2. Получаем токен через API (теперь только username)
-    const tokenResponse = await fetch(JUPYTERHUB_API_URL.replace('/create_user', '/get_jhub_token'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        username: jhubUsername
-      }),
-      credentials: 'include'
-    });
-
-    if (!tokenResponse.ok) {
-      throw new Error(`Не удалось получить токен: ${tokenResponse.status}`);
-    }
-
-    const tokenData = await tokenResponse.json();
-    const token = tokenData.token;
-
-    // 3. Переходим в JupyterLab с токеном через правильный URL
-    window.open(
-      `https://aistartlab-practice.ru/hub/login?token=${token}&next=/user/${jhubUsername}/lab`,
-      '_blank'
-    );
+    // Перенаправление на GitHub OAuth
+    window.open('https://aistartlab-practice.ru/hub/oauth_login',  '_blank');
   } catch (error) {
     showToast(`Ошибка: ${error.message}`);
   }
