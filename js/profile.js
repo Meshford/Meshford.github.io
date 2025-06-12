@@ -250,15 +250,32 @@ freeCourseBtn.addEventListener('click', async () => {
     const jhubUsername = user.email.replace(/[^a-zA-Z0-9]/g, '_');
     const jhubPassword = user.uid;
 
-    // Создание пользователя и получение токена в одном запросе
+    // 1. Получаем _xsrf из HTML страницы
+    const loginPageResponse = await fetch('https://aistartlab-practice.ru/hub/login', {
+      method: 'GET',
+      credentials: 'include',
+      redirect: 'manual'
+    });
+
+    // const html = await loginPageResponse.text();
+    // const xsrfMatch = html.match(/name="_xsrf" value="([^"]+)"/);
+    // const xsrfToken = xsrfMatch ? xsrfMatch[1] : null;
+
+    // if (!xsrfToken) {
+    //   throw new Error("Не удалось найти XSRF-токен в HTML");
+    // }
+
+    // 2. Создаём пользователя с XSRF-токеном
     const formData = new FormData();
     formData.append('username', jhubUsername);
     formData.append('password', jhubPassword);
     formData.append('role', 'basic');
+    // formData.append('_xsrf', xsrfToken);  // ✅ Отправляем XSRF в теле
 
-    const response = await fetch(JUPYTERHUB_API_URL + '/create_user_with_token', {
+    const response = await fetch(JUPYTERHUB_API_URL, {
       method: 'POST',
-      body: formData
+      body: formData,
+      credentials: 'include'
     });
 
     const data = await response.json();
@@ -267,9 +284,29 @@ freeCourseBtn.addEventListener('click', async () => {
       return;
     }
 
-    // Прямой переход с токеном
-    const hubUrl = `https://aistartlab-practice.ru/hub/login?token=${data.token}&next=/user/${jhubUsername}/lab`;
-    window.open(hubUrl, '_blank');
+    // 3. Запрашиваем токен через наш прокси
+    const tokenResponse = await fetch(JUPYTERHUB_API_URL.replace('/create_user', '/get_jhub_token'), {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+          username: jhubUsername, 
+          password: jhubPassword  // Передается для проверки в `/create_user`, но не используется здесь
+      }),
+      credentials: 'include'
+    });
+
+    if (!tokenResponse.ok) {
+      const errorData = await tokenResponse.json().catch(() => ({})); // Попытка получить детали ошибки
+      throw new Error(`Не удалось получить токен: ${tokenResponse.status} ${tokenResponse.json() || ''}`);
+    }
+
+    const tokenData = await tokenResponse.json();
+    const token = tokenData.token;
+
+    // 4. Переходим в JupyterLab с токеном
+    window.open(`https://aistartlab-practice.ru/user/${jhubUsername}/lab?token=${token}`, '_blank');
 
   } catch (error) {
     showToast(`Ошибка: ${error.message}`);
