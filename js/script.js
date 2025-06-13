@@ -23,6 +23,22 @@ document.getElementById('registration-form').addEventListener('submit', async fu
   // Здесь можно добавить отправку данных на сервер или API
 });
 
+// FAQ
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const answer = question.nextElementSibling;
+    const isVisible = answer.style.display === 'block';
+    
+    // Скрыть все ответы
+    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+    
+    // Показать текущий ответ, если он был скрыт
+    if (!isVisible) {
+      answer.style.display = 'block';
+    }
+  });
+});
+
 // Добавьте в script.js
 document.addEventListener('DOMContentLoaded', function() {
   const freeCourseCard = document.querySelector('.free-course');
