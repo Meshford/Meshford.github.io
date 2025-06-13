@@ -3,14 +3,16 @@
 document.querySelectorAll('.faq-question').forEach(question => {
   question.addEventListener('click', () => {
     const answer = question.nextElementSibling;
-    const isVisible = answer.style.display === 'block';
+    const isVisible = answer.classList.contains('active');
     
     // Скрыть все ответы
-    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+    document.querySelectorAll('.faq-answer').forEach(a => {
+      a.classList.remove('active');
+    });
     
     // Показать текущий ответ, если он был скрыт
     if (!isVisible) {
-      answer.style.display = 'block';
+      answer.classList.add('active');
     }
   });
 });
