@@ -5,15 +5,15 @@ document.querySelectorAll('.faq-question').forEach(question => {
     const answer = question.nextElementSibling;
     const isVisible = answer.classList.contains('active');
 
-    // Скрыть все ответы
     document.querySelectorAll('.faq-answer').forEach(a => {
-      a.style.maxHeight = null;
       a.classList.remove('active');
+      a.style.overflow = 'hidden'; // скрываем все ответы
+      a.style.maxHeight = null;
     });
 
-    // Показать текущий ответ, если он был скрыт
     if (!isVisible) {
       answer.classList.add('active');
+      answer.style.overflow = 'visible'; // показываем текущий ответ
       answer.style.maxHeight = answer.scrollHeight + 'px';
     }
   });
