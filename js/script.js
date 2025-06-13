@@ -25,23 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// FAQ accordion
-const faqQuestions = document.querySelectorAll('.faq-question');
-faqQuestions.forEach(question => {
-  question.addEventListener('click', () => {
-    const answer = question.nextElementSibling;
-    const isOpen = answer.style.display === 'block';
-    
-    // Закрыть все ответы
-    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-    
-    // Открыть текущий, если он был закрыт
-    if (!isOpen) {
-      answer.style.display = 'block';
-    }
-  });
-});
-
 // Закрытие модальных окон при клике вне контента
 window.addEventListener('click', (e) => {
   const modals = document.querySelectorAll('.modal-overlay');
