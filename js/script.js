@@ -1,23 +1,26 @@
 
 // FAQ
-document.querySelectorAll('.faq-question').forEach(question => {
-  question.addEventListener('click', () => {
-    const answer = question.nextElementSibling;
-    const isVisible = answer.classList.contains('active');
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      const isVisible = answer.classList.contains('active');
 
-    document.querySelectorAll('.faq-answer').forEach(a => {
-      a.classList.remove('active');
-      a.style.overflow = 'hidden'; // скрываем все ответы
-      a.style.maxHeight = null;
+      document.querySelectorAll('.faq-answer').forEach(a => {
+        a.classList.remove('active');
+        a.style.overflow = 'hidden';
+        a.style.maxHeight = null;
+      });
+
+      if (!isVisible) {
+        answer.classList.add('active');
+        answer.style.overflow = 'visible';
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
     });
-
-    if (!isVisible) {
-      answer.classList.add('active');
-      answer.style.overflow = 'visible'; // показываем текущий ответ
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
   });
 });
+
 
 // Добавьте в script.js
 document.addEventListener('DOMContentLoaded', function() {
