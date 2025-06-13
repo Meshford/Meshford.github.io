@@ -711,8 +711,10 @@ footer {
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
+
 .faq-answer.active {
-  max-height: 200px; /* Подберите значение под ваш контент */
+  max-height: 1000px; /* достаточно большое значение, чтобы вместить любой текст */
+  transition: max-height 0.5s ease;
 }
 @keyframes fadeIn {
   from { opacity: 0; max-height: 0; }
