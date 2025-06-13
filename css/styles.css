@@ -30,30 +30,6 @@
 }
 
 :root {
-  --primary-color: #3490dc;  /* Синий акцент */
-  --background-light: #f0f4ff;
-  --background-dark: #0d1117;
-  --text-light: #e6e6e6;
-  --text-dark: #1e1e1e;
-  --card-bg: #ffffff;
-  --card-hover: #f8f9fa;
-  --border-radius: 12px;
-  --transition: 0.3s ease;
-}
-
-/* Темная тема */
-.dark-mode {
-  --primary-color: #3490dc;
-  --background-light: #0d1117;
-  --background-dark: #1e1e1e;
-  --text-light: #e6e6e6;
-  --text-dark: #ffffff;
-  --card-bg: #1a1a1a;
-  --card-hover: #2a2a2a;
-}
-
-/* Светлая тема */
-.light-mode {
   --primary-color: #3490dc;
   --background-light: #f0f4ff;
   --background-dark: #ffffff;
@@ -61,7 +37,11 @@
   --text-dark: #333;
   --card-bg: #ffffff;
   --card-hover: #f8f9fa;
+  --border-radius: 12px;
+  --transition: 0.3s ease;
 }
+
+
 
 body {
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
