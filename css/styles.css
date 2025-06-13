@@ -707,11 +707,12 @@ footer {
   background: #e9f0ff;
 }
 .faq-answer {
-  padding: 15px 20px;
-  display: none;
-  color: #555;
-  border-top: 1px solid #eee;
-  animation: fadeIn 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-answer.active {
+  max-height: 200px; /* Подберите значение под ваш контент */
 }
 @keyframes fadeIn {
   from { opacity: 0; max-height: 0; }
