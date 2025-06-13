@@ -1,6 +1,6 @@
 
 // FAQ
-document.addEventListener('DOMContentLoaded', function() {
+function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
       const answer = question.nextElementSibling;
@@ -19,8 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-});
+}
 
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFAQ);
+} else {
+  // DOM уже загружен, вызываем сразу
+  initFAQ();
+}
 
 // Добавьте в script.js
 document.addEventListener('DOMContentLoaded', function() {
