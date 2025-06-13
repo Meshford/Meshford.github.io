@@ -5,26 +5,26 @@ function initFAQ() {
     question.addEventListener('click', () => {
       const answer = question.nextElementSibling;
       const isVisible = answer.classList.contains('active');
-
+      
+      // Скрыть все ответы
       document.querySelectorAll('.faq-answer').forEach(a => {
         a.classList.remove('active');
-        a.style.overflow = 'hidden';
         a.style.maxHeight = null;
       });
-
+      
+      // Показать текущий ответ, если он был скрыт
       if (!isVisible) {
         answer.classList.add('active');
-        answer.style.overflow = 'visible';
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     });
   });
 }
 
+// Убедитесь, что DOM загружен
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initFAQ);
 } else {
-  // DOM уже загружен, вызываем сразу
   initFAQ();
 }
 
