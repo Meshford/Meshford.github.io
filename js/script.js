@@ -1,27 +1,3 @@
-// Пример: обработка формы регистрации заявки (без Firebase)
-
-document.getElementById('registration-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const firstName = document.getElementById('first-name').value.trim();
-  const lastName = document.getElementById('last-name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-
-  if (!firstName || !lastName || !phone) {
-    alert("Пожалуйста, заполните все поля.");
-    return;
-  }
-
-  const phoneRegex = /^[\d\s\+\-\(\)]+$/;
-  if (!phoneRegex.test(phone)) {
-    alert("Пожалуйста, введите корректный номер телефона.");
-    return;
-  }
-
-  alert(`Спасибо за регистрацию, ${firstName}! Мы свяжемся с вами по телефону ${phone}.`);
-
-  // Здесь можно добавить отправку данных на сервер или API
-});
 
 // FAQ
 document.querySelectorAll('.faq-question').forEach(question => {
@@ -47,24 +23,24 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('free-course-modal').style.display = 'flex';
     });
   }
-  // FAQ accordion
-  const faqQuestions = document.querySelectorAll('.faq-question');
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', () => {
-      const answer = question.nextElementSibling;
-      const isOpen = answer.style.display === 'block';
-      
-      // Закрыть все ответы
-      document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-      
-      // Открыть текущий, если он был закрыт
-      if (!isOpen) {
-        answer.style.display = 'block';
-      }
-    });
-  });
 });
 
+// FAQ accordion
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+  question.addEventListener('click', () => {
+    const answer = question.nextElementSibling;
+    const isOpen = answer.style.display === 'block';
+    
+    // Закрыть все ответы
+    document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+    
+    // Открыть текущий, если он был закрыт
+    if (!isOpen) {
+      answer.style.display = 'block';
+    }
+  });
+});
 
 // Закрытие модальных окон при клике вне контента
 window.addEventListener('click', (e) => {
