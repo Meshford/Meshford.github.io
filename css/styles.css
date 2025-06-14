@@ -164,12 +164,6 @@ body {
   padding: 10px 0;
 }
 
-/* Скрыть бургер-меню на десктопе */
-@media (min-width: 769px) {
-  .menu-toggle {
-    display: none;
-  }
-}
 .profile-btn {
   background: #000;
   color: #fff;
@@ -305,46 +299,55 @@ footer {
   margin-top: 10px;
 }
 /* Адаптация под мобильные устройства */
+/* Бургер-меню (видно только на мобильных) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: color 0.3s ease;
+}
+
 @media (max-width: 768px) {
-  .header-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 16px;
-    gap: 8px;
+  .menu-toggle {
+    display: block;
   }
-  .header-bar__left {
-    width: 100%;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  .header-logo {
-    max-width: 50px;
-    max-height: 50px;
-  }
+
   .header-bar__nav {
+    display: none; /* Скрыто по умолчанию */
     flex-direction: column;
-    width: 100%;
-    gap: 8px;
     background: var(--card-bg);
     padding: 10px 0;
     border-radius: var(--border-radius);
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
+
+  .header-bar__nav.active {
+    display: flex; /* Показывается при нажатии на бургер */
+  }
+
   .header-bar__nav a {
-    padding: 6px 16px;
-    font-size: 0.95rem;
+    padding: 12px 20px;
     text-align: left;
-    height: 40px;
-    display: flex;
-    align-items: center;
   }
+
   .profile-btn {
     width: 100%;
     text-align: center;
-    padding: 8px 16px;
-    font-size: 0.95rem;
+    padding: 12px 20px;
   }
-  .main-content {
-    padding-top: 100px;
+}
+
+/* На десктопе бургер скрыт */
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
   }
 }
 /* Модальное окно */
