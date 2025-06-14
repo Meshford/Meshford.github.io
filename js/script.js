@@ -1,4 +1,3 @@
-
 // FAQ
 function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(question => {

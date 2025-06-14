@@ -28,7 +28,6 @@
   font-weight: 900;
   font-style: normal;
 }
-
 :root {
   --primary-color: #3490dc;
   --background-light: #f0f4ff;
@@ -40,60 +39,51 @@
   --border-radius: 12px;
   --transition: 0.3s ease;
 }
-
-.teachers-grid {
+.teachers-grid, .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   max-width: 1100px;
   margin: 0 auto;
 }
-
-.teacher-card {
+.teacher-card, .testimonial-card {
   background: #f8f9fa;
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   padding: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: all var(--transition);
 }
-
-.teacher-card:hover {
+.teacher-card:hover, .testimonial-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
-
-.teacher-header {
+.teacher-header, .testimonial-header {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
-
-.teacher-header img {
+.teacher-header img, .testimonial-header img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
 }
-
-.teacher-info h4 {
+.teacher-info h4, .testimonial-info h4 {
   margin: 0;
   font-size: 1.1rem;
   color: #1e1e1e;
 }
-
-.teacher-info p {
+.teacher-info p, .testimonial-info p {
   margin: 5px 0 0 0;
   color: #666;
   font-size: 0.9rem;
 }
-
-.teacher-description {
+.teacher-description, .testimonial-card p {
   font-style: italic;
   color: #555;
   line-height: 1.5;
 }
-
 body {
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   font-weight: 400;
@@ -105,7 +95,6 @@ body {
   padding: 0 16px;
   transition: background var(--transition), color var(--transition);
 }
-
 /* Шапка */
 .header-bar {
   position: fixed;
@@ -126,24 +115,20 @@ body {
   -webkit-backdrop-filter: blur(10px);
   transition: background var(--transition);
 }
-
 .header-bar__left {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
 .header-bar__logo img {
   max-height: 70px;
   max-width: 70px;
   display: block;
   transition: filter var(--transition);
 }
-
 .header-bar__logo img:hover {
   filter: brightness(1.2);
 }
-
 .header-bar__title {
   font-size: 1.4rem;
   font-weight: 700;
@@ -151,7 +136,6 @@ body {
   letter-spacing: 0.5px;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
 }
-
 .header-bar__nav a {
   background: none;
   border-radius: 0;
@@ -164,15 +148,13 @@ body {
   cursor: pointer;
   transition: color var(--transition);
 }
-
 .header-bar__nav a:hover,
 .header-bar__nav a:focus {
   color: var(--primary-color);
 }
-
 .header-bar__nav {
   display: flex;
-  gap: 25px; /* или 50px, если нужно больше */
+  gap: 25px;
 }
 .profile-btn {
   background: #000;
@@ -191,14 +173,12 @@ body {
   background: var(--card-hover);
   color: #fff;
 }
-
 /* Контент */
 .main-content {
   padding-top: 80px;
   max-width: 900px;
   margin: 0 auto;
 }
-
 .content-section {
   padding: 60px 20px;
   background-color: var(--card-bg);
@@ -210,14 +190,12 @@ body {
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   transition: all var(--transition);
 }
-
 .content-section h2 {
   font-size: 2.2rem;
   margin-bottom: 30px;
   font-weight: 700;
   color: var(--text-dark);
 }
-
 .content-section p,
 .content-section ul {
   font-size: 1.1rem;
@@ -226,7 +204,6 @@ body {
   margin: 0 auto 20px auto;
   font-weight: 400;
 }
-
 .programs-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -234,14 +211,12 @@ body {
   justify-items: center;
   margin-top: 40px;
 }
-
 @media (max-width: 768px) {
   .programs-container {
     grid-template-columns: 1fr;
     align-items: center;
   }
 }
-
 .program-card {
   background: var(--card-bg);
   border: 1px solid var(--text-light);
@@ -254,33 +229,28 @@ body {
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   cursor: pointer;
 }
-
 .program-card:hover,
 .program-card:focus-within {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(52, 144, 220, 0.1);
 }
-
 .program-card h3 {
   font-size: 1.2rem;
   color: var(--primary-color);
   margin-bottom: 10px;
   font-weight: 700;
 }
-
 .program-card .price {
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--primary-color);
 }
-
 .note {
   color: #666;
   font-size: 1rem;
   margin-top: 10px;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
 }
-
 /* Футер */
 footer {
   background: var(--card-bg);
@@ -292,7 +262,6 @@ footer {
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
   transition: all var(--transition);
 }
-
 .footer-contacts {
   display: flex;
   flex-wrap: wrap;
@@ -300,7 +269,6 @@ footer {
   gap: 28px;
   margin-bottom: 10px;
 }
-
 .footer-contact-link {
   color: var(--text-dark);
   text-decoration: none;
@@ -310,22 +278,18 @@ footer {
   gap: 6px;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
 }
-
 .footer-contact-link a {
   color: var(--text-dark);
   text-decoration: underline;
 }
-
 .footer-contact-link a:hover {
   color: var(--primary-color);
 }
-
 .footer-copy {
   color: #aaa;
   font-size: 0.95rem;
   margin-top: 10px;
 }
-
 /* Адаптация под мобильные устройства */
 @media (max-width: 600px) {
   .header-bar {
@@ -334,29 +298,23 @@ footer {
     padding: 10px 16px;
     gap: 8px;
   }
-
   .header-bar__nav {
-    gap: 16px; 
+    gap: 16px;
   }
-
   .main-content {
     padding-top: 100px;
   }
-
   .content-section {
     padding: 24px 5px;
   }
-
   form {
     padding: 16px;
   }
-
   .footer-contacts {
     flex-direction: column;
     gap: 10px;
   }
 }
-
 /* Модальное окно */
 .modal-overlay {
   position: fixed;
@@ -374,7 +332,6 @@ footer {
   padding: 20px;
   transition: background var(--transition);
 }
-
 .modal-content {
   background: var(--card-bg);
   border-radius: 16px;
@@ -388,18 +345,15 @@ footer {
   overflow-y: auto;
   transition: box-shadow var(--transition);
 }
-
 .modal-scroll {
   max-height: 400px;
   overflow-y: auto;
 }
-
 .modal-list {
   list-style: none;
   padding-left: 0;
   margin-bottom: 20px;
 }
-
 .modal-list li::before {
   content: "•";
   color: var(--primary-color);
@@ -409,7 +363,6 @@ footer {
   width: 1em;
   color: var(--primary-color);
 }
-
 .modal-close {
   position: absolute;
   top: 15px;
@@ -422,11 +375,9 @@ footer {
   color: var(--text-dark);
   transition: color var(--transition);
 }
-
 .modal-close:hover {
   color: #ff3366;
 }
-
 .modal-button {
   display: block;
   width: 100%;
@@ -441,29 +392,24 @@ footer {
   cursor: pointer;
   transition: background var(--transition);
 }
-
 .modal-button:hover {
   background: #2979b5;
 }
-
 /* Стили для курсов */
 .program-card.free-course {
   transition: transform var(--transition), box-shadow var(--transition);
 }
-
 .program-card.free-course:hover,
 .program-card.free-course:focus {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(52, 144, 220, 0.1);
 }
-
 .program-card.simplified-course,
 .program-card.extended-course,
 .program-card.full-course {
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition);
 }
-
 .program-card.simplified-course:hover,
 .program-card.simplified-course:focus,
 .program-card.extended-course:hover,
@@ -473,7 +419,6 @@ footer {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(52, 144, 220, 0.1);
 }
-
 /* Новые стили для героя */
 .hero {
   display: flex;
@@ -482,31 +427,27 @@ footer {
   justify-content: space-between;
   padding: 80px 20px;
   background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+  animation: fadeInUp 0.6s ease-out;
 }
-
 .hero-content {
   flex: 1 1 500px;
   max-width: 600px;
   margin-bottom: 40px;
 }
-
 .hero h1 {
   font-size: 3rem;
   color: #1e1e1e;
   margin-bottom: 20px;
 }
-
 .hero p {
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 30px;
 }
-
 .hero-buttons {
   display: flex;
   gap: 20px;
 }
-
 .btn-primary {
   background: #3490dc;
   color: white;
@@ -517,13 +458,11 @@ footer {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-primary:hover {
   background: #2979b5;
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(52, 144, 220, 0.3);
 }
-
 .btn-outline {
   background: none;
   color: #3490dc;
@@ -534,39 +473,37 @@ footer {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-outline:hover {
   background: #3490dc;
   color: white;
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(52, 144, 220, 0.2);
 }
-
 .hero-image {
   flex: 1 1 400px;
   display: flex;
   justify-content: center;
 }
-
 .hero-image img {
-  max-width: 60%; /* Уменьшает ширину изображения */
-  height: auto; /* Сохраняет пропорции */
-  border-radius: 20px; /* Делает края закруглёнными */
-  object-fit: cover; /* Обеспечивает корректное отображение при масштабировании */
+  max-width: 60%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
-
+.hero-image img:hover {
+  transform: scale(1.05);
+}
 /* Стили для преимуществ */
 .features-section {
   padding: 60px 20px;
   background-color: #f8f9fa;
 }
-
 .features-section h2 {
   text-align: center;
   margin-bottom: 40px;
   color: #1e1e1e;
 }
-
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -574,7 +511,6 @@ footer {
   max-width: 1000px;
   margin: 0 auto;
 }
-
 .feature-card {
   background: white;
   border-radius: 12px;
@@ -583,92 +519,33 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
-
 .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(52, 144, 220, 0.15);
 }
-
 .feature-icon {
   font-size: 2.5rem;
   margin-bottom: 15px;
   color: #3490dc;
 }
-
 .feature-card h3 {
   color: #1e1e1e;
   margin-bottom: 10px;
 }
-
 .feature-card p {
   color: #666;
   font-size: 0.95rem;
 }
-
 /* Стили для отзывов */
 .testimonials-section {
   padding: 60px 20px;
   background-color: #ffffff;
 }
-
 .testimonials-section h2 {
   text-align: center;
   margin-bottom: 40px;
   color: #1e1e1e;
 }
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.testimonial-card {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.testimonial-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.testimonial-header img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 15px;
-}
-
-.testimonial-info h4 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #1e1e1e;
-}
-
-.testimonial-info p {
-  margin: 5px 0 0 0;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.testimonial-card p {
-  font-style: italic;
-  color: #555;
-}
-
 /* Стили для FAQ */
 .faq-section {
   padding: 60px 20px;
@@ -712,14 +589,17 @@ footer {
   transition: max-height 0.3s ease;
 }
 .faq-answer.active {
-  max-height: 1000px; /* Достаточно большое значение для любого текста */
+  max-height: 1000px;
   overflow: hidden;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
   from { opacity: 0; max-height: 0; }
   to { opacity: 1; max-height: 200px; }
 }
-
 /* Форма с успехом сообщением */
 .form-success-message {
   display: none;
@@ -727,28 +607,23 @@ footer {
   margin-top: 15px;
   font-weight: 600;
 }
-
 /* Адаптивные улучшения */
 @media (max-width: 992px) {
   .hero {
     flex-direction: column;
     text-align: center;
   }
-  
   .hero-buttons {
     justify-content: center;
   }
 }
-
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2.2rem;
   }
-  
   .hero p {
     font-size: 1rem;
   }
-  
   .btn-primary,
   .btn-outline {
     width: 100%;
