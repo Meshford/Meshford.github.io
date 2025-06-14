@@ -583,46 +583,50 @@ footer {
   padding: 60px 20px;
   background-color: #f0f4ff;
 }
-.faq-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #1e1e1e;
-}
-.faq-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
+
+/* Обертка каждого вопроса */
 .faq-item {
   background: white;
   border-radius: 8px;
-  margin-bottom: 20px;
-  overflow: hidden;
+  overflow: hidden; /* Скрывает белые области за пределами ответа */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
+  margin-bottom: 10px; /* Уменьшите или удалите, если нужно убрать отступ между вопросами */
 }
-.faq-item:hover {
-  box-shadow: 0 8px 20px rgba(52, 144, 220, 0.15);
-}
+
+/* Стиль вопроса */
 .faq-question {
   margin: 0;
-  padding: 15px 20px;
+  padding: 15px 20px; /* Увеличьте отступы слева/справа */
   background: #f8f9fa;
   cursor: pointer;
   font-size: 1.1rem;
   color: #1e1e1e;
   transition: background 0.3s ease;
+  text-align: left;
+  border-bottom: 1px solid #e9f0ff; /* Добавьте границу для четкости */
 }
+
 .faq-question:hover {
   background: #e9f0ff;
 }
+
+/* Стиль ответа */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  padding: 15px 30px; /* Добавьте отступы слева и справа */
+  background: white;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
 }
+
 .faq-answer.active {
-  max-height: 1000px;
-  overflow: hidden;
+  max-height: 1000px; /* Достаточно большое значение для любого текста */
+  padding: 20px 30px; /* Увеличьте отступы */
+  background: #f8f9fa; /* Добавьте фон для ответа */
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
