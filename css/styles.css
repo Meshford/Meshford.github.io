@@ -155,7 +155,7 @@ body {
 .header-bar__nav {
   display: flex;
   transition: all 0.3s ease;
-  gap: 40px;
+  gap: 30px;
 }
 .header-bar__nav.active {
   display: flex;
