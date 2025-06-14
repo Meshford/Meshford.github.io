@@ -46,22 +46,3 @@ window.addEventListener('click', (e) => {
     }
   });
 });
-
-// В script.js
-document.addEventListener('DOMContentLoaded', function () {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mainNav = document.getElementById('main-nav');
-
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
-
-    // Закрытие меню при клике вне области
-    document.addEventListener('click', (e) => {
-      if (!mainNav.contains(e.target) && !e.target.closest('.menu-toggle')) {
-        mainNav.classList.remove('active');
-      }
-    });
-  }
-});
