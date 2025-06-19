@@ -56,7 +56,7 @@
       <p>С нуля до собеседования в крупной IT-компании с поддержкой экспертов из Intel, Huawei и Ядра</p>
       <div class="hero-buttons">
         <button class="btn-primary" onclick="document.getElementById('free-course-modal').style.display = 'flex'"> Получить бесплатный курс</button>
-        <button class="btn-outline" onclick="document.getElementById('simplified-course-modal').style.display = 'flex'"> Посмотреть программы</button>
+        <a href="#programs" class="btn-outline"> Посмотреть программы</a>
       </div>
     </div>
     <div class="hero-image">
@@ -252,7 +252,7 @@
       </div>
     </section>
   </main>
-  <footer>
+  <footer id="contacts">
     <div class="footer-contacts">
       <a href="https://t.me/meshford"  target="_blank" rel="noopener" class="footer-contact-link">📱 Telegram: @meshford</a>
       <span class="footer-contact-link">☎️ Телефон: <a href="tel:+79159512454">+7 915 951-24-54</a></span>
@@ -263,7 +263,7 @@
   <!-- Модальное окно для бесплатного курса -->
   <div class="modal-overlay" id="free-course-modal" role="dialog" aria-labelledby="free-course-title" aria-modal="true">
     <div class="modal-content" role="document">
-      <button class="modal-close" onclick="document.getElementById('free-course-modal').style.display = 'none'" aria-label="Закрыть">&times;</button>
+      <button class="modal-close" onclick="document.getElementById('free-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="free-course-title" style="color: #3490dc; margin-bottom: 20px;">Бесплатный курс: Python и машинное обучение</h2>
       <p style="margin-bottom: 20px;"><strong>Важно:</strong> Для получения доступа к курсу необходимо зарегистрироваться на сайте.</p>
       <div class="modal-scroll">
@@ -302,7 +302,7 @@
   <!-- Модальное окно для базового курса -->
   <div class="modal-overlay" id="simplified-course-modal" role="dialog" aria-labelledby="simplified-course-title" aria-modal="true">
     <div class="modal-content" role="document">
-      <button class="modal-close" onclick="document.getElementById('simplified-course-modal').style.display = 'none'" aria-label="Закрыть">&times;</button>
+      <button class="modal-close" onclick="document.getElementById('simplified-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="simplified-course-title" style="color: #3490dc; margin-bottom: 20px;">Базовый курс: Python и машинное обучение</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
       <div class="modal-scroll">
@@ -355,7 +355,7 @@
   <!-- Модальное окно для расширенного курса -->
   <div class="modal-overlay" id="extended-course-modal" role="dialog" aria-labelledby="extended-course-title" aria-modal="true">
     <div class="modal-content" role="document">
-      <button class="modal-close" onclick="document.getElementById('extended-course-modal').style.display = 'none'" aria-label="Закрыть">&times;</button>
+      <button class="modal-close" onclick="document.getElementById('extended-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="extended-course-title" style="color: #3490dc; margin-bottom: 20px;">Расширенный курс: Машинное обучение и нейронные сети</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
       <div class="modal-scroll">
@@ -418,7 +418,7 @@
   <!-- Модальное окно для полного курса -->
   <div class="modal-overlay" id="full-course-modal" role="dialog" aria-labelledby="full-course-title" aria-modal="true">
     <div class="modal-content" role="document">
-      <button class="modal-close" onclick="document.getElementById('full-course-modal').style.display = 'none'" aria-label="Закрыть">&times;</button>
+      <button class="modal-close" onclick="document.getElementById('full-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="full-course-title" style="color: #3490dc; margin-bottom: 20px;">Полный курс: тотальная подготовка к собеседованиям в IT</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Ученики с любыми базовыми навыками, которые хотят устроиться в IT</p>
       <div class="modal-scroll">
