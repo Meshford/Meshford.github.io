@@ -121,8 +121,8 @@ body {
   gap: 16px;
 }
 .header-bar__logo img {
-  max-height: 70px;
-  max-width: 70px;
+  max-height: 50px;
+  max-width: 50px;
   display: block;
   transition: filter var(--transition);
 }
@@ -135,6 +135,11 @@ body {
   color: var(--text-dark);
   letter-spacing: 0.5px;
   font-family: 'Yandex Sans', Arial, Helvetica, sans-serif;
+}
+.header-bar__nav {
+  display: flex;
+  gap: 30px;
+  transition: all 0.3s ease;
 }
 .header-bar__nav a {
   background: none;
@@ -152,19 +157,32 @@ body {
 .header-bar__nav a:focus {
   color: var(--primary-color);
 }
-.header-bar__nav {
-  display: flex;
-  transition: all 0.3s ease;
-  gap: 30px;
-}
-.header-bar__nav.active {
-  display: flex;
+.burger-menu {
+  display: none;
   flex-direction: column;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 10px 0;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
-
+.burger-menu span {
+  width: 100%;
+  height: 3px;
+  background: var(--text-dark);
+  transition: all 0.3s ease;
+}
+.burger-menu[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger-menu[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.burger-menu[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
 .profile-btn {
   background: #000;
   color: #fff;
@@ -219,12 +237,6 @@ body {
   gap: 20px;
   justify-items: center;
   margin-top: 40px;
-}
-@media (max-width: 768px) {
-  .programs-container {
-    grid-template-columns: 1fr;
-    align-items: center;
-  }
 }
 .program-card {
   background: var(--card-bg);
@@ -298,15 +310,6 @@ footer {
   color: #aaa;
   font-size: 0.95rem;
   margin-top: 10px;
-}
-/* Адаптация под мобильные устройства */
-@media (max-width: 768px) {
-  .header-bar {
-    display: none;
-  }
-  .main-content {
-    padding-top: 20px;
-  }
 }
 /* Модальное окно */
 .modal-overlay {
@@ -608,6 +611,81 @@ footer {
   max-height: 1000px;
   overflow: hidden;
 }
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+  .header-bar {
+    padding: 0 20px;
+  }
+  .header-bar__nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: var(--card-bg);
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .header-bar__nav.active {
+    display: flex;
+  }
+  .header-bar__nav a {
+    padding: 10px 0;
+    font-size: 1.1rem;
+  }
+  .burger-menu {
+    display: flex;
+  }
+  .header-bar__logo img {
+    max-height: 40px;
+    max-width: 40px;
+  }
+  .header-bar__title {
+    font-size: 1.2rem;
+  }
+  .main-content {
+    padding-top: 80px;
+  }
+  .hero {
+    padding: 40px 10px;
+    text-align: center;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .hero-image img {
+    max-width: 80%;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .programs-container {
+    grid-template-columns: 1fr;
+  }
+  .teachers-grid, .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-buttons {
+    justify-content: center;
+  }
+}
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -622,27 +700,4 @@ footer {
   color: #28a745;
   margin-top: 15px;
   font-weight: 600;
-}
-/* Адаптивные улучшения */
-@media (max-width: 992px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-buttons {
-    justify-content: center;
-  }
-}
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-  .hero p {
-    font-size: 1rem;
-  }
-  .btn-primary,
-  .btn-outline {
-    width: 100%;
-    text-align: center;
-  }
 }

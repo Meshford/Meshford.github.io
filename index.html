@@ -39,6 +39,11 @@
       </div>
       <span class="header-bar__title">AI Start Lab</span>
     </div>
+    <button class="burger-menu" aria-label="Открыть меню" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <nav class="header-bar__nav" aria-label="Основное меню">
       <a href="#about">О платформе</a>
       <a href="#features">Преимущества</a>
@@ -494,5 +499,13 @@
       <button class="modal-button" onclick="window.location.href='profile.html'">Получить доступ к курсу</button>
     </div>
   </div>
+  <script>
+    document.querySelector('.burger-menu').addEventListener('click', function() {
+      const nav = document.querySelector('.header-bar__nav');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      nav.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
