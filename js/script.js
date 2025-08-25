@@ -33,6 +33,7 @@ async function initPayment(courseId, amount) {
     if (data.paymentUrl) {
       window.location.href = data.paymentUrl; // Redirect to payment form
     } else {
+      console.log(data); // Debug API response
       alert('Ошибка при инициации платежа: ' + (data.message || 'Неизвестная ошибка'));
     }
   } catch (error) {
@@ -53,6 +54,22 @@ if (document.readyState === 'loading') {
         document.getElementById('free-course-modal').style.display = 'flex';
       });
     }
+
+    // Payment button handlers for paid courses
+    const payButtons = document.querySelectorAll('.modal-button');
+    payButtons.forEach(button => {
+      const courseId = button.getAttribute('data-course-id');
+      const amount = button.getAttribute('data-amount');
+      if (courseId && amount) {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Store courseId and amount in global variables for use in acceptOffer
+          window.currentCourseId = courseId;
+          window.currentAmount = amount;
+          document.getElementById('offer-modal').style.display = 'flex';
+        });
+      }
+    });
   });
 } else {
   initFAQ();
@@ -64,6 +81,22 @@ if (document.readyState === 'loading') {
       document.getElementById('free-course-modal').style.display = 'flex';
     });
   }
+
+  // Payment button handlers for paid courses
+  const payButtons = document.querySelectorAll('.modal-button');
+  payButtons.forEach(button => {
+    const courseId = button.getAttribute('data-course-id');
+    const amount = button.getAttribute('data-amount');
+    if (courseId && amount) {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Store courseId and amount in global variables for use in acceptOffer
+        window.currentCourseId = courseId;
+        window.currentAmount = amount;
+        document.getElementById('offer-modal').style.display = 'flex';
+      });
+    }
+  });
 }
 
 // Close modals when clicking outside content
