@@ -262,7 +262,7 @@
       <!-- Социальные сети и телефон остаются без изменений -->
       <a href="https://t.me/AIStartLabTG" target="_blank" rel="noopener" class="footer-contact-link">📱 Telegram: AIStartLabTG</a>
       <span class="footer-contact-link">☎️ Телефон: <a href="tel:+79159512454">+7 915 951-24-54</a></span>
-      <a href="https://instagram.com/aistartlab " target="_blank" rel="noopener" class="footer-contact-link">📸 Instagram: @aistartlab</a>
+      <a href="https://instagram.com/aistartlab" target="_blank" rel="noopener" class="footer-contact-link">📸 Instagram: @aistartlab</a>
     </div>
     
     <!-- Блок копирайта с дополнительной информацией -->
@@ -511,12 +511,66 @@
       <button class="modal-button" data-course-id="full" data-amount="9799900">Получить доступ к курсу</button>
     </div>
   </div>
+
+  <!-- Новое всплывающее окно для оферты (bottom sheet) -->
+  <div class="offer-overlay" id="offer-modal" role="dialog" aria-modal="true" aria-labelledby="offer-title">
+    <div class="offer-content">
+      <h2 id="offer-title">Принять оферту</h2>
+      <p>Перед получением доступа к курсу, пожалуйста, ознакомьтесь и примите условия оферты.</p>
+      <a href="files/Договор.docx" download="Договор.docx">Скачать оферту (DOCX)</a>
+      <div class="offer-buttons">
+        <button class="btn-primary" onclick="acceptOffer()">Принять</button>
+        <button class="btn-outline" onclick="declineOffer()">Отклонить</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.querySelector('.burger-menu').addEventListener('click', function() {
       const nav = document.querySelector('.header-bar__nav');
       const isExpanded = this.getAttribute('aria-expanded') === 'true';
       this.setAttribute('aria-expanded', !isExpanded);
       nav.classList.toggle('active');
+    });
+
+    // Новый JS для оферты и оплаты
+    let currentCourseId = '';
+    let currentAmount = '';
+
+    const modalButtons = document.querySelectorAll('.modal-button');
+    modalButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        if (button.dataset.courseId) { // Только для платных курсов
+          e.preventDefault();
+          currentCourseId = button.dataset.courseId;
+          currentAmount = button.dataset.amount;
+          document.getElementById('offer-modal').style.display = 'flex';
+        }
+        // Для бесплатного - обработка в onclick
+      });
+    });
+
+    function declineOffer() {
+      document.getElementById('offer-modal').style.display = 'none';
+    }
+
+    function acceptOffer() {
+      document.getElementById('offer-modal').style.display = 'none';
+      // Здесь добавьте логику перехода к окну оплаты.
+      // Пример: redirect к payment gateway с параметрами.
+      // window.location.href = `payment.html?course=${currentCourseId}&amount=${currentAmount}`;
+      // Или вызов API: initiatePayment(currentCourseId, currentAmount);
+      // Placeholder:
+      alert(`Переход к оплате курса "${currentCourseId}" на сумму ${currentAmount / 100} ₽`);
+    }
+
+    // Добавьте это для FAQ аккордеона (если нужно, сейчас ответы всегда видны)
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        answer.classList.toggle('active');
+      });
     });
   </script>
 </body>
