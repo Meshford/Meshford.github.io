@@ -540,13 +540,15 @@
     const modalButtons = document.querySelectorAll('.modal-button');
     modalButtons.forEach(button => {
       button.addEventListener('click', (e) => {
+        e.preventDefault();
         if (button.dataset.courseId) { // Только для платных курсов
-          e.preventDefault();
           currentCourseId = button.dataset.courseId;
           currentAmount = button.dataset.amount;
           document.getElementById('offer-modal').style.display = 'flex';
+        } else {
+          // Для бесплатного курса - переход на profile.html
+          window.location.href = 'profile.html';
         }
-        // Для бесплатного - обработка в onclick
       });
     });
 
@@ -556,15 +558,11 @@
 
     function acceptOffer() {
       document.getElementById('offer-modal').style.display = 'none';
-      // Здесь добавьте логику перехода к окну оплаты.
-      // Пример: redirect к payment gateway с параметрами.
-      // window.location.href = `payment.html?course=${currentCourseId}&amount=${currentAmount}`;
-      // Или вызов API: initiatePayment(currentCourseId, currentAmount);
-      // Placeholder:
-      alert(`Переход к оплате курса "${currentCourseId}" на сумму ${currentAmount / 100} ₽`);
+      // Вызов функции initPayment из script.js
+      initPayment(currentCourseId, currentAmount);
     }
 
-    // Добавьте это для FAQ аккордеона (если нужно, сейчас ответы всегда видны)
+    // Добавьте это для FAQ аккордеона
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
       question.addEventListener('click', () => {
