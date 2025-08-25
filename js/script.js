@@ -23,6 +23,7 @@ function initFAQ() {
 // Payment initiation function
 async function initPayment(courseId, amount) {
   try {
+    // ИСПРАВЛЕНО: Убраны лишние пробелы в URL
     const response = await fetch('https://aistartlab-practice.ru/api/init-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -42,37 +43,41 @@ async function initPayment(courseId, amount) {
   }
 }
 
-// Ensure DOM is loaded before initializing
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    initFAQ();
-    
-    // Free course card click handler
-    const freeCourseCard = document.querySelector('.free-course');
-    if (freeCourseCard) {
-      freeCourseCard.addEventListener('click', () => {
-        document.getElementById('free-course-modal').style.display = 'flex';
-      });
-    }
+// Функции для оферты
+function declineOffer() {
+  document.getElementById('offer-modal').style.display = 'none';
+}
 
-    // Payment button handlers for paid courses
-    const payButtons = document.querySelectorAll('.modal-button');
-    payButtons.forEach(button => {
-      const courseId = button.getAttribute('data-course-id');
-      const amount = button.getAttribute('data-amount');
-      if (courseId && amount) {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          // Store courseId and amount in global variables for use in acceptOffer
-          window.currentCourseId = courseId;
-          window.currentAmount = amount;
-          document.getElementById('offer-modal').style.display = 'flex';
-        });
-      }
-    });
-  });
-} else {
+function acceptOffer() {
+  document.getElementById('offer-modal').style.display = 'none';
+  // ИСПРАВЛЕНО: Используем глобальные переменные из этого же файла
+  initPayment(window.currentCourseId, window.currentAmount);
+}
+
+// Сделаем функции доступными глобально
+window.initFAQ = initFAQ;
+window.initPayment = initPayment;
+window.declineOffer = declineOffer;
+window.acceptOffer = acceptOffer;
+
+// Глобальные переменные для хранения данных курса
+window.currentCourseId = '';
+window.currentAmount = '';
+
+// Ensure DOM is loaded before initializing
+document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
+  
+  // Burger menu functionality
+  const burgerMenu = document.querySelector('.burger-menu');
+  if (burgerMenu) {
+    burgerMenu.addEventListener('click', function() {
+      const nav = document.querySelector('.header-bar__nav');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      nav.classList.toggle('active');
+    });
+  }
   
   // Free course card click handler
   const freeCourseCard = document.querySelector('.free-course');
@@ -90,29 +95,21 @@ if (document.readyState === 'loading') {
     if (courseId && amount) {
       button.addEventListener('click', (e) => {
         e.preventDefault();
-        // Store courseId and amount in global variables for use in acceptOffer
+        // Store courseId and amount in global variables
         window.currentCourseId = courseId;
         window.currentAmount = amount;
         document.getElementById('offer-modal').style.display = 'flex';
       });
     }
   });
-}
-
-// Close modals when clicking outside content
-window.addEventListener('click', (e) => {
-  const modals = document.querySelectorAll('.modal-overlay');
-  modals.forEach(modal => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
+  
+  // Close modals when clicking outside content
+  window.addEventListener('click', (e) => {
+    const modals = document.querySelectorAll('.modal-overlay, .offer-overlay');
+    modals.forEach(modal => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
   });
-});
-
-// Close offer modal when clicking outside
-window.addEventListener('click', (e) => {
-  const offerModal = document.getElementById('offer-modal');
-  if (offerModal && e.target === offerModal) {
-    offerModal.style.display = 'none';
-  }
 });

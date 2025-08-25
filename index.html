@@ -8,18 +8,18 @@
   <meta name="keywords" content="AI Start Lab, обучение Python, машинное обучение, курсы по программированию, IT образование, онлайн-школа, подготовка к собеседованиям" />
   <meta name="author" content="AI Start Lab" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://aistartlab.ru/"  />
+  <link rel="canonical" href="https://aistartlab.ru/" />
   <!-- Open Graph -->
   <meta property="og:title" content="AI Start Lab - Образовательная платформа" />
   <meta property="og:description" content="Курсы Python и машинного обучения с практикой и поддержкой от экспертов. Получите сертификат и начните карьеру в IT." />
-  <meta property="og:image" content="https://www.aistartlab.ru/images/logo.png"  />
-  <meta property="og:url" content="https://aistartlab.ru/"  />
+  <meta property="og:image" content="https://www.aistartlab.ru/images/logo.png" />
+  <meta property="og:url" content="https://aistartlab.ru/" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI Start Lab - Образовательная платформа" />
   <meta name="twitter:description" content="Онлайн-курсы Python и ML от практиков. 3-4 месяца практики и подготовки к собеседованиям." />
-  <meta name="twitter:image" content="https://aistartlab.ru/images/og-image.jpg"  />
+  <meta name="twitter:image" content="https://aistartlab.ru/images/og-image.jpg" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/ico" href="images/favicon.ico" />
   <style>
@@ -27,7 +27,6 @@
       font-weight: 400 !important;
     }
   </style>
-  <script type="module" src="js/script.js" defer></script>
 </head>
 <body class="light-mode">
   <header class="header-bar" role="banner">
@@ -210,7 +209,7 @@
             </div>
           </div>
           <p>"С огромным удовольствием хочу поделиться своим опытом прохождения курса по машинному обучению! Я давно хотела разобраться в этой области, но всегда казалось, что это слишком сложно и непонятно. Благодаря этому курсу всё встало на свои места: материал объясняется очень доступно, а сложные темы разбираются на простых и понятных примерах.
-            Особенно понравилось, что в каждом модуле были практические задания — они помогли не просто “прочитать и забыть”, а реально закрепить знания на практике. Преподаватели всегда были на связи, подробно отвечали на вопросы и поддерживали, когда что-то не получалось.
+            Особенно понравилось, что в каждом модуле были практические задания — они помогли не просто "прочитать и забыть", а реально закрепить знания на практике. Преподаватели всегда были на связи, подробно отвечали на вопросы и поддерживали, когда что-то не получалось.
             Отдельное спасибо за атмосферу на курсе — учиться было интересно и совсем не страшно пробовать новое. Уже через месяц после окончания обучения мне пришло предложение о работе от одной крупной it компании, чему я до сих пор не могу поверить... Без этой подготовки я бы точно не справилась на собеседовании.
             Спасибо всей команде курса за профессионализм, поддержку и веру в студентов!"</p>
         </div>
@@ -525,51 +524,7 @@
     </div>
   </div>
 
-  <script>
-    document.querySelector('.burger-menu').addEventListener('click', function() {
-      const nav = document.querySelector('.header-bar__nav');
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !isExpanded);
-      nav.classList.toggle('active');
-    });
-
-    // Новый JS для оферты и оплаты
-    let currentCourseId = '';
-    let currentAmount = '';
-
-    const modalButtons = document.querySelectorAll('.modal-button');
-    modalButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (button.dataset.courseId) { // Только для платных курсов
-          currentCourseId = button.dataset.courseId;
-          currentAmount = button.dataset.amount;
-          document.getElementById('offer-modal').style.display = 'flex';
-        } else {
-          // Для бесплатного курса - переход на profile.html
-          window.location.href = 'profile.html';
-        }
-      });
-    });
-
-    function declineOffer() {
-      document.getElementById('offer-modal').style.display = 'none';
-    }
-
-    function acceptOffer() {
-      document.getElementById('offer-modal').style.display = 'none';
-      // Вызов функции initPayment из script.js
-      initPayment(currentCourseId, currentAmount);
-    }
-
-    // Добавьте это для FAQ аккордеона
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-      question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        answer.classList.toggle('active');
-      });
-    });
-  </script>
+  <!-- Загрузка скрипта БЕЗ type="module", чтобы функции были доступны глобально -->
+  <script src="js/script.js"></script>
 </body>
 </html>
