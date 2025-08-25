@@ -703,7 +703,7 @@ footer {
 }
 
 /* Новые стили для всплывающего окна оферты */
-.offer-modal {
+.offer-overlay {
   display: none;
   position: fixed;
   bottom: 0;
@@ -715,7 +715,7 @@ footer {
   transition: transform var(--transition);
   transform: translateY(100%);
 }
-.offer-modal[style*="display: block"] {
+.offer-overlay[style*="display: flex"] {
   transform: translateY(0);
 }
 .offer-content {
@@ -734,14 +734,14 @@ footer {
   margin-bottom: 20px;
   color: #555;
 }
-.offer-download {
+.offer-content a {
   display: inline-block;
   margin-bottom: 20px;
   color: var(--primary-color);
   text-decoration: underline;
   font-weight: 500;
 }
-.offer-download:hover {
+.offer-content a:hover {
   color: #2979b5;
 }
 .offer-buttons {
