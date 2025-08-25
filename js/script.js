@@ -53,16 +53,6 @@ if (document.readyState === 'loading') {
         document.getElementById('free-course-modal').style.display = 'flex';
       });
     }
-    
-    // Payment button handlers for paid courses
-    const payButtons = document.querySelectorAll('.modal-button');
-    payButtons.forEach(button => {
-      const courseId = button.getAttribute('data-course-id');
-      const amount = button.getAttribute('data-amount');
-      if (courseId && amount) {
-        button.addEventListener('click', () => initPayment(courseId, amount));
-      }
-    });
   });
 } else {
   initFAQ();
@@ -74,16 +64,6 @@ if (document.readyState === 'loading') {
       document.getElementById('free-course-modal').style.display = 'flex';
     });
   }
-  
-  // Payment button handlers for paid courses
-  const payButtons = document.querySelectorAll('.modal-button');
-  payButtons.forEach(button => {
-    const courseId = button.getAttribute('data-course-id');
-    const amount = button.getAttribute('data-amount');
-    if (courseId && amount) {
-      button.addEventListener('click', () => initPayment(courseId, amount));
-    }
-  });
 }
 
 // Close modals when clicking outside content
@@ -94,4 +74,12 @@ window.addEventListener('click', (e) => {
       modal.style.display = 'none';
     }
   });
+});
+
+// Close offer modal when clicking outside
+window.addEventListener('click', (e) => {
+  const offerModal = document.getElementById('offer-modal');
+  if (offerModal && e.target === offerModal) {
+    offerModal.style.display = 'none';
+  }
 });
