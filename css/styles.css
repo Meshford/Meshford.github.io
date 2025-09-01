@@ -810,6 +810,13 @@ footer {
 
 /* Profile avatar */
 .profile-avatar {
+    margin-left: 15px;
+    text-decoration: none;
+    position: relative;
+    top: 2px; /* Идеальное выравнивание по вертикали с элементами header */
+}
+
+.avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -820,16 +827,12 @@ footer {
     color: white;
     font-weight: 700;
     cursor: pointer;
-    margin-left: 15px;
-    text-decoration: none;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: all 0.2s ease;
-    position: relative;
-    top: 2px; /* Идеальное выравнивание по вертикали с элементами header */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая белая рамка для четкости круга */
 }
 
-.profile-avatar:hover {
+.avatar:hover {
     transform: scale(1.05);
     box-shadow: 0 3px 8px rgba(67, 203, 255, 0.3);
 }
@@ -839,13 +842,17 @@ footer {
     line-height: 1;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Тень для лучшей читаемости */
     letter-spacing: -0.5px;
-    font-family: 'Arial', sans-serif; /* Четкий шрифт для лучшей видимости */
+    font-family: 'Arial', sans-serif;
 }
 
+/* Дополнительная корректировка для мобильного меню */
 @media (max-width: 768px) {
     .profile-avatar {
         top: 0;
         margin-left: 10px;
+    }
+    
+    .avatar {
         width: 36px;
         height: 36px;
     }
