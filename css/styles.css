@@ -808,13 +808,16 @@ footer {
     padding: 0 5px;
 }
 
-/* Profile avatar */
 .profile-avatar {
     margin-left: 15px;
     text-decoration: none;
-    position: relative;
-    top: 2px; /* Идеальное выравнивание по вертикали с элементами header */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
 }
+
 
 .avatar {
     width: 40px;
@@ -829,7 +832,10 @@ footer {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: all 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая белая рамка для четкости круга */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    vertical-align: middle;
+    position: relative;
+    top: 1px; /* Точная корректировка по вертикали */
 }
 
 .avatar:hover {
@@ -840,28 +846,38 @@ footer {
 .avatar-letter {
     font-size: 1.35em;
     line-height: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Тень для лучшей читаемости */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     letter-spacing: -0.5px;
     font-family: 'Arial', sans-serif;
+    position: relative;
+    top: 1px; /* Дополнительная корректировка для идеальной центровки буквы */
+}
+
+.header-bar__nav {
+    display: flex;
+    gap: 30px;
+    transition: all 0.3s ease;
+    align-items: center; /* Ключевое изменение - выравнивание по центру */
 }
 
 /* Дополнительная корректировка для мобильного меню */
 @media (max-width: 768px) {
     .profile-avatar {
-        top: 0;
         margin-left: 10px;
+        top: 0;
     }
     
     .avatar {
         width: 36px;
         height: 36px;
+        top: 0;
     }
     
     .avatar-letter {
         font-size: 1.2em;
+        top: 0;
     }
 }
-
 
 .auth-checking .profile-btn,
 .auth-checking .profile-avatar {
