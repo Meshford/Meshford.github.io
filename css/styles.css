@@ -813,8 +813,8 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #3490dc;
-    display: flex;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     color: white;
@@ -822,8 +822,28 @@ footer {
     cursor: pointer;
     margin-left: 15px;
     text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    position: relative;
+    top: 2px; /* Корректировка по вертикали для идеального выравнивания */
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 .avatar-letter {
-    font-size: 1.2em;
+    font-size: 1.3em;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+@media (max-width: 768px) {
+    .profile-avatar {
+        top: 0;
+        margin-left: 10px;
+    }
 }
