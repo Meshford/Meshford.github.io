@@ -861,3 +861,14 @@ footer {
         font-size: 1.2em;
     }
 }
+
+
+.auth-checking .profile-btn,
+.auth-checking .profile-avatar {
+    display: none !important;
+}
+
+/* Показываем загрузочный индикатор или просто скрываем элемент */
+.auth-checking .header-bar {
+    /* Можно добавить прелоадер, если нужно */
+}

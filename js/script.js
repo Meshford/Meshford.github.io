@@ -50,6 +50,9 @@ function acceptOffer() {
 
 // ===== НОВЫЙ КОД ДЛЯ АВТОРИЗАЦИИ =====
 
+// Добавляем класс загрузки к body для скрытия элементов профиля во время проверки
+document.documentElement.classList.add('auth-checking');
+
 // Инициализация Firebase
 let firebaseAuth = null;
 if (typeof firebase !== 'undefined') {
@@ -67,11 +70,28 @@ if (typeof firebase !== 'undefined') {
         firebase.initializeApp(firebaseConfig);
         firebaseAuth = firebase.auth();
         console.log('Firebase initialized successfully');
+        
+        // Проверяем, есть ли уже данные в currentUser (кэшированное состояние)
+        if (firebaseAuth.currentUser) {
+            // Сразу обновляем UI, но с небольшой задержкой для полной инициализации
+            setTimeout(() => {
+                updateUI(firebaseAuth.currentUser);
+                document.documentElement.classList.remove('auth-checking');
+            }, 50);
+        } else {
+            // Ждем события изменения состояния
+            firebaseAuth.onAuthStateChanged(function(user) {
+                updateUI(user);
+                document.documentElement.classList.remove('auth-checking');
+            });
+        }
     } catch (error) {
         console.error('Error initializing Firebase:', error);
+        document.documentElement.classList.remove('auth-checking');
     }
 } else {
     console.warn('Firebase SDK not loaded. Authentication features will be limited.');
+    document.documentElement.classList.remove('auth-checking');
 }
 
 // Функция показа всплывающего уведомления
