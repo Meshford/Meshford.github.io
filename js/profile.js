@@ -65,7 +65,7 @@ function showToast(message) {
   toast.classList.add('show');
   setTimeout(() => {
     toast.classList.remove('show');
-  }, 4000);
+  }, 8000);
 }
 
 // Закрытие уведомления по кнопке
