@@ -4,7 +4,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    sendEmailVerification,
+    updateProfile
 } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js';
 import {
     getFirestore,
@@ -45,6 +47,10 @@ const showLoginBtn = document.getElementById('show-login');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toast-message');
 const toastCloseBtn = toast.querySelector('.close-toast');
+
+// Элементы для уведомления о неподтвержденном email
+const unverifiedEmailBanner = document.getElementById('unverified-email-banner');
+const resendVerificationBtn = document.getElementById('resend-verification');
 
 // Курсы
 const freeCourseBtn = document.getElementById('free-course-btn');
@@ -145,24 +151,59 @@ popupRegisterForm.addEventListener('submit', async (e) => {
     return;
   }
 
+  if (password.length < 6) {
+    showToast('Пароль должен содержать не менее 6 символов');
+    return;
+  }
+
   try {
     // 1. Регистрируем пользователя в Firebase Auth
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 2. Добавляем пользователя в Firestore с ролью "basic"
+    // 2. Отправляем письмо для подтверждения email
+    await sendEmailVerification(user, {
+      url: 'https://aistartlab.ru/profile.html',
+      handleCodeInApp: true
+    });
+
+    // 3. Добавляем пользователя в Firestore с ролью "basic" и флагом неподтвержденного email
     await setDoc(doc(db, "allowed_users", user.uid), {
       email: user.email,
       role: "basic",
-      createdAt: new Date()
+      createdAt: new Date(),
+      emailVerified: false
     });
 
-    showToast('Регистрация успешна! Вы вошли в систему.');
+    showToast('Регистрация успешна! Проверьте ваш email для подтверждения адреса');
     registerPopup.classList.add('hidden');
+    
+    // Обновляем UI для отображения баннера о неподтвержденном email
+    if (unverifiedEmailBanner) {
+      unverifiedEmailBanner.classList.remove('hidden');
+    }
   } catch (error) {
     showToast('Ошибка регистрации: ' + error.message);
   }
 });
+
+// Повторная отправка письма с подтверждением
+if (resendVerificationBtn) {
+  resendVerificationBtn.addEventListener('click', async () => {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        await sendEmailVerification(user, {
+          url: 'https://aistartlab.ru/profile.html',
+          handleCodeInApp: true
+        });
+        showToast('Письмо для подтверждения отправлено повторно');
+      } catch (error) {
+        showToast('Ошибка отправки письма: ' + error.message);
+      }
+    }
+  });
+}
 
 // Выход
 logoutBtn.addEventListener('click', async () => {
@@ -202,15 +243,35 @@ function updateCoursesByRole(role) {
 }
 
 // Управление доступом к бесплатному курсу (для неавторизованных и basic)
-function updateFreeCourseAccess(isAuthorized, userRole) {
+function updateFreeCourseAccess(isAuthorized, userRole, emailVerified) {
   if (isAuthorized) {
-    // Всегда открыт для всех авторизованных
-    freeCourseBtn.disabled = false;
-    freeCourseBtn.classList.add('unlocked');
-    freeCourseBtn.title = "Перейти к курсу";
-    freeCourseLock.textContent = "🔓";
-    freeCourseLock.classList.add('unlocked');
-    freeCourseLock.title = "Доступ открыт";
+    if (emailVerified) {
+      // Открыт для авторизованных с подтвержденным email
+      freeCourseBtn.disabled = false;
+      freeCourseBtn.classList.add('unlocked');
+      freeCourseBtn.title = "Перейти к курсу";
+      freeCourseLock.textContent = "🔓";
+      freeCourseLock.classList.add('unlocked');
+      freeCourseLock.title = "Доступ открыт";
+      
+      // Скрыть баннер о неподтвержденном email
+      if (unverifiedEmailBanner) {
+        unverifiedEmailBanner.classList.add('hidden');
+      }
+    } else {
+      // Заблокирован для авторизованных с неподтвержденным email
+      freeCourseBtn.disabled = true;
+      freeCourseBtn.classList.remove('unlocked');
+      freeCourseBtn.title = "Подтвердите email для доступа к курсу";
+      freeCourseLock.textContent = "🔒";
+      freeCourseLock.classList.remove('unlocked');
+      freeCourseLock.title = "Подтвердите email для доступа к курсу";
+      
+      // Показать баннер о неподтвержденном email
+      if (unverifiedEmailBanner) {
+        unverifiedEmailBanner.classList.remove('hidden');
+      }
+    }
   } else {
     // Только замок для неавторизованных
     freeCourseBtn.disabled = true;
@@ -233,6 +294,12 @@ freeCourseBtn.addEventListener('click', async () => {
     showToast('Пожалуйста, войдите в аккаунт');
     return;
   }
+  
+  if (!user.emailVerified) {
+    showToast('Пожалуйста, подтвердите ваш email');
+    return;
+  }
+
   try {
     // Перенаправление на GitHub OAuth
     window.open('https://aistartlab-practice.ru/hub/oauth_login',  '_blank');
@@ -243,6 +310,15 @@ freeCourseBtn.addEventListener('click', async () => {
 
 // Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
+  if (user && user.emailVerified) {
+    // Обновляем статус в Firestore, если email был подтвержден
+    const userDocRef = doc(db, "allowed_users", user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+    
+    if (userDocSnap.exists() && userDocSnap.data().emailVerified === false) {
+      await setDoc(userDocRef, {emailVerified: true}, {merge: true});
+    }
+  }
   if (user) {
     loginButton.classList.add('hidden');
     loginButton.style.display = 'none';
@@ -261,13 +337,26 @@ onAuthStateChanged(auth, async (user) => {
       const userDocRef = doc(db, "allowed_users", user.uid);
       const userDocSnap = await getDoc(userDocRef);
       let userRole = "basic";
-      if (userDocSnap.exists() && userDocSnap.data().role) {
-        userRole = userDocSnap.data().role;
+      let emailVerified = user.emailVerified;
+      
+      if (userDocSnap.exists()) {
+        if (userDocSnap.data().role) {
+          userRole = userDocSnap.data().role;
+        }
+        if (userDocSnap.data().emailVerified !== undefined) {
+          emailVerified = userDocSnap.data().emailVerified;
+        }
       }
-      updateFreeCourseAccess(true, userRole);
+      
+      // Если email не подтвержден, показываем уведомление
+      if (!emailVerified && !user.emailVerified) {
+        showToast('Пожалуйста, подтвердите ваш email');
+      }
+      
+      updateFreeCourseAccess(true, userRole, emailVerified);
       updateCoursesByRole(userRole);
     } catch (e) {
-      updateFreeCourseAccess(true, "basic");
+      updateFreeCourseAccess(true, "basic", user.emailVerified);
       updateCoursesByRole("basic");
     }
   } else {
@@ -280,6 +369,6 @@ onAuthStateChanged(auth, async (user) => {
     userDropdown.classList.add('hidden');
     userNameBtn.textContent = '';
 
-    updateFreeCourseAccess(false, null);
+    updateFreeCourseAccess(false, null, false);
   }
 });

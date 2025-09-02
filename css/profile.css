@@ -319,3 +319,47 @@ form button:focus {
 .visible-course {
   display: block !important;
 }
+
+.email-verification-banner.hidden {
+  display: none;
+}
+
+/* Баннер для уведомления о неподтвержденном email */
+.email-verification-banner {
+  background-color: #fff8e1;
+  color: #5d4037;
+  padding: 8px 15px;
+  text-align: center;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: none;
+}
+
+.email-verification-banner.active {
+  display: block;
+}
+
+.banner-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.banner-button {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.banner-button:hover {
+  background-color: #ef6c00;
+}
