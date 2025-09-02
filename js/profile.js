@@ -167,15 +167,9 @@ popupRegisterForm.addEventListener('submit', async (e) => {
       handleCodeInApp: true
     });
 
-    // 3. Добавляем пользователя в Firestore с ролью "basic" и флагом неподтвержденного email
-    await setDoc(doc(db, "allowed_users", user.uid), {
-      email: user.email,
-      role: "basic",
-      createdAt: new Date(),
-      emailVerified: false
-    });
 
-    showToast('Регистрация успешна! Проверьте ваш email для подтверждения адреса');
+
+    showToast('Регистрация почти завершена! Проверьте ваш email для подтверждения адреса');
     registerPopup.classList.add('hidden');
     
     // Обновляем UI для отображения баннера о неподтвержденном email
@@ -191,16 +185,18 @@ popupRegisterForm.addEventListener('submit', async (e) => {
 if (resendVerificationBtn) {
   resendVerificationBtn.addEventListener('click', async () => {
     const user = auth.currentUser;
-    if (user) {
+    if (user && !user.emailVerified) {
       try {
         await sendEmailVerification(user, {
-          url: 'https://aistartlab.ru/profile.html',
+          url: window.location.origin + '/profile.html',
           handleCodeInApp: true
         });
         showToast('Письмо для подтверждения отправлено повторно');
       } catch (error) {
         showToast('Ошибка отправки письма: ' + error.message);
       }
+    } else if (user && user.emailVerified) {
+      showToast('Ваш email уже подтвержден!');
     }
   });
 }
@@ -309,16 +305,8 @@ freeCourseBtn.addEventListener('click', async () => {
 });
 
 // Отслеживание состояния пользователя
+// Отслеживание состояния пользователя
 onAuthStateChanged(auth, async (user) => {
-  if (user && user.emailVerified) {
-    // Обновляем статус в Firestore, если email был подтвержден
-    const userDocRef = doc(db, "allowed_users", user.uid);
-    const userDocSnap = await getDoc(userDocRef);
-    
-    if (userDocSnap.exists() && userDocSnap.data().emailVerified === false) {
-      await setDoc(userDocRef, {emailVerified: true}, {merge: true});
-    }
-  }
   if (user) {
     loginButton.classList.add('hidden');
     loginButton.style.display = 'none';
@@ -332,13 +320,24 @@ onAuthStateChanged(auth, async (user) => {
       userDropdown.classList.toggle('hidden');
     };
 
-    // Получаем роль пользователя из Firestore
     try {
       const userDocRef = doc(db, "allowed_users", user.uid);
       const userDocSnap = await getDoc(userDocRef);
       let userRole = "basic";
       let emailVerified = user.emailVerified;
       
+      // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: Если email подтвержден, но пользователя нет в Firestore, добавляем его
+      if (user.emailVerified && !userDocSnap.exists()) {
+        await setDoc(userDocRef, {
+          email: user.email,
+          role: "basic",
+          createdAt: new Date(),
+          emailVerified: true
+        });
+        showToast('Регистрация завершена! Добро пожаловать!');
+      }
+      
+      // Если пользователь существует в Firestore, используем данные оттуда
       if (userDocSnap.exists()) {
         if (userDocSnap.data().role) {
           userRole = userDocSnap.data().role;
@@ -348,14 +347,20 @@ onAuthStateChanged(auth, async (user) => {
         }
       }
       
+      // Обновляем статус emailVerified на основе Firebase Auth, если нет данных в Firestore
+      if (!userDocSnap.exists()) {
+        emailVerified = user.emailVerified;
+      }
+      
       // Если email не подтвержден, показываем уведомление
-      if (!emailVerified && !user.emailVerified) {
-        showToast('Пожалуйста, подтвердите ваш email');
+      if (!emailVerified) {
+        showToast('Пожалуйста, подтвердите ваш email для завершения регистрации');
       }
       
       updateFreeCourseAccess(true, userRole, emailVerified);
       updateCoursesByRole(userRole);
     } catch (e) {
+      console.error('Error in auth state change:', e);
       updateFreeCourseAccess(true, "basic", user.emailVerified);
       updateCoursesByRole("basic");
     }
