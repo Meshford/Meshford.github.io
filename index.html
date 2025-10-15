@@ -23,8 +23,145 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/ico" href="images/favicon.ico" />
   <style>
-    .program-card h3 {
-      font-weight: 400 !important;
+    :root {
+      --primary-color: #00f0ff;
+      --background-light: #0f0c29;
+      --background-dark: #0f0c29;
+      --text-light: #e0e0ff;
+      --text-dark: #f0f0ff;
+      --card-bg: rgba(30, 25, 60, 0.6);
+      --card-hover: rgba(50, 40, 100, 0.7);
+      --border-radius: 16px;
+      --transition: 0.3s ease;
+    }
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color: var(--text-dark);
+    }
+    .header-bar {
+      background: rgba(15, 12, 41, 0.8);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      backdrop-filter: blur(12px);
+    }
+    .header-bar__title,
+    .header-bar__nav a,
+    .burger-menu span {
+      color: #e0e0ff;
+    }
+    .header-bar__nav a:hover {
+      color: #00f0ff;
+    }
+    .content-section,
+    .features-section,
+    .testimonials-section,
+    .faq-section,
+    footer {
+      background: rgba(20, 18, 45, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 80, 200, 0.2);
+    }
+    .feature-card,
+    .teacher-card,
+    .testimonial-card,
+    .faq-item,
+    .program-card {
+      background: rgba(30, 25, 60, 0.6);
+      border: 1px solid rgba(100, 80, 255, 0.2);
+      color: #e0e0ff;
+    }
+    .feature-card:hover,
+    .teacher-card:hover,
+    .testimonial-card:hover,
+    .program-card:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.15);
+      transform: translateY(-6px);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #00f0ff, #6e44ff);
+      color: #000;
+      font-weight: 600;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #00d4ff, #8a2be2);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #00f0ff;
+      border: 2px solid #00f0ff;
+    }
+    .btn-outline:hover {
+      background: rgba(0, 240, 255, 0.15);
+      color: white;
+      box-shadow: 0 8px 20px rgba(110, 68, 255, 0.3);
+    }
+    .modal-overlay {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .modal-content {
+      background: rgba(20, 18, 45, 0.9);
+      border: 1px solid rgba(100, 80, 255, 0.3);
+      color: #e0e0ff;
+    }
+    .modal-close:hover {
+      color: #ff33aa;
+    }
+    .modal-button {
+      background: linear-gradient(90deg, #00f0ff, #6e44ff);
+      color: #000;
+    }
+    .modal-button:hover {
+      background: linear-gradient(90deg, #00d4ff, #8a2be2);
+    }
+    .offer-overlay {
+      background: rgba(20, 18, 45, 0.95);
+      border-top: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .footer-contact-link,
+    .footer-contact-link a {
+      color: #e0e0ff;
+    }
+    .footer-contact-link a:hover {
+      color: #00f0ff;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(15, 12, 41, 0.7) 0%, rgba(48, 43, 99, 0.5) 100%);
+      backdrop-filter: blur(5px);
+    }
+    h1, h2, h3, h4 {
+      color: #ffffff;
+    }
+    p, li {
+      color: #d0d0ff;
+    }
+    .feature-icon {
+      color: #00f0ff;
+    }
+    .price {
+      color: #00f0ff !important;
+    }
+    .free-course {
+      border: 2px solid #00f0ff !important;
+    }
+    .free-course-title {
+      color: #00f0ff !important;
+    }
+    .note {
+      color: #a0a0ff;
+    }
+    .faq-question {
+      background: rgba(30, 25, 60, 0.7);
+      color: #e0e0ff;
+    }
+    .faq-question:hover {
+      background: rgba(50, 40, 120, 0.6);
+    }
+    .toast {
+      background: rgba(20, 15, 40, 0.95);
+      border: 1px solid rgba(0, 240, 255, 0.3);
     }
   </style>
 </head>
@@ -53,7 +190,7 @@
       <a href="profile.html" class="profile-btn" aria-label="Профиль пользователя">Профиль</a>
     </nav>
   </header>
-  <!-- Hero Section -->
+
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-content">
       <h1 id="hero-heading">Станьте Data Scientist за 3-4 месяца</h1>
@@ -67,7 +204,7 @@
       <img src="images/hero.png" alt="Изучение Python и машинного обучения" loading="lazy">
     </div>
   </section>
-  <!-- Features Section -->
+
   <section id="features" class="features-section" aria-labelledby="features-heading">
     <h2 id="features-heading">Почему выбирают нас</h2>
     <div class="features-grid">
@@ -93,6 +230,7 @@
       </div>
     </div>
   </section>
+
   <main class="main-content">
     <section id="about" class="content-section" aria-labelledby="about-heading">
       <h2 id="about-heading">🧠 О платформе</h2>
@@ -108,32 +246,29 @@
         Длительность: <b>3–4 месяца</b> ⏳, сочетает теорию и практику.
       </p>
     </section>
+
     <section id="programs" class="content-section" aria-labelledby="programs-heading">
       <h2 id="programs-heading">📚 Программы обучения</h2>
       <div class="programs-container">
-        <!-- Бесплатный курс -->
-        <div class="program-card free-course" style="border: 2px solid #3490dc;" onclick="document.getElementById('free-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Бесплатный курс: 6 уроков по Python">
-          <h3 class="free-course-title" style="color: #3490dc;">🆓 Бесплатный курс</h3>
+        <div class="program-card free-course" style="border: 2px solid #00f0ff;" onclick="document.getElementById('free-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Бесплатный курс: 6 уроков по Python">
+          <h3 class="free-course-title" style="color: #00f0ff;">🆓 Бесплатный курс</h3>
           <p>
             Получите доступ к <b>6 бесплатным урокам</b> для базового понимания Python.<br>
             После <b>регистрации</b> вы сразу сможете начать обучение.<br>
             Отличный старт для новичков!
           </p>
-          <div class="price" style="color: #3490dc;">0 ₽</div>
+          <div class="price" style="color: #00f0ff;">0 ₽</div>
         </div>
-        <!-- Базовый курс -->
         <div class="program-card simplified-course" onclick="document.getElementById('simplified-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Базовый курс: 49 999 ₽">
           <h3>🔰 Базовый курс</h3>
           <p>Базовые знания и навыки, идеально для тех, кто только начинает.</p>
           <div class="price">49 999 ₽</div>
         </div>
-        <!-- Расширенная программа -->
         <div class="program-card extended-course" onclick="document.getElementById('extended-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Расширенная программа: 74 999 ₽">
           <h3>🚀 Расширенная программа</h3>
           <p>Больше практики и подготовка к собеседованиям.</p>
           <div class="price">74 999 ₽</div>
         </div>
-        <!-- Полный курс -->
         <div class="program-card full-course" onclick="document.getElementById('full-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Полный курс: 97 999 ₽">
           <h3>🏆 Полный курс</h3>
           <p>Продвинутые темы, проекты и индивидуальная поддержка.</p>
@@ -141,10 +276,11 @@
         </div>
       </div>
       <p class="note">💡 Цена зависит от выбранной программы. Оплата возможна по частям. Для студентов действует скидка 10%.</p>
-      <p class="note" style="color:#3490dc;">
+      <p class="note" style="color:#00f0ff;">
         Бесплатный курс открыт для всех после регистрации. Начните с основ Python прямо сейчас!
       </p>
     </section>
+
     <section id="teachers" class="content-section" aria-labelledby="teachers-heading">
       <h2 id="teachers-heading">👨‍🏫 Преподаватели</h2>
       <p>
@@ -152,7 +288,6 @@
         Всегда готовы поддержать и ответить на ваши вопросы!
       </p>
       <div class="teachers-grid">
-        <!-- Карточка преподавателя 1 -->
         <div class="teacher-card" role="article" aria-labelledby="teacher-1">
           <div class="teacher-header">
             <img src="images/meshalkin.jpg" alt="Фото Никиты Мешалкина" loading="lazy">
@@ -166,7 +301,6 @@
             Автор курсов по Python и ML. Уверенно объясняет сложные темы простым языком.
           </p>
         </div>
-        <!-- Карточка преподавателя 2 -->
         <div class="teacher-card" role="article" aria-labelledby="teacher-2">
           <div class="teacher-header">
             <img src="images/prepod.jpg" alt="Фото Виктории Глазуновой" loading="lazy">
@@ -183,7 +317,7 @@
         </div>
       </div>
     </section>
-    <!-- Testimonials Section -->
+
     <section class="testimonials-section" aria-labelledby="testimonials-heading">
       <h2 id="testimonials-heading">Отзывы выпускников</h2>
       <div class="testimonials-grid">
@@ -225,7 +359,7 @@
         </div>
       </div>
     </section>
-    <!-- FAQ Section -->
+
     <section id="faq" class="faq-section" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Часто задаваемые вопросы</h2>
       <div class="faq-container">
@@ -256,19 +390,16 @@
       </div>
     </section>
   </main>
+
   <footer id="contacts">
     <div class="footer-contacts">
-      <!-- Социальные сети и телефон остаются без изменений -->
       <a href="https://t.me/AIStartLabTG" target="_blank" rel="noopener" class="footer-contact-link">📱 Telegram: AIStartLabTG</a>
       <span class="footer-contact-link">☎️ Телефон: <a href="tel:+79159512454">+7 915 951-24-54</a></span>
       <a href="https://instagram.com/aistartlab" target="_blank" rel="noopener" class="footer-contact-link">📸 Instagram: @aistartlab</a>
     </div>
-    
-    <!-- Блок копирайта с дополнительной информацией -->
     <div class="footer-copy">
       © 2025 AI Start Lab
-      <!-- Новая информация об ИП -->
-      <p style="font-size: 0.8em; color: #666; margin-top: 10px;">
+      <p style="font-size: 0.8em; color: #a0a0ff; margin-top: 10px;">
         ИП Мешалкин Никита Александрович<br>
         ИНН: 525711636222<br>
         ОГРНИП: 325527500075799<br>
@@ -276,11 +407,12 @@
       </p>
     </div>
   </footer>
-  <!-- Модальное окно для бесплатного курса -->
+
+  <!-- Все модальные окна остаются без изменений в структуре -->
   <div class="modal-overlay" id="free-course-modal" role="dialog" aria-labelledby="free-course-title" aria-modal="true">
     <div class="modal-content" role="document">
       <button class="modal-close" onclick="document.getElementById('free-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
-      <h2 id="free-course-title" style="color: #3490dc; margin-bottom: 20px;">Бесплатный курс: Python и машинное обучение</h2>
+      <h2 id="free-course-title" style="color: #00f0ff; margin-bottom: 20px;">Бесплатный курс: Python и машинное обучение</h2>
       <p style="margin-bottom: 20px;"><strong>Важно:</strong> Для получения доступа к курсу необходимо зарегистрироваться на сайте.</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
@@ -315,11 +447,14 @@
       <button class="modal-button" onclick="window.location.href='profile.html'">Получить доступ к курсу</button>
     </div>
   </div>
-  <!-- Модальное окно для базового курса -->
+
+  <!-- Остальные модальные окна (simplified, extended, full) и offer-modal остаются без изменений в HTML -->
+  <!-- Они уже используют обновлённые стили через CSS выше -->
+
   <div class="modal-overlay" id="simplified-course-modal" role="dialog" aria-labelledby="simplified-course-title" aria-modal="true">
     <div class="modal-content" role="document">
       <button class="modal-close" onclick="document.getElementById('simplified-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
-      <h2 id="simplified-course-title" style="color: #3490dc; margin-bottom: 20px;">Базовый курс: Python и машинное обучение</h2>
+      <h2 id="simplified-course-title" style="color: #00f0ff; margin-bottom: 20px;">Базовый курс: Python и машинное обучение</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
@@ -368,11 +503,11 @@
       <button class="modal-button" data-course-id="basic" data-amount="4999900">Получить доступ к курсу</button>
     </div>
   </div>
-  <!-- Модальное окно для расширенного курса -->
+
   <div class="modal-overlay" id="extended-course-modal" role="dialog" aria-labelledby="extended-course-title" aria-modal="true">
     <div class="modal-content" role="document">
       <button class="modal-close" onclick="document.getElementById('extended-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
-      <h2 id="extended-course-title" style="color: #3490dc; margin-bottom: 20px;">Расширенный курс: Машинное обучение и нейронные сети</h2>
+      <h2 id="extended-course-title" style="color: #00f0ff; margin-bottom: 20px;">Расширенный курс: Машинное обучение и нейронные сети</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
@@ -431,11 +566,11 @@
       <button class="modal-button" data-course-id="extended" data-amount="7499900">Получить доступ к курсу</button>
     </div>
   </div>
-  <!-- Модальное окно для полного курса -->
+
   <div class="modal-overlay" id="full-course-modal" role="dialog" aria-labelledby="full-course-title" aria-modal="true">
     <div class="modal-content" role="document">
       <button class="modal-close" onclick="document.getElementById('full-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
-      <h2 id="full-course-title" style="color: #3490dc; margin-bottom: 20px;">Полный курс: тотальная подготовка к собеседованиям в IT</h2>
+      <h2 id="full-course-title" style="color: #00f0ff; margin-bottom: 20px;">Полный курс: тотальная подготовка к собеседованиям в IT</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Ученики с любыми базовыми навыками, которые хотят устроиться в IT</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
@@ -511,7 +646,6 @@
     </div>
   </div>
 
-  <!-- Новое всплывающее окно для оферты (bottom sheet) -->
   <div class="offer-overlay" id="offer-modal" role="dialog" aria-modal="true" aria-labelledby="offer-title">
     <div class="offer-content">
       <h2 id="offer-title">Принять оферту</h2>
@@ -523,10 +657,9 @@
       </div>
     </div>
   </div>
-  
+
   <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-  <!-- Загрузка скрипта БЕЗ type="module", чтобы функции были доступны глобально -->
   <script src="js/script.js"></script>
 </body>
 </html>
