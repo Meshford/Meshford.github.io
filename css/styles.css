@@ -159,6 +159,7 @@ body {
   display: flex;
   gap: 30px;
   transition: all 0.3s ease;
+  align-items: center;
 }
 
 .header-bar__nav a {
