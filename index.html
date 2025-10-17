@@ -250,6 +250,7 @@
     <section id="programs" class="content-section" aria-labelledby="programs-heading">
       <h2 id="programs-heading">📚 Программы обучения</h2>
       <div class="programs-container">
+        <!-- Бесплатный курс -->
         <div class="program-card free-course" style="border: 2px solid #00f0ff;" onclick="document.getElementById('free-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Бесплатный курс: 6 уроков по Python">
           <h3 class="free-course-title" style="color: #00f0ff;">🆓 Бесплатный курс</h3>
           <p>
@@ -257,22 +258,32 @@
             После <b>регистрации</b> вы сразу сможете начать обучение.<br>
             Отличный старт для новичков!
           </p>
-          <div class="price" style="color: #00f0ff;">0 ₽</div>
+          <div class="price" style="color: #00f0ff; font-size: 1.3rem;">0 ₽</div>
+          <div class="duration" style="margin-top: 8px; font-size: 0.85rem; color: #a0a0ff;">Длительность: 1 неделя</div>
         </div>
-        <div class="program-card simplified-course" onclick="document.getElementById('simplified-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Базовый курс: 49 999 ₽">
+        <!-- Базовый курс -->
+        <div class="program-card simplified-course" onclick="document.getElementById('simplified-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Базовый курс: 16 666 ₽ в месяц">
           <h3>🔰 Базовый курс</h3>
           <p>Базовые знания и навыки, идеально для тех, кто только начинает.</p>
-          <div class="price">49 999 ₽</div>
+          <div class="price-monthly" style="color: #00f0ff; font-size: 1.4rem; font-weight: 700;">16 666 ₽/мес</div>
+          <div class="price-total" style="margin-top: 4px; font-size: 0.9rem; color: #a0a0ff;">Полная стоимость: 49 999 ₽</div>
+          <div class="duration" style="margin-top: 8px; font-size: 0.85rem; color: #a0a0ff;">Длительность: 3 месяца</div>
         </div>
-        <div class="program-card extended-course" onclick="document.getElementById('extended-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Расширенная программа: 74 999 ₽">
+        <!-- Расширенная программа -->
+        <div class="program-card extended-course" onclick="document.getElementById('extended-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Расширенная программа: 18 750 ₽ в месяц">
           <h3>🚀 Расширенная программа</h3>
           <p>Больше практики и подготовка к собеседованиям.</p>
-          <div class="price">74 999 ₽</div>
+          <div class="price-monthly" style="color: #00f0ff; font-size: 1.4rem; font-weight: 700;">18 750 ₽/мес</div>
+          <div class="price-total" style="margin-top: 4px; font-size: 0.9rem; color: #a0a0ff;">Полная стоимость: 74 999 ₽</div>
+          <div class="duration" style="margin-top: 8px; font-size: 0.85rem; color: #a0a0ff;">Длительность: 4 месяца</div>
         </div>
-        <div class="program-card full-course" onclick="document.getElementById('full-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Полный курс: 97 999 ₽">
+        <!-- Полный курс -->
+        <div class="program-card full-course" onclick="document.getElementById('full-course-modal').style.display = 'flex'" tabindex="0" role="button" aria-label="Полный курс: 19 600 ₽ в месяц">
           <h3>🏆 Полный курс</h3>
           <p>Продвинутые темы, проекты и индивидуальная поддержка.</p>
-          <div class="price">97 999 ₽</div>
+          <div class="price-monthly" style="color: #00f0ff; font-size: 1.4rem; font-weight: 700;">19 600 ₽/мес</div>
+          <div class="price-total" style="margin-top: 4px; font-size: 0.9rem; color: #a0a0ff;">Полная стоимость: 97 999 ₽</div>
+          <div class="duration" style="margin-top: 8px; font-size: 0.85rem; color: #a0a0ff;">Длительность: 5 месяцев</div>
         </div>
       </div>
       <p class="note">💡 Цена зависит от выбранной программы. Оплата возможна по частям. Для студентов действует скидка 10%.</p>
@@ -456,6 +467,7 @@
       <button class="modal-close" onclick="document.getElementById('simplified-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="simplified-course-title" style="color: #00f0ff; margin-bottom: 20px;">Базовый курс: Python и машинное обучение</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
+      <p style="margin-bottom: 20px;"><strong>Длительность:</strong> 3 месяца</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
         <ul class="modal-list">
@@ -509,6 +521,7 @@
       <button class="modal-close" onclick="document.getElementById('extended-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="extended-course-title" style="color: #00f0ff; margin-bottom: 20px;">Расширенный курс: Машинное обучение и нейронные сети</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Начинающие с базовыми знаниями Python, желающие углубить навыки.</p>
+      <p style="margin-bottom: 20px;"><strong>Длительность:</strong> 4 месяца</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
         <ul class="modal-list">
@@ -572,6 +585,7 @@
       <button class="modal-close" onclick="document.getElementById('full-course-modal').style.display = 'none'" aria-label="Закрыть">×</button>
       <h2 id="full-course-title" style="color: #00f0ff; margin-bottom: 20px;">Полный курс: тотальная подготовка к собеседованиям в IT</h2>
       <p style="margin-bottom: 20px;"><strong>Для кого:</strong> Ученики с любыми базовыми навыками, которые хотят устроиться в IT</p>
+      <p style="margin-bottom: 20px;"><strong>Длительность:</strong> 5 месяцев</p>
       <div class="modal-scroll">
         <p><strong>Что вы получите:</strong></p>
         <ul class="modal-list">
