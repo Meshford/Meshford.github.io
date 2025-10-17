@@ -1,0 +1,44 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0c29" />
+      <stop offset="50%" stop-color="#302b63" />
+      <stop offset="100%" stop-color="#24243e" />
+    </linearGradient>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#6e44ff" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)" rx="20" />
+
+  <!-- Заголовок -->
+  <text x="400" y="60" font-family="Arial, sans-serif" font-size="28" fill="white" text-anchor="middle" font-weight="bold">
+    Python: List Comprehension
+  </text>
+
+  <!-- Обычный цикл -->
+  <text x="100" y="120" font-family="Arial, sans-serif" font-size="20" fill="#a0a0ff">Обычный способ:</text>
+  <rect x="80" y="140" width="300" height="120" rx="10" fill="rgba(0,0,0,0.2)" stroke="#00f0ff" stroke-width="1"/>
+  <text x="90" y="165" font-family="monospace" font-size="16" fill="#e0e0ff">numbers = []</text>
+  <text x="90" y="188" font-family="monospace" font-size="16" fill="#e0e0ff">for i in range(10):</text>
+  <text x="90" y="211" font-family="monospace" font-size="16" fill="#e0e0ff">    if i % 2 == 0:</text>
+  <text x="90" y="234" font-family="monospace" font-size="16" fill="#e0e0ff">        numbers.append(i * 2)</text>
+
+  <!-- Стрелка -->
+  <text x="400" y="210" font-family="Arial" font-size="24" fill="white" text-anchor="middle">→</text>
+
+  <!-- List Comprehension -->
+  <text x="700" y="120" font-family="Arial, sans-serif" font-size="20" fill="#a0a0ff" text-anchor="end">По-питоновски:</text>
+  <rect x="420" y="140" width="300" height="60" rx="10" fill="rgba(0,0,0,0.2)" stroke="#00f0ff" stroke-width="1"/>
+  <text x="430" y="175" font-family="monospace" font-size="16" fill="#00f0ff">numbers = [i*2 for i in range(10) if i%2==0]</text>
+
+  <!-- Результат -->
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="20" fill="#ffd700" text-anchor="middle">Результат: [0, 4, 8, 12, 16]</text>
+
+  <!-- Логотип -->
+  <text x="780" y="580" font-family="Arial, sans-serif" font-size="16" fill="#00f0ff" text-anchor="end">AI Start Lab</text>
+
+  <!-- Иконка молнии -->
+  <path d="M400,320 L390,350 L410,350 L395,380 L420,340 L400,340 Z" fill="#00f0ff" opacity="0.8"/>
+</svg>

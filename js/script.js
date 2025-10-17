@@ -182,12 +182,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
   // Burger menu functionality
   const burgerMenu = document.querySelector('.burger-menu');
-  if (burgerMenu) {
-    burgerMenu.addEventListener('click', function() {
-      const nav = document.querySelector('.header-bar__nav');
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !isExpanded);
-      nav.classList.toggle('active');
+  const navMenu = document.querySelector('.header-bar__nav');
+
+  if (burgerMenu && navMenu) {
+    const toggleMenu = () => {
+      const isExpanded = burgerMenu.getAttribute('aria-expanded') === 'true';
+      burgerMenu.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('active');
+    };
+
+    burgerMenu.addEventListener('click', toggleMenu);
+
+    // Закрытие меню при клике на любую ссылку (только на мобильных)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        // Проверяем, активно ли меню (чтобы не мешать десктопу)
+        if (navMenu.classList.contains('active')) {
+          burgerMenu.setAttribute('aria-expanded', 'false');
+          navMenu.classList.remove('active');
+        }
+      });
     });
   }
   // Free course card click handler
