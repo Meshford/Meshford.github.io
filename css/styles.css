@@ -1001,3 +1001,43 @@ footer {
 .auth-checking .profile-avatar {
   display: none !important;
 }
+
+/* Стили для сворачиваемых отзывов */
+.testimonial-text {
+  position: relative;
+  overflow: hidden;
+}
+.testimonial-text.collapsed {
+  max-height: 80px; /* Примерно 3 строки текста */
+}
+.testimonial-toggle {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 5px 0;
+  text-align: left;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+.testimonial-toggle:hover {
+  opacity: 0.8;
+}
+.testimonial-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to top, rgba(20, 18, 45, 0.5), transparent);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.testimonial-text.expanded::after {
+  opacity: 0;
+}

@@ -269,4 +269,27 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUI(user);
     });
   }
+  const toggleButtons = document.querySelectorAll('.testimonial-toggle');
+  
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const textContainer = button.previousElementSibling;
+      const isExpanded = button.getAttribute('data-expanded') === 'true';
+      
+      if (isExpanded) {
+        // Свернуть
+        textContainer.classList.add('collapsed');
+        textContainer.classList.remove('expanded');
+        button.textContent = 'Показать больше';
+        button.setAttribute('data-expanded', 'false');
+      } else {
+        // Развернуть
+        textContainer.textContent = textContainer.getAttribute('data-fulltext');
+        textContainer.classList.remove('collapsed');
+        textContainer.classList.add('expanded');
+        button.textContent = 'Скрыть';
+        button.setAttribute('data-expanded', 'true');
+      }
+    });
+  });
 });
