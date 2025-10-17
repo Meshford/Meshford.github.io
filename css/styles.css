@@ -1041,3 +1041,35 @@ footer {
 .testimonial-text.expanded::after {
   opacity: 0;
 }
+
+
+.footer-contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(30, 25, 60, 0.6);
+  border: 1px solid rgba(100, 80, 255, 0.3);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin: 0 8px;
+}
+.footer-contact-icon:hover {
+  background: rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+  border-color: rgba(0, 240, 255, 0.5);
+}
+.footer-contact-icon img,
+.footer-contact-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+.footer-contact-icon svg {
+  stroke: #e0e0ff;
+}
+.footer-contact-icon:hover svg {
+  stroke: #00f0ff;
+}
