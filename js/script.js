@@ -185,24 +185,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.querySelector('.header-bar__nav');
 
   if (burgerMenu && navMenu) {
+    const closeMenu = () => {
+      burgerMenu.setAttribute('aria-expanded', 'false');
+      navMenu.classList.remove('active');
+    };
+
     const toggleMenu = () => {
       const isExpanded = burgerMenu.getAttribute('aria-expanded') === 'true';
-      burgerMenu.setAttribute('aria-expanded', !isExpanded);
-      navMenu.classList.toggle('active');
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        burgerMenu.setAttribute('aria-expanded', 'true');
+        navMenu.classList.add('active');
+      }
     };
 
     burgerMenu.addEventListener('click', toggleMenu);
 
-    // Закрытие меню при клике на любую ссылку (только на мобильных)
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        // Проверяем, активно ли меню (чтобы не мешать десктопу)
-        if (navMenu.classList.contains('active')) {
-          burgerMenu.setAttribute('aria-expanded', 'false');
-          navMenu.classList.remove('active');
-        }
-      });
+    // Закрытие при клике на ссылку (включая якоря)
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Закрытие при клике вне меню
+    document.addEventListener('click', (e) => {
+      if (
+        !navMenu.contains(e.target) &&
+        !burgerMenu.contains(e.target) &&
+        navMenu.classList.contains('active')
+      ) {
+        closeMenu();
+      }
     });
   }
   // Free course card click handler

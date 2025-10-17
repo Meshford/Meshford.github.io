@@ -973,12 +973,12 @@ footer {
   top: 1px;
 }
 
-.header-bar__nav {
+/* .header-bar__nav {
   display: flex;
   gap: 30px;
   transition: all 0.3s ease;
   align-items: center;
-}
+} */
 
 @media (max-width: 768px) {
   .profile-avatar {
